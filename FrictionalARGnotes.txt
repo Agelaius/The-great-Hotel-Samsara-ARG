@@ -1,0 +1,208 @@
+so the ARG thing was already finished but i went and did a deep dive into everything that went on there and did a lot of solving for myself smile
+
+so there was an email added to Simon's laptop in a recent update to SOMA. 
+    Subject: [Virus Error] You've Ea%ned it
+    Date: 22 Sep 2025
+    Dear [HIGH NET WORTH INDIVIDUAL], Are you looking for your next investment opportunity? Get in a***ead of the pa ^ ^ k!
+    Ever th(0)ught about wha;;; tru/e/ ]]]]uxury might mean? We $$$ure h?~ve. So>>>+etimes we all de$$$erve to h?~ve a wish or two g%?~nted. Don't we?
+    Sign up now at ***(0);;;/e/]]]]$$$?~ >>> +$$$?~%?~. ^ ^ (0)>>>+ Luxury awaits
+In it was a coded link to the website www.hotelsamsara.com.
+so, www.hotelsamsara.com has a secret page discovered by signing up for the mailing list. Not everyone gets the emails. Personally, I got none!
+But they indicate that the site so, www.hotelsamsara.com/admin exists.
+As far as I can tell, this site could also have been found by looking at the web tools- it's in the html. One of the images is titled SEARCH%AND%DISCOVER_edited, so maybe that was the intended route.
+There is a prompted password, which is LOOPED. Because the theme is samsara. I say how this was determined at the end. 
+It was also determined that combining all the bolded letters on the site yielded the word "Steganograph". Look that up if you want, but it's only thematically related for now.  
+this gives a blue "terminal" theme with the text
+	ADMIN
+	User access granted...
+	RESPONSE CODE = 200
+	KEY DATA POINTS TRANSFERRED*
+	ADMIN ACCESS CODE REQUIRED
+	FINAL PIECES ______
+At the end of this is an image which contains the text
+	gurnagnaqguroveq.pbz
+which is pretty clearly a cipher, leading to
+	theantandthebird.com/
+which I suppose intentionally is disconnected from the whole www. thing.
+The landing page is actually part of the selection boxes, which has the options:
+	--why--
+	P
+	O
+	O
+	L
+	E
+	D
+(POOL is the inverse of LOOP. the password to reach the site is LOOPED.)
+every page uses the stylesheet 92300932.css
+_______________________________________________________________________
+--wofzpz-- (2572324293.php) [P] 
+The title translates to physis.
+the words:
+	then now start end here "1 national"(there?)
+appear in small text between the repeated text:
+	When a bird has wings, you may expect it to fly.
+	▔▎  ▂▎ ▍▔█▍▕▄ ▎ ▍ ▔▇▄ ▏▀▔▇ ▎ ▅ ▃█▒▂▎ ▙▄░▜ ▜▎ ▕ ▌▕▒▔ ▕▍▃▄░▒▔▀▍▃,
+the text is translated from the code:
+	01010111 01101000 01100101 01101110 00100000 01100001 00100000 01100010 01101001 01110010 01100100 00100000 01101000 01100001 01110011 00100000 01110111 01101001 01101110 01100111 01110011 00101100 00100000 01111001 01101111 01110101 00100000 01101101 01100001 01111001 00100000 01100101 01111000 01110000 01100101 01100011 01110100 00100000 01101001 01110100 00100000 01110100 01101111 00100000 01100110 01101100 01111001 00101110
+
+The block text here is translatable, as it is a font set. Here, it is not the same as the text, and says:
+	To continue on the path of discovery you must understand,
+________________________________________________________________________
+__bagbf__ (4145461434.php) [O] 
+The title translates to Ontos.
+Clouds scroll vertically upwards. need to analyze images, but it seems to just be playing into the bird/sky motif. 
+they are, for some reason, in the order:
+	1,2,3, ->8, 5, 7, 4 
+________________________________________________________________________
+ousia (1969234802.php) [O]
+This is not an encoded title.
+	
+	
+	
+	                         
+	                                                            o
+	                                                            o%
+	                                                           //
+	                                                      -="~\
+	                                                        ~\\\
+	                                                          \\\
+	                                                           \\\
+	                                                            );\
+	                                                           /|;;\
+	                                                      """;;;;;;;\
+	                                                ///"""""""";;;;;;\
+	                                    ___////+++++""""""""""""";;;@@\
+	                      __________///////++++++++++++++""""""""@@@@%)
+	           ....__/0)///0)//0)//0)/++////////++++++++++"""@@@%%%%%/
+	     ..---0)/--------////////////////+++++++/////+++++@@%%%%%%%/
+	      ..///---0)---0)///0)//0)///0)/////////+++++====@%%%%%%/
+	   ...0)....//----///------////////////+++++///"     \/\\//
+	      //../0)--0)///0)///0)///0)//++++/////          /  \/
+	      --///--------///////////+++/////             _/   /
+	.-//..0).-/0)--0)--0)--0)--..                      /\  /
+	       .......--/////////.                            /\_
+	            .0)..0)..
+commented:
+	For the bird that does not fly may face less strife than the bird that does. The bird that flies may find more answers than the bird that does not.
+There is a video that follows with no source:
+	<div class="asdklja">
+	  <video autoplay="" playsinline="" muted="" loop="" crossorigin="anonymous">
+	    <source src="" type="video/mp4">
+	  </video>
+	</div>
+also commented:
+	<--3 extremely-->
+________________________________________________________________________
+****-0071_ (logos-0071.php) [L]
+This doesn't appear to be a coded title, either. 
+This is just a midi synthesizer with an image of stars (logos.jpg) below it.
+_______________________________________________________________________
+_ERGON_ (2206082065.php) [E]
+The background changes on a set sequence of
+BLACK [RED BLUE PURPLE WHITE GREEN]
+After changing off of black, the text "2 snaps." appears at the bottom of the page.
+Additionally, cropped squares of a picture of an ant appear at the location of the cursor. They are not cleared, regardless of the number placed. The ants can overlay the "2 snaps" text. The images seem to just have nonsensical names. 
+	magnecy1
+	steph
+	mindscape
+	darknix
+	dnesov
+	coolcat
+	zhart
+	mose
+	gordron-frenchman
+	pipesbuffet
+	killthecoroner
+	darknix
+	RaideX
+	Puresh
+	TiMan
+	viira
+	ramen_llama
+	Phil2244
+	Hugo
+	robotoverlord
+	Nanook
+They are placed randomly, without sequence.
+_______________________________________________________________________
+dynamis (the text is "corrupted") [D]
+This is the landing page for theantandthebird.com. Maybe this is supposed to indicate DELOOP being the intended reading... Or something.
+the page is configured like a smeared asterisk, with the text:
+	expectations exist,
+	▄▛▏▄▂▔▀▔█▎ ▍▒ ▄▛█▒▔,
+	yet they are the essence of the dream you cannot revisit.
+	█▜▄▔ ▔▇▄▜ ▀░▄ ▔▇▄ ▄▒▒▄▍▂▄ ▎ ▅ ▔▇▄ ▃░▄▀▌ ▜▎ ▕ ▂▀▍▍▎ ▔ ░▄▙█▒█▔.
+	The bird may have wings it is never able to use.
+	▔▇▄ ▁█░▃ ▌▀▜ ▇▀▙▄ ▚█▍▆▒ █▔ █▒ ▍▄▙▄░ ▀▁▋▄ ▔▎  ▕▒▄.
+	The bird may never look up and see the sky.
+	▔▇▄ ▁█░▃ ▌▀▜ ▍▄▙▄░ ▋▎ ▎ ▊ ▕▏ ▀▍▃ ▒▄▄ ▔▇▄ ▒▊▜.
+smeared across each box composing the smear. in the top asterisk, it runs left. In the bottom, it runs right.
+
+The block text here is translatable, as it is a font set. Here, they just mimic each verse. 
+Hidden between the two in black text is also 
+	3 garden
+_______________________________________________________________________
+Going back to the emails:
+1/2 is listed:
+	Investor Update
+	(the clouds from the first O page)
+	[name]
+	Follow the signs--they will lead you to somewhere unlisted. Open doors with care, for some are not meant to be crossed.
+	Lost time is the tax demanded by every visitor. Ledgers will not balance if you fail to account for what whispers.
+
+	Overlays in the documents may appear corrupted, but they are deliberate. We trust you will recognize them as part of the investment process. Each fragment matters--do not discard what seems incomplete.
+the bottom of the email apparently links to x, but it's linked with just https://x.com/***********__ as the url, so it doesn't exist. 
+
+email 2/2:
+	Investor Update
+	(more clouds)
+	[name]
+	Return often; the archive changes when observed. Some investors have already vanished between the reports.
+	Once you see the pattern, you cannot unsee it.
+	Forecasts will shift, though the outcome is certain._silence often conceals the loudest truths._and underneath it all, something continues to wait. 
+
+combining these two emails actually nets the twitter site
+	https://x.com/FollowersOf__/
+which links to two locations.
+
+There was an additional email:
+	Password Reminder
+	Thank you  for requesting a reminder of your password.
+	XXXXXX
+
+	Your memorable hint:
+	For the five, seek the paths.
+	For the sixth, shrouD empty siren, contra totem; omni whispers.
+
+this is where the password LOOPED was derived. 
+
+one of the links on the twitter page led to a soundcloud, analyzed in this post:
+	(edited) late night update about my conclusions on the soundcloud (https://soundcloud.com/followers-998484367) audio based on looking at this for a long time. i threw all the files into audacity and they seem to be part of a larger file. the proper way to assemble the files (original names from soundcloud file first, rot13 decoded names in parentheticals) to view all the images in the spectrogram is: _-oevqtr (bridge) => _-pbaarpg (connect) => _-gvr (tie) => _-wbva (join) => _-ovaq (bind) => _-gbtrgure (together)
+
+	see here for the all the files merged into one spectrogram so its a bit easier to read: https://imgur.com/21hjoYO
+
+	notably, there are several words in here, which can be found better identified by modulating the Hz range you're looking at and zoomed in on (in audacity at least). from left to right they are "STEP" (in reverse), "erase", "BIN", "SEEK", "discover", "BEYOND". i've highlighted them on the spectrogram for each word i was able to find for anyone who needs help seeing them: https://imgur.com/a/5h56wXq
+
+	i did analyze the spectrogram from the muted mp4 on the website, and there is nothing odd in it that i can see. (i will openly admit i may have missed things, and it looks like there's uh......some sort of friend in the soundcloud spectrograms who isn't a word and i have no idea what that is. i encourage you to dl the files and analyze them yourself if you can!)
+
+	from here, i've been trying to puzzle things together based on the twitter account (https://x.com/FollowersOf__/) so far. no luck on where any of these words can be applied yet. i've already checked if they're hidden pages on the website - no dice. the twitter has posted several more cryptic posts tho, which are missing letters in each phrase and seem like an out of order speech or thought across multiple tweets. likely they fit together somehow. also, my crackpot theory is that "bin" may be referencing .bin files and pointing us towards something with binary. though it could just as likely be bind.
+
+	o7 thanks and have fun everyone
+
+If you pull up one of the images, you can see the bird on the spectrogram, haha.
+
+
+perhaps this all just suggests a sequence:
+	1. national.
+	_1 added.__
+	2 snaps.
+	3. garden
+	<!-- 3 extremely --> 
+(it seems like there might be pairings with and without a period??)
+
+but there are probably more.
+Some of these may need more time for investigation,
+and likely there are six key words.
+
+But for now, it appears the ARG is functionally complete, as the full announcement was already made... but what if there's more !!!!!!!!!!!
+I hope you like this rant and check out the site yourself. But also I know you're not exactly flush with time, lol. 

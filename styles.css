@@ -1,0 +1,73 @@
+body {
+  background-color: black;
+  font-size: 150%;
+}
+
+.all {
+	display: flex;
+	flex-direction: column;
+	width: 800px;
+	font-family: monospace;
+	color: whitesmoke;
+	background-color: black;
+	box-sizing: border-box;
+	padding: 30px;
+	border: 3px whitesmoke;
+	border-style: solid;
+	border-color: whitesmoke;
+	margin: auto;
+	}
+
+blockquote * {
+	background-clip: padding-box;
+	border: 0px;
+	border-left: 4px;
+	border-style: solid;
+	border-color: rgba(245, 245, 245, 0.5);
+	padding-top: 0;
+	padding-bottom: 0;
+	padding-left: 10px;
+	color: rgba(245, 245, 245, 0.8);
+}
+
+a {
+	color: indianred;
+}
+
+hr {
+	color: white;
+	width: 650px;
+}
+
+pre {
+	font-size: 11pt;
+}
+
+blockquote span {
+	border: 0px;
+}
+
+blockquote a {
+	border: 0px;
+}
+
+.container {
+  display: inline-block;
+}
+.manImg {
+  display: none;
+}
+.hover-text:hover ~ .manImg {
+  display: block;  
+}
+
+#background {
+  position: fixed;
+  z-index: -1;
+  left: 0px;
+  top: 0px;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  pointer-events: none;
+}
