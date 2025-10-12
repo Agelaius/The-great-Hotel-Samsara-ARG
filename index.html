@@ -7,109 +7,169 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+        const modal = document.getElementById("mediaModal");
+        const modalBody = modal.querySelector(".modal-body");
+        const closeBtn = modal.querySelector(".close");
+
+        // Play videos on hover
+        document.querySelectorAll("video.preview").forEach(video => {
+            video.addEventListener("mouseenter", () => {
+            video.currentTime = 0;
+            video.play();
+            });
+            video.addEventListener("mouseleave", () => {
+            video.pause();
+            video.currentTime = 0;
+            });
+        });
+
+        // Open modal on click
+        document.querySelectorAll(".zoomable").forEach(el => {
+            el.addEventListener("click", () => {
+            modalBody.innerHTML = ""; // clear previous content
+            modal.classList.add("show");
+
+            let modalEl;
+            if (el instanceof HTMLImageElement) { // Check if it's an image
+                modalEl = document.createElement("img");
+                modalEl.src = el.src;
+                modalEl.alt = el.alt;
+            } else if (el instanceof HTMLVideoElement) { // Check if it's a video
+                modalEl = document.createElement("video");
+                modalEl.src = el.src;
+                modalEl.controls = true;
+                modalEl.autoplay = true;
+            }
+
+            modalEl.classList.add("modal-media"); // Make sure this class exists or is properly styled
+            modalBody.appendChild(modalEl);
+            });
+        });
+
+        // Close modal
+        const closeModal = () => {
+            modal.classList.remove("show");
+            modalBody.innerHTML = ""; // stops video playback
+        };
+
+        closeBtn.addEventListener("click", closeModal);
+        modal.addEventListener("click", e => {
+            if (e.target === modal) closeModal();
+        });
+        });
+    </script>
+    <div id="mediaModal" class="modal">
+    <span class="close">&times;</span>
+    <div class="modal-body"></div>
+    </div>
+    <video id="background" src="video/loop.mp4" autoplay muted loop playsinline></video>
     <div class="all">
-    <h1>So, Frictional games made another ARG.</h1>
-    <p>It's true! There's a new ARG. At this point A lot has been put forward already, but it's worth taking a real good look. There's not going to be too much analysis here, for now... but let's walk through what can be seen, shall we?</p>
-    <p>There was an email added to Simon's laptop in a recent update to SOMA: </p>
-    <blockquote>
-        <p>    Subject: [Virus Error] You've Ea%ned it<br>
-    Date: 22 Sep 2025<br>
-    Dear [HIGH NET WORTH INDIVIDUAL], Are you looking for your next investment opportunity? Get in a***ead of the pa ^ ^ k!<br>
-    Ever th(0)ught about wha;;; tru/e/ ]]]]uxury might mean? We $$$ure h?~ve. So>>>+etimes we all de$$$erve to h?~ve a wish or two g%?~nted. Don't we?<br>
-    Sign up now at ***(0);;;/e/]]]]$$$?~ >>> +$$$?~%?~. ^ ^ (0)>>>+ Luxury awaits</p>
-    </blockquote>
-        <span class="container">
-    <p class="hover-text">(Hover for Source Image)</p>
-    <img class="manImg" src="images/somamail.png" style="width: 600px;">
-    </span>
-    <p>In it was a coded link to the website <a href="https://www.hotelsamsara.com" target="_blank">www.hotelsamsara.com</a>, determined by using the missing letters as a dictionary for the final code.<br>
-    So, <a href="https://www.hotelsamsara.com" target="_blank">www.hotelsamsara.com</a> has a secret page discovered by signing up for the mailing list. Not everyone gets the emails. Personally, I got none!<br>
-    But they indicate that the site <a href="https://www.hotelsamsara.com/admin" target="_blank">www.hotelsamsara.com/admin</a> exists.<br>
-    As far as I can tell, this site could also have been found by looking at the web tools- it's in the html. One of the images is titled "SEARCH%AND%DISCOVER_edited", so maybe that was the intended route.<br>
-    There is a prompted password, which is LOOPED. Because the theme is samsara. I say how this was determined at the end. <br>
-    It was also determined that combining all the bolded letters on the site yielded the word "<a href="https://en.wikipedia.org/wiki/Steganography" target="_blank">Steganograph</a>". Look that up if you want, but it's only thematically related for now.<br>  
-    this gives a blue "terminal" theme with the text:</p>
-    <blockquote>
-        <p>
-            	ADMIN<br>
-	User access granted...<br>
-	RESPONSE CODE = 200<br>
-	KEY DATA POINTS TRANSFERRED*<br>
-	ADMIN ACCESS CODE REQUIRED<br>
-	FINAL PIECES ______<br>
-        </p>
-    </blockquote>
-    <p>At the end of this is an image which contains the text:</p>
-    <blockquote>
-        <p>gurnagnaqguroveq.pbz</p>
-    </blockquote>
-    <p>Which is pretty clearly a cipher, leading to:</p>
-    <blockquote>
-        <a href="https://theantandthebird.com" target="_blank">theantandthebird.com</a>
-    </blockquote>
-    <p>Which I suppose intentionally kinda freaky.
-    The landing page is actually part of the selection box visible on the page, (but not --why--, for some reason), which has the options:</p>
-    <blockquote>
-        <p>&bull; --why--<br>
-        &bull; P<br>
-        &bull; O<br>
-        &bull; O<br>
-        &bull; L<br>
-        &bull; E<br>
-        &bull; D</p>
-    </blockquote>
-    <p>As proof of how deep this ARG is, the word POOL is the opposite of LOOP. The password was LOOPED!! It's not a lake.<br>
-    Seriously, though, there's a fair bit about A. gambling, and B. karma. Maybe there's a sort of super-secret thing going on here where they're pooling karma into one big karmic stockpile. And that's what Felix is using to get all his good fortune.</p>
-    <p>From this point on, the rest of this site is a notebook of sorts cataloguing information from the ARG, with no particular end goal. I could include an image for each page as a sort of hover thingamabob... but I'm lazy. I encourage looking along on the site yourself!</p>
-    <p>if it bears any importance, all of these pages use the same stylesheet:</p>
-    <blockquote>
-        <p>92300932.css</p>
-    </blockquote>     
-    <p>Any page-specific css is in-line.</p>
-        <p>For future reference, each of these headers will contain first the title of the page, followed by the file of the URL, followed by the page selection (in POOLED). </p>
-    <h3 style="align-self: center;"><a href="https://theantandthebird.com" target="_blank">theantandthebird.com</a></h3>
-    <hr>
-    <h3>--wofzpz-- (2572324293.php) [P] </h3>
-    <p>The title is a cipher for physis.</p>
-    <p>The words:</p>
-    <blockquote>
-        <p>	then<br>now<br>start<br>end<br>here<br>1 national</p>
-    </blockquote>
-    <p>appear in small text between the repeated text:</p>
-    <blockquote>
-        <p>When a bird has wings, you may expect it to fly.<br>
-            ▔▎  ▂▎ ▍▔█▍▕▄ ▎ ▍ ▔▇▄ ▏▀▔▇ ▎ ▅ ▃█▒▂▎ ▙▄░▜ ▜▎ ▕ ▌▕▒▔ ▕▍▃▄░▒▔▀▍▃,</p>
-    </blockquote>
-    <p>the text is translated from the code:</p>
-    <blockquote>
-        <p>01010111 01101000 01100101 01101110 00100000 01100001 00100000 01100010 01101001 01110010 01100100 00100000 01101000 01100001 01110011 00100000 01110111 01101001 01101110 01100111 01110011 00101100 00100000 01111001 01101111 01110101 00100000 01101101 01100001 01111001 00100000 01100101 01111000 01110000 01100101 01100011 01110100 00100000 01101001 01110100 00100000 01110100 01101111 00100000 01100110 01101100 01111001 00101110</p>
-    </blockquote>
-    <p>The block text here is translatable, as it is a font set. Here, it is not the same as the text, and says:</p>
-    <blockquote>
-        <p>To continue on the path of discovery you must understand,</p>
-    </blockquote>
-    <p>It doesn't go anywhere from there though, it seems, as the rest just repeats.</p>
-    <hr>
-    <h3>__bagbf__ (4145461434.php) [O] </h3>
-    <p>The title is a cipher for Ontos.</p>
-    <p>Clouds scroll vertically upwards. need to analyze images, but it seems to just be playing into the bird/sky motif. </p>
-    <p>The images are titled incorrectly, giving the order:</p>
-    <blockquote>
-        <p>1<br>
-        2<br>
-        3<br>
-        ->8<br>
-        5<br>
-        7<br>
-        4</p>
-    </blockquote>
-    <p>I don't know why.</p>
-    <hr>
-    <h3>ousia (1969234802.php) [O]</h3>
-    <p>This is not an encoded title.</p>
-    <p>There is an ASCII bird here:</p>
-    <blockquote>
-        <pre>                                                            o
+        <h1>So, Frictional games made another ARG.</h1>
+        <p>It's true! There's a new ARG. At this point A lot has been put forward already, but it's worth taking a real good look. There's not going to be too much analysis here, for now... but let's walk through what can be seen, shall we?</p>
+        <p>There was an email added to Simon's laptop in a recent update to SOMA: </p>
+        <blockquote>
+            <p>    Subject: [Virus Error] You've Ea%ned it<br>
+        Date: 22 Sep 2025<br>
+        Dear [HIGH NET WORTH INDIVIDUAL], Are you looking for your next investment opportunity? Get in a***ead of the pa ^ ^ k!<br>
+        Ever th(0)ught about wha;;; tru/e/ ]]]]uxury might mean? We $$$ure h?~ve. So>>>+etimes we all de$$$erve to h?~ve a wish or two g%?~nted. Don't we?<br>
+        Sign up now at ***(0);;;/e/]]]]$$$?~ >>> +$$$?~%?~. ^ ^ (0)>>>+ Luxury awaits</p>
+        </blockquote>
+        </blockquote>
+            <span class="container">
+                <p class="hover-text">(Hover for Source Image)</p>
+                <img class="preview zoomable" src="images/somamail.png" alt="Soma Email">
+            </span>
+        <p>In it was a coded link to the website <a href="https://www.hotelsamsara.com" target="_blank">www.hotelsamsara.com</a>, determined by using the missing letters as a dictionary for the final code.<br>
+        So, <a href="https://www.hotelsamsara.com" target="_blank">www.hotelsamsara.com</a> has a secret page discovered by signing up for the mailing list. Not everyone gets the emails. Personally, I got none!<br>
+        But they indicate that the site <a href="https://www.hotelsamsara.com/admin" target="_blank">www.hotelsamsara.com/admin</a> exists.<br>
+        As far as I can tell, this site could also have been found by looking at the web tools- it's in the html. One of the images is titled "SEARCH%AND%DISCOVER_edited", so maybe that was the intended route.<br>
+        This may not have been the discovered method, but there's a "+" symbol visible on the video of the hotel lobby/entrance in the bottom right corner. this leads to the admin login page.<br>
+        There is a prompted password, which is LOOPED. Because the theme is samsara. I say how this was determined at the end. <br>
+        It was also determined that combining all the bolded letters on the site yielded the word "<a href="https://en.wikipedia.org/wiki/Steganography" target="_blank">Steganograph</a>". Look that up if you want, but it's only thematically related for now.<br>  
+        this gives a blue "terminal" theme with the text:</p>
+        <blockquote>
+            <p>
+                    ADMIN<br>
+        User access granted...<br>
+        RESPONSE CODE = 200<br>
+        KEY DATA POINTS TRANSFERRED*<br>
+        ADMIN ACCESS CODE REQUIRED<br>
+        FINAL PIECES ______<br>
+            </p>
+        </blockquote>
+        <p>At the end of this is an image which contains the text:</p>
+        <blockquote>
+            <p>gurnagnaqguroveq.pbz</p>
+        </blockquote>
+        <p>Which is pretty clearly a cipher, leading to:</p>
+        <blockquote>
+            <a href="https://theantandthebird.com" target="_blank">theantandthebird.com</a>
+        </blockquote>
+        <p>Which I suppose intentionally kinda freaky.
+        The landing page is actually part of the selection box visible on the page, (but not --why--, for some reason), which has the options:</p>
+        <blockquote>
+            <p>&bull; --why--<br>
+            &bull; P<br>
+            &bull; O<br>
+            &bull; O<br>
+            &bull; L<br>
+            &bull; E<br>
+            &bull; D</p>
+        </blockquote>
+        <p>As proof of how deep this ARG is, the word POOL is the opposite of LOOP. The password was LOOPED!! It's not a lake.<br>
+        Seriously, though, there's a fair bit about A. gambling, and B. karma. Maybe there's a sort of super-secret thing going on here where they're pooling karma into one big karmic stockpile. And that's what Felix is using to get all his good fortune.</p>
+        <p>From this point on, the rest of this site is a notebook of sorts cataloguing information from the ARG, with no particular end goal. I could include an image for each page as a sort of hover thingamabob... but I'm lazy. I encourage looking along on the site yourself!</p>
+        <p>if it bears any importance, all of these pages use the same stylesheet:</p>
+        <blockquote>
+            <p>92300932.css</p>
+        </blockquote>     
+        <p>Any page-specific css is in-line.</p>
+            <p>For future reference, each of these headers will contain first the title of the page, followed by the file of the URL, followed by the page selection (in POOLED). </p>
+        <h3 style="align-self: center;"><a href="https://theantandthebird.com" target="_blank">theantandthebird.com</a></h3>
+        <hr>
+        <h3>--wofzpz-- (2572324293.php) [P] </h3>
+        <p>The title is a cipher for physis.</p>
+        <p>The words:</p>
+        <blockquote>
+            <p>	then<br>now<br>start<br>end<br>here<br>1 national</p>
+        </blockquote>
+        <p>appear in small text between the repeated text:</p>
+        <blockquote>
+            <p>When a bird has wings, you may expect it to fly.<br>
+                ▔▎  ▂▎ ▍▔█▍▕▄ ▎ ▍ ▔▇▄ ▏▀▔▇ ▎ ▅ ▃█▒▂▎ ▙▄░▜ ▜▎ ▕ ▌▕▒▔ ▕▍▃▄░▒▔▀▍▃,</p>
+        </blockquote>
+        <p>the text is translated from the code:</p>
+        <blockquote>
+            <p>01010111 01101000 01100101 01101110 00100000 01100001 00100000 01100010 01101001 01110010 01100100 00100000 01101000 01100001 01110011 00100000 01110111 01101001 01101110 01100111 01110011 00101100 00100000 01111001 01101111 01110101 00100000 01101101 01100001 01111001 00100000 01100101 01111000 01110000 01100101 01100011 01110100 00100000 01101001 01110100 00100000 01110100 01101111 00100000 01100110 01101100 01111001 00101110</p>
+        </blockquote>
+        <p>The block text here is translatable, as it is a font set. Here, it is not the same as the text, and says:</p>
+        <blockquote>
+            <p>To continue on the path of discovery you must understand,</p>
+        </blockquote>
+        <p>It doesn't go anywhere from there though, it seems, as the rest just repeats.</p>
+        <hr>
+        <h3>__bagbf__ (4145461434.php) [O] </h3>
+        <p>The title is a cipher for Ontos.</p>
+        <p>Clouds scroll vertically upwards. need to analyze images, but it seems to just be playing into the bird/sky motif. </p>
+        <p>The images are titled incorrectly, giving the order:</p>
+        <blockquote>
+            <p>1<br>
+            2<br>
+            3<br>
+            ->8<br>
+            5<br>
+            7<br>
+            4</p>
+        </blockquote>
+        <p>I don't know why.</p>
+        <hr>
+        <h3>ousia (1969234802.php) [O]</h3>
+        <p>This is not an encoded title.</p>
+        <p>There is an ASCII bird here:</p>
+        <blockquote>
+            <pre>                                                            o
                                                             o%
                                                            //
                                                       -="~\
@@ -131,205 +191,217 @@
 .-//..0).-/0)--0)--0)--0)--..                      /\  /
        .......--/////////.                            /\_
             .0)..0)..</pre>
-    </blockquote>
-    <p>Commented in the HTML, there is:</p>
-    <blockquote>
-        <p>For the bird that does not fly may face less strife than the bird that does. The bird that flies may find more answers than the bird that does not.</p>
-    </blockquote>
-    <p>There is a video that follows with no source:</p>
-    <blockquote>
-    <pre>
-&lt;div class="asdklja"&gt;
+        </blockquote>
+        <p>Commented in the HTML, there is:</p>
+        <blockquote>
+            <p>For the bird that does not fly may face less strife than the bird that does. The bird that flies may find more answers than the bird that does not.</p>
+        </blockquote>
+        <p>There is a video that follows with no source:</p>
+        <blockquote>
+        <pre>&lt;div class="asdklja"&gt;
 	&lt;video autoplay="" playsinline="" muted="" loop="" crossorigin="anonymous"&gt;
 	    &lt;source src="" type="video/mp4"&gt;
 	&lt;/video&gt;
 &lt;/div&gt;</pre>
-    </blockquote>
-    <p>Therefore, it doesn't show up as anything, and the background remains blank. I tried to use the source for the video on the hotel website, but nothing happened.<br>
-    It's possible that that was just user error, however. I would presume that there might be a video on the theantandthebird website that could be used here, but I haven't found it.</p>
-    <p>Also commented here is:</p>
-    <blockquote>
-        <p><--3 extremely--></p>
-    </blockquote>
-    <hr>
-    <h3>****-0071_ (logos-0071.php) [L]</h3>
-    <p>This doesn't appear to be a coded title, either. </p>
-    <p>This is just a midi synthesizer with an image of stars (logos.jpg) below it.</p>
-    <p>I'm too lazy to look at the image any closer. I couldn't find anything myself, but you could take a look.</p>
-    <hr>
-    <h3>_ERGON_ (2206082065.php) [E]</h3>
-    <p>The background changes on a set sequence every ten seconds:</p>
-    <blockquote>
-        <p>Black</p>
-        <p style="background-color: red; width: 100px;">Red</p>
-        <p style="background-color: blue; width: 100px;">Blue</p>
-        <p style="background-color: purple; width: 100px;">Purple</p>
-        <p style="background-color: white; width: 100px; color: black;">White</p>
-        <p style="background-color: green; width: 100px;">Green</p>
-    </blockquote>
-    <p>Black is not included in the rotation, rather the colors start changing at red, and continue in a loop from there. The screen is black until this begins.</p>
-    <p>As a result, after changing off of black, the text:</p>
-    <blockquote>
-        <p>2 snaps.</p>
-    </blockquote>
-    <p>Appears at the bottom of the page.</p>
-    <p>Additionally, cropped squares of a picture of an ant appear at the location of the cursor. They are not cleared, regardless of the number placed. The ants can overlay the "2 snaps" text. The images seem to just have nonsensical names. They might be of developers, or supporters.</p>
-    <blockquote>
-        <p>magnecy1<br>
-        steph<br>
-        mindscape<br>
-        darknix<br>
-        dnesov<br>
-        coolcat<br>
-        zhart<br>
-        mose<br>
-        gordron-frenchman<br>
-        pipesbuffet<br>
-        killthecoroner<br>
-        darknix<br>
-        RaideX<br>
-        Puresh<br>
-        TiMan<br>
-        viira<br>
-        ramen_llama<br>
-        Phil2244<br>
-        Hugo<br>
-        robotoverlord<br>
-        Nanook</p>
-    </blockquote>
-    <p>The images are chosen randomly, without sequence.</p>
-    <hr>
-    <h3>dynamis (the text is "corrupted") [D]</h3>
-    <p>This is the landing page for theantandthebird.com. Because this is the last site on the drop-down, maybe this is supposed to indicate DELOOP being the intended reading... Or something.
-the page is configured like a smeared asterisk, with the text:</p>
-    <blockquote>
-        <p>	expectations exist,<br>
-	    ▄▛▏▄▂▔▀▔█▎ ▍▒ ▄▛█▒▔,<br>
-	    yet they are the essence of the dream you cannot revisit.<br>
-	    █▜▄▔ ▔▇▄▜ ▀░▄ ▔▇▄ ▄▒▒▄▍▂▄ ▎ ▅ ▔▇▄ ▃░▄▀▌ ▜▎ ▕ ▂▀▍▍▎ ▔ ░▄▙█▒█▔.<br>
-	    The bird may have wings it is never able to use.<br>
-	    ▔▇▄ ▁█░▃ ▌▀▜ ▇▀▙▄ ▚█▍▆▒ █▔ █▒ ▍▄▙▄░ ▀▁▋▄ ▔▎  ▕▒▄.<br>
-	    The bird may never look up and see the sky.<br>
-	    ▔▇▄ ▁█░▃ ▌▀▜ ▍▄▙▄░ ▋▎ ▎ ▊ ▕▏ ▀▍▃ ▒▄▄ ▔▇▄ ▒▊▜.</p>
-    </blockquote>
-    <p>This text runs across each box composing the smear. In the top asterisk, it runs left. In the bottom, it runs right.</p>
-    <p>The block text here is translatable, as it is a font set. Here, they just mimic each verse. </p>
-    <p>Hidden between the two in black text is also:</p>
-    <blockquote>
-        <p>3 garden</p>
-    </blockquote>
-    <hr>
-    <h3>Emails, lots of them.</h3>
-    <p>If you signed up for the mailing list, you had the chance to receive one of two (and eventually, three) emails.</p>
-    <p>1/2 is listed:</p>
-    <blockquote>
-        <p>	Investor Update<br>
-	(the clouds from the first O page)<br>
-	[name]<br>
-	Follow the signs--they will lead you to somewhere unlisted. Open doors with care, for some are not meant to be crossed.<br>
-	Lost time is the tax demanded by every visitor. Ledgers will not balance if you fail to account for what whispers.<br>
-    <br>
-	Overlays in the documents may appear corrupted, but they are deliberate. We trust you will recognize them as part of the investment process. Each fragment matters--do not discard what seems incomplete.</p>
-    </blockquote>
-        <span class="container">
-    <p class="hover-text">(Hover for Source Image)</p>
-    <img class="manImg" src="images/signs.png" style="width: 600px;">
-    </span>
-    <p>the bottom of the email apparently links to x, but it's linked with just <a href="https://x.com/***********__" target="_blank">https://x.com/***********__</a> as the url, so it doesn't actually lead anywhere.<br>
-    Additionally, the link first goes through the publisher's site, and later was changed to redirect to the intended final website.</p>
-    <p>Email 2/2:</p>
-    <blockquote>
-        <p>	Investor Update<br>
-	(more clouds)<br>
-	[name]<br>
-	Return often; the archive changes when observed. Some investors have already vanished between the reports.<br>
-	Once you see the pattern, you cannot unsee it.<br>
-	Forecasts will shift, though the outcome is certain._silence often conceals the loudest truths._and underneath it all, something continues to wait. </p>
-    </blockquote>
-    <span class="container">
-    <p class="hover-text">(Hover for Source Image)</p>
-    <img class="manImg" src="images/return.png" style="width: 600px;">
-    </span>
-    <p>Because I did not get the emails myself, apparently combining the two emails properly provided the actual twitter site:</p>
-    <blockquote>
-        <a href="https://x.com/FollowersOf__/" target="_blank">https://x.com/FollowersOf__/</a>
-    </blockquote>
-    
-    <p>This was eventually used for the game's reveal videos, but additionally, there were links to some other locations.</p>
-    <p>There was later one additional email:</p>
-    <blockquote>
-        <p>	Password Reminder<br>
-	Thank you  for requesting a reminder of your password.<br>
-	XXXXXX<br>
-    <br>
-	Your memorable hint:<br>
-	For the five, seek the paths.<br>
-	For the sixth, shrouD empty siren, contra totem; omni whispers.</p>
-    </blockquote>
-    <span class="container">
-        <p class="hover-text">(Hover for Source Image)</p>
-        <img class="manImg" src="images/password.png" style="width: 600px;">
-    </span>
-    <p>this is where the password LOOPED was derived. </p>
-    <p>one of the links on the twitter page led to a soundcloud.It is no longer accessible at this time, but was analyzed in this post:</p>
-    <blockquote>
-        <p>	(edited) late night update about my conclusions on the soundcloud (<a href="https://soundcloud.com/followers-998484367" target="_blank">https://soundcloud.com/followers-998484367</a>) audio based on looking at this for a long time. i threw all the files into audacity and they seem to be part of a larger file. the proper way to assemble the files (original names from soundcloud file first, rot13 decoded names in parentheticals) to view all the images in the spectrogram is: _-oevqtr (bridge) => _-pbaarpg (connect) => _-gvr (tie) => _-wbva (join) => _-ovaq (bind) => _-gbtrgure (together)<br>
+        </blockquote>
+        <p>Therefore, it doesn't show up as anything, and the background remains blank. I tried to use the source for the video on the hotel website, but nothing happened.<br>
+        It's possible that that was just user error, however. I would presume that there might be a video on the theantandthebird website that could be used here, but I haven't found it.</p>
+        <p>Addendum:<br>
+        the syntax on the video element is wrong, it doesn't need the ="" qualifiers, technically. Removing the muted segment and adding bird.mp4 to the source yields:</p>
+        <div class="container">
+            <p class="hover-text">(Hover for Video)</p>
+            <video 
+                class="preview zoomable" 
+                src="video/bird.mp4" 
+                muted 
+                loop 
+                preload="auto" 
+                playsinline
+            ></video>
+        </div>
+        <p>Also commented here is:</p>
+        <blockquote>
+            <p><--3 extremely--></p>
+        </blockquote>
+        <hr>
+        <h3>****-0071_ (logos-0071.php) [L]</h3>
+        <p>This doesn't appear to be a coded title, either. </p>
+        <p>This is just a midi synthesizer with an image of stars (logos.jpg) below it.</p>
+        <p>I'm too lazy to look at the image any closer. I couldn't find anything myself, but you could take a look.</p>
+        <hr>
+        <h3>_ERGON_ (2206082065.php) [E]</h3>
+        <p>The background changes on a set sequence every ten seconds:</p>
+        <blockquote>
+            <p>Black</p>
+            <p style="background-color: red; width: 100px;">Red</p>
+            <p style="background-color: blue; width: 100px;">Blue</p>
+            <p style="background-color: purple; width: 100px;">Purple</p>
+            <p style="background-color: white; width: 100px; color: black;">White</p>
+            <p style="background-color: green; width: 100px;">Green</p>
+        </blockquote>
+        <p>Black is not included in the rotation, rather the colors start changing at red, and continue in a loop from there. The screen is black until this begins.</p>
+        <p>As a result, after changing off of black, the text:</p>
+        <blockquote>
+            <p>2 snaps.</p>
+        </blockquote>
+        <p>Appears at the bottom of the page.</p>
+        <p>Additionally, cropped squares of a picture of an ant appear at the location of the cursor. They are not cleared, regardless of the number placed. The ants can overlay the "2 snaps" text. The images seem to just have nonsensical names. They might be of developers, or supporters.</p>
+        <blockquote>
+            <p>magnecy1<br>
+            steph<br>
+            mindscape<br>
+            darknix<br>
+            dnesov<br>
+            coolcat<br>
+            zhart<br>
+            mose<br>
+            gordron-frenchman<br>
+            pipesbuffet<br>
+            killthecoroner<br>
+            darknix<br>
+            RaideX<br>
+            Puresh<br>
+            TiMan<br>
+            viira<br>
+            ramen_llama<br>
+            Phil2244<br>
+            Hugo<br>
+            robotoverlord<br>
+            Nanook</p>
+        </blockquote>
+        <p>The images are chosen randomly, without sequence.</p>
+        <hr>
+        <h3>dynamis (the text is "corrupted") [D]</h3>
+        <p>This is the landing page for theantandthebird.com. Because this is the last site on the drop-down, maybe this is supposed to indicate DELOOP being the intended reading... Or something.
+        the page is configured like a smeared asterisk, with the text:</p>
+        <blockquote>
+            <p>	expectations exist,<br>
+            ▄▛▏▄▂▔▀▔█▎ ▍▒ ▄▛█▒▔,<br>
+            yet they are the essence of the dream you cannot revisit.<br>
+            █▜▄▔ ▔▇▄▜ ▀░▄ ▔▇▄ ▄▒▒▄▍▂▄ ▎ ▅ ▔▇▄ ▃░▄▀▌ ▜▎ ▕ ▂▀▍▍▎ ▔ ░▄▙█▒█▔.<br>
+            The bird may have wings it is never able to use.<br>
+            ▔▇▄ ▁█░▃ ▌▀▜ ▇▀▙▄ ▚█▍▆▒ █▔ █▒ ▍▄▙▄░ ▀▁▋▄ ▔▎  ▕▒▄.<br>
+            The bird may never look up and see the sky.<br>
+            ▔▇▄ ▁█░▃ ▌▀▜ ▍▄▙▄░ ▋▎ ▎ ▊ ▕▏ ▀▍▃ ▒▄▄ ▔▇▄ ▒▊▜.</p>
+        </blockquote>
+        <p>This text runs across each box composing the smear. In the top asterisk, it runs left. In the bottom, it runs right.</p>
+        <p>The block text here is translatable, as it is a font set. Here, they just mimic each verse. </p>
+        <p>Hidden between the two in black text is also:</p>
+        <blockquote>
+            <p>3 garden</p>
+        </blockquote>
+        <hr>
+        <h3>Emails, lots of them.</h3>
+        <p>If you signed up for the mailing list, you had the chance to receive one of two (and eventually, three) emails.</p>
+        <p>1/2 is listed:</p>
+        <blockquote>
+            <p>	Investor Update<br>
+        (the clouds from the first O page)<br>
+        [name]<br>
+        Follow the signs--they will lead you to somewhere unlisted. Open doors with care, for some are not meant to be crossed.<br>
+        Lost time is the tax demanded by every visitor. Ledgers will not balance if you fail to account for what whispers.<br>
         <br>
-	    see here for the all the files merged into one spectrogram so its a bit easier to read: <a href="https://imgur.com/21hjoYO" target="_blank">https://imgur.com/21hjoYO</a><br>
-        <br>
-	    notably, there are several words in here, which can be found better identified by modulating the Hz range you're looking at and zoomed in on (in audacity at least). from left to right they are "STEP" (in reverse), "erase", "BIN", "SEEK", "discover", "BEYOND". i've highlighted them on the spectrogram for each word i was able to find for anyone who needs help seeing them: <a href="https://imgur.com/a/5h56wXq" target="_blank">https://imgur.com/a/5h56wXq</a><br>
-        <br>
-	    i did analyze the spectrogram from the muted mp4 on the website, and there is nothing odd in it that i can see. (i will openly admit i may have missed things, and it looks like there's uh......some sort of friend in the soundcloud spectrograms who isn't a word and i have no idea what that is. i encourage you to dl the files and analyze them yourself if you can!)<br>
-        <br>
-	    from here, i've been trying to puzzle things together based on the twitter account (<a href="https://x.com/FollowersOf__/" target="_blank">https://x.com/FollowersOf__/</a>) so far. no luck on where any of these words can be applied yet. i've already checked if they're hidden pages on the website - no dice. the twitter has posted several more cryptic posts tho, which are missing letters in each phrase and seem like an out of order speech or thought across multiple tweets. likely they fit together somehow. also, my crackpot theory is that "bin" may be referencing .bin files and pointing us towards something with binary. though it could just as likely be bind.<br>
-        <br>
-        o7 thanks and have fun everyone</p>
-    </blockquote>
+        Overlays in the documents may appear corrupted, but they are deliberate. We trust you will recognize them as part of the investment process. Each fragment matters--do not discard what seems incomplete.</p>
+        </blockquote>
+        </blockquote>
             <span class="container">
-    <p class="hover-text">(Hover for Source Image)</p>
-    <img class="manImg" src="images/soundclown.png" style="width: 600px;">
-    </span>
-    <p>If you pull up one of the images, you can see the bird on the spectrogram, haha.</p>
-    <hr>
-    <h3>Notes, ideas, and so on</h3>
-    <p>perhaps this all just suggests a sequence:</p>
-    <blockquote>
-        <p>	1. national.<br>
-	    _1 added.__<br>
-	    2 snaps.<br>
-	    3. garden<br>
-	    &lt;!-- 3 extremely --&gt; </p>
-    </blockquote>
-    <p>(it seems like there might be pairings with and without a period??)</p>
-    <p>I was just thinking about this because of the "FINAL PIECES ______" text earlier. I have a half-serious hunch that there's another admin code here that we need to find... but I don't know if that's the case.</p>
-    <p>There are probably more of these hidden numbered codes, and it's possible if the emails mean anything that there will be more added in time.</p>
-    <p>If those six underscores mean anything, maybe there are six words here, the problem being that what I've found scratches anywhere between 2.5 and 5 of them.</p>
-    <p>If you're cheeky, you can kinda extrapolate the whole poem, though:</p>
-    <blockquote>
-        <p>To continue on the path of discovery you must understand,<br>
-        expectations exist,<br>
-        yet they are the essence of the dream you cannot revisit.<br>
-        The bird may have wings it is never able to use.<br>
-        The bird may never look up and see the sky.<br>
-        For the bird that does not fly may face less strife than the bird that does.<br> The bird that flies may find more answers than the bird that does not.</p>
-    </blockquote>
+                <p class="hover-text">(Hover for Source Image)</p>
+                <img class="preview zoomable" src="images/signs.png" alt="Signs Email">
+            </span>
+        <p>the bottom of the email apparently links to x, but it's linked with just <a href="https://x.com/***********__" target="_blank">https://x.com/***********__</a> as the url, so it doesn't actually lead anywhere.<br>
+        Additionally, the link first goes through the publisher's site, and later was changed to redirect to the intended final website.</p>
+        <p>Email 2/2:</p>
+        <blockquote>
+            <p>	Investor Update<br>
+        (more clouds)<br>
+        [name]<br>
+        Return often; the archive changes when observed. Some investors have already vanished between the reports.<br>
+        Once you see the pattern, you cannot unsee it.<br>
+        Forecasts will shift, though the outcome is certain._silence often conceals the loudest truths._and underneath it all, something continues to wait. </p>
+        </blockquote>
+        </blockquote>
+            <span class="container">
+                <p class="hover-text">(Hover for Source Image)</p>
+                <img class="preview zoomable" src="images/return.png" alt="Return Email">
+            </span>
+        <p>Because I did not get the emails myself, apparently combining the two emails properly provided the actual twitter site:</p>
+        <blockquote>
+            <a href="https://x.com/FollowersOf__/" target="_blank">https://x.com/FollowersOf__/</a>
+        </blockquote>
         
-    <p>But for now, it appears the ARG is functionally complete, as the full announcement was already made... but what if there's more !<br>
+        <p>This was eventually used for the game's reveal videos, but additionally, there were links to some other locations.</p>
+        <p>There was later one additional email:</p>
+        <blockquote>
+            <p>	Password Reminder<br>
+        Thank you  for requesting a reminder of your password.<br>
+        XXXXXX<br>
+        <br>
+        Your memorable hint:<br>
+        For the five, seek the paths.<br>
+        For the sixth, shrouD empty siren, contra totem; omni whispers.</p>
+        </blockquote>
+            <span class="container">
+                <p class="hover-text">(Hover for Source Image)</p>
+                <img class="preview zoomable" src="images/password.png" alt="Password Email">
+            </span>
+        <p>this is where the password LOOPED was derived. </p>
+        <p>one of the links on the twitter page led to a soundcloud.It is no longer accessible at this time, but was analyzed in this post:</p>
+        <blockquote>
+            <p>	(edited) late night update about my conclusions on the soundcloud (<a href="https://soundcloud.com/followers-998484367" target="_blank">https://soundcloud.com/followers-998484367</a>) audio based on looking at this for a long time. i threw all the files into audacity and they seem to be part of a larger file. the proper way to assemble the files (original names from soundcloud file first, rot13 decoded names in parentheticals) to view all the images in the spectrogram is: _-oevqtr (bridge) => _-pbaarpg (connect) => _-gvr (tie) => _-wbva (join) => _-ovaq (bind) => _-gbtrgure (together)<br>
+            <br>
+            see here for the all the files merged into one spectrogram so its a bit easier to read: <a href="https://imgur.com/21hjoYO" target="_blank">https://imgur.com/21hjoYO</a><br>
+            <br>
+            notably, there are several words in here, which can be found better identified by modulating the Hz range you're looking at and zoomed in on (in audacity at least). from left to right they are "STEP" (in reverse), "erase", "BIN", "SEEK", "discover", "BEYOND". i've highlighted them on the spectrogram for each word i was able to find for anyone who needs help seeing them: <a href="https://imgur.com/a/5h56wXq" target="_blank">https://imgur.com/a/5h56wXq</a><br>
+            <br>
+            i did analyze the spectrogram from the muted mp4 on the website, and there is nothing odd in it that i can see. (i will openly admit i may have missed things, and it looks like there's uh......some sort of friend in the soundcloud spectrograms who isn't a word and i have no idea what that is. i encourage you to dl the files and analyze them yourself if you can!)<br>
+            <br>
+            from here, i've been trying to puzzle things together based on the twitter account (<a href="https://x.com/FollowersOf__/" target="_blank">https://x.com/FollowersOf__/</a>) so far. no luck on where any of these words can be applied yet. i've already checked if they're hidden pages on the website - no dice. the twitter has posted several more cryptic posts tho, which are missing letters in each phrase and seem like an out of order speech or thought across multiple tweets. likely they fit together somehow. also, my crackpot theory is that "bin" may be referencing .bin files and pointing us towards something with binary. though it could just as likely be bind.<br>
+            <br>
+            o7 thanks and have fun everyone</p>
+        </blockquote>
+            <span class="container">
+                <p class="hover-text">(Hover for Source Image)</p>
+                <img class="preview zoomable" src="images/soundclown.png" alt="SoundCloud Analysis">
+            </span>
+        <p>If you pull up one of the images, you can see the bird on the spectrogram, haha.</p>
+        <hr>
+        <h3>Notes, ideas, and so on</h3>
+        <p>perhaps this all just suggests a sequence:</p>
+        <blockquote>
+            <p>	1. national.<br>
+            _1 added.__<br>
+            2 snaps.<br>
+            3. garden<br>
+            &lt;!-- 3 extremely --&gt; </p>
+        </blockquote>
+        <p>(it seems like there might be pairings with and without a period??)</p>
+        <p>I was just thinking about this because of the "FINAL PIECES ______" text earlier. I have a half-serious hunch that there's another admin code here that we need to find... but I don't know if that's the case.</p>
+        <p>There are probably more of these hidden numbered codes, and it's possible if the emails mean anything that there will be more added in time.</p>
+        <p>If those six underscores mean anything, maybe there are six words here, the problem being that what I've found scratches anywhere between 2.5 and 5 of them.</p>
+        <p>If you're cheeky, you can kinda extrapolate the whole poem, though:</p>
+        <blockquote>
+            <p>To continue on the path of discovery you must understand,<br>
+            expectations exist,<br>
+            yet they are the essence of the dream you cannot revisit.<br>
+            The bird may have wings it is never able to use.<br>
+            The bird may never look up and see the sky.<br>
+            For the bird that does not fly may face less strife than the bird that does.<br> The bird that flies may find more answers than the bird that does not.</p>
+        </blockquote>
+        <p>But for now, it appears the ARG is functionally complete, as the full announcement was already made... but what if there's more !<br>
         After all, they did tease all this changing with time... and there's more on the twitter page that hasn't been shown on the site yet, either.<br><br>
-I hope you like this rant and check out the site yourself. But also, you probably need a good bit of time for it. </p>
-<p>If you haven't already, check out the reveal video, too:</p>
-<embed width="1309" height="687" src="https://www.youtube.com/embed/SmHnnvQQxaE" title="Frictional_Next_Project.mp4" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen style="width: 700px; height: 400px;"></embed>
-<p>There's a preeeety interesting sound near the end:</p>
-<img src="images/thankyou.png" alt="Thank You Spectrogram" style="width: 200px;">
-<p>Thanks for checking this out.</p>
-<p>...</p>
-<p>...</p>
-<p>...</p>
-<hr>
-<h3>You thought I was done?</h3>
-<p>Yeah. So there's Another site. Which I guess was decoded from the emails as well, though I don't have access to them anyways:</p>
-<h3 style="align-self: center;"><a href="https://eraseandbecome.com/">eraseandbecome.com</a></h3>
+        I hope you like this rant and check out the site yourself. But also, you probably need a good bit of time for it. </p>
+        <p>If you haven't already, check out the reveal video, too:</p>
+        <embed width="1309" height="687" src="https://www.youtube.com/embed/SmHnnvQQxaE" title="Frictional_Next_Project.mp4" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen style="width: 700px; height: 400px;"></embed>
+        <p>There's a preeeety interesting sound near the end:</p>
+        <img src="images/thankyou.png" alt="Thank You Spectrogram" style="width: 200px; margin-left: 0px;">
+        <p>Thanks for checking this out.</p>
+        <p>...</p>
+        <p>...</p>
+        <p>...</p>
+        <hr>
+        <h3>You thought I was done?</h3>
+        <p>Yeah. So there's Another site. Which I guess was decoded from the emails as well, though I don't have access to them anyways:</p>
+        <h3 style="align-self: center;"><a href="https://eraseandbecome.com/">eraseandbecome.com</a></h3>
     </div>
-    <video id="background" src="images/loop.mp4" autoplay muted loop playsinline></video>
 </body>
 </html>
