@@ -9,60 +9,93 @@
 <body>
     <script>
         document.addEventListener("DOMContentLoaded", () => {
-        const modal = document.getElementById("mediaModal");
-        const modalBody = modal.querySelector(".modal-body");
-        const closeBtn = modal.querySelector(".close");
+            const modal = document.getElementById("mediaModal");
+            const modalBody = modal.querySelector(".modal-body");
+            const closeBtn = modal.querySelector(".close");
 
-        // Play videos on hover
-        document.querySelectorAll("video.preview").forEach(video => {
-            video.addEventListener("mouseenter", () => {
-            video.currentTime = 0;
-            video.play();
+            // Play videos on hover
+            document.querySelectorAll("video.preview").forEach(video => {
+                video.addEventListener("mouseenter", () => {
+                    video.currentTime = 0;
+                    video.play();
+                });
+                video.addEventListener("mouseleave", () => {
+                    video.pause();
+                    video.currentTime = 0;
+                });
             });
-            video.addEventListener("mouseleave", () => {
-            video.pause();
-            video.currentTime = 0;
+
+            // Open modal on click
+            document.querySelectorAll(".zoomable").forEach(el => {
+                el.addEventListener("click", () => {
+                    modalBody.innerHTML = ""; // clear previous content
+                    modal.classList.add("show");
+
+                    let modalEl;
+                    if (el instanceof HTMLImageElement) { // Check if it's an image
+                        modalEl = document.createElement("img");
+                        modalEl.src = el.src;
+                        modalEl.alt = el.alt;
+                    } else if (el instanceof HTMLVideoElement) { // Check if it's a video
+                        modalEl = document.createElement("video");
+                        modalEl.src = el.src;
+                        modalEl.controls = true;
+                        modalEl.autoplay = true;
+                    }
+
+                    modalEl.classList.add("modal-media"); // Make sure this class exists or is properly styled
+                    modalBody.appendChild(modalEl);
+
+                    // Function to adjust modal size
+                    const adjustModalSize = () => {
+                        const mediaWidth = modalEl.naturalWidth || modalEl.videoWidth;
+                        const mediaHeight = modalEl.naturalHeight || modalEl.videoHeight;
+                        const maxWidth = window.innerWidth * 0.8;
+                        const maxHeight = window.innerHeight * 0.8;
+
+                        let scale = 1;  // Default scale
+
+                        // Calculate scale to fill width
+                        const scaleWidth = maxWidth / mediaWidth;
+                        // Calculate scale to fill height
+                        const scaleHeight = maxHeight / mediaHeight;
+
+                        // Use the smaller scale to fit within both width and height
+                        scale = Math.min(scaleWidth, scaleHeight);
+
+                        // Apply the scale using transform
+                        modalEl.style.transform = `scale(${scale})`;
+                    };
+
+                    // Adjust modal size initially
+                    adjustModalSize();
+
+                    // Adjust modal size on window resize
+                    window.addEventListener('resize', adjustModalSize);
+
+                    // Remove resize listener on modal close (important!)
+                    modalEl.removeEventListener('transitionend', adjustModalSize);
+                    modalEl.addEventListener('transitionend', adjustModalSize);
+                });
             });
-        });
 
-        // Open modal on click
-        document.querySelectorAll(".zoomable").forEach(el => {
-            el.addEventListener("click", () => {
-            modalBody.innerHTML = ""; // clear previous content
-            modal.classList.add("show");
+            // Close modal
+            const closeModal = () => {
+                modal.classList.remove("show");
+                modalBody.innerHTML = ""; // stops video playback
+                window.removeEventListener('resize', adjustModalSize);
 
-            let modalEl;
-            if (el instanceof HTMLImageElement) { // Check if it's an image
-                modalEl = document.createElement("img");
-                modalEl.src = el.src;
-                modalEl.alt = el.alt;
-            } else if (el instanceof HTMLVideoElement) { // Check if it's a video
-                modalEl = document.createElement("video");
-                modalEl.src = el.src;
-                modalEl.controls = true;
-                modalEl.autoplay = true;
-            }
+            };
 
-            modalEl.classList.add("modal-media"); // Make sure this class exists or is properly styled
-            modalBody.appendChild(modalEl);
+            closeBtn.addEventListener("click", closeModal);
+            modal.addEventListener("click", e => {
+                if (e.target === modal) closeModal();
             });
-        });
-
-        // Close modal
-        const closeModal = () => {
-            modal.classList.remove("show");
-            modalBody.innerHTML = ""; // stops video playback
-        };
-
-        closeBtn.addEventListener("click", closeModal);
-        modal.addEventListener("click", e => {
-            if (e.target === modal) closeModal();
-        });
         });
     </script>
     <div id="mediaModal" class="modal">
-    <span class="close">&times;</span>
-    <div class="modal-body"></div>
+        <span class="close">&times;</span>
+        <div class="modal-body"></div>
     </div>
     <video id="background" src="video/loop.mp4" autoplay muted loop playsinline></video>
     <div class="all">
@@ -390,11 +423,6 @@
         <p>But for now, it appears the ARG is functionally complete, as the full announcement was already made... but what if there's more !<br>
         After all, they did tease all this changing with time... and there's more on the twitter page that hasn't been shown on the site yet, either.<br><br>
         I hope you like this rant and check out the site yourself. But also, you probably need a good bit of time for it. </p>
-        <p>If you haven't already, check out the reveal video, too:</p>
-        <embed width="1309" height="687" src="https://www.youtube.com/embed/SmHnnvQQxaE" title="Frictional_Next_Project.mp4" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen style="width: 700px; height: 400px;"></embed>
-        <p>There's a preeeety interesting sound near the end:</p>
-        <img src="images/thankyou.png" alt="Thank You Spectrogram" style="width: 200px; margin-left: 0px;">
-        <p>Thanks for checking this out.</p>
         <p>...</p>
         <p>...</p>
         <p>...</p>
@@ -402,6 +430,13 @@
         <h3>You thought I was done?</h3>
         <p>Yeah. So there's Another site. Which I guess was decoded from the emails as well, though I don't have access to them anyways:</p>
         <h3 style="align-self: center;"><a href="https://eraseandbecome.com/">eraseandbecome.com</a></h3>
+
+
+        <p>If you haven't already, check out the reveal video, too:</p>
+        <embed width="1309" height="687" src="https://www.youtube.com/embed/SmHnnvQQxaE" title="Frictional_Next_Project.mp4" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen style="width: 700px; height: 400px;"></embed>
+        <p>There's a preeeety interesting sound near the end:</p>
+        <img src="images/thankyou.png" alt="Thank You Spectrogram" style="width: 200px; margin-left: 0px;">
+        <p>Thanks for checking this out.</p>
     </div>
 </body>
 </html>

@@ -65,9 +65,7 @@ blockquote a {
 
 img, embed, video {
 	box-sizing: border-box;
-	border: 3px whitesmoke;
-	border-style: solid;
-	border-color: whitesmoke;
+	border: 3px solid whitesmoke;
 	margin: auto;
 }
 
@@ -131,7 +129,6 @@ img, embed, video {
 .modal-body {
     max-width: 95%;
     max-height: 90%;
-    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -139,12 +136,11 @@ img, embed, video {
 
 .modal-body img,
 .modal-body video {
-	box-sizing: content-box;
-	margin: 0;
-	width: auto;
-	height: 80vh;
+    display: block;
+    width: auto;
+    height: auto;
     max-width: 80vw;
     max-height: 80vh;
     object-fit: contain;
-    transform-origin: center;
+	box-sizing: border-box;
 }
