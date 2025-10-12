@@ -53,29 +53,39 @@
                         const maxWidth = window.innerWidth * 0.8;
                         const maxHeight = window.innerHeight * 0.8;
 
-                        let scale = 1;  // Default scale
+                        let newWidth = mediaWidth;
+                        let newHeight = mediaHeight;
 
-                        // Calculate scale to fill width
-                        const scaleWidth = maxWidth / mediaWidth;
-                        // Calculate scale to fill height
-                        const scaleHeight = maxHeight / mediaHeight;
+                        const widthRatio = maxWidth / mediaWidth;
+                        const heightRatio = maxHeight / mediaHeight;
 
-                        // Use the smaller scale to fit within both width and height
-                        scale = Math.min(scaleWidth, scaleHeight);
+                        if (mediaWidth < maxWidth || mediaHeight < maxHeight) {
+                            // Scale up if smaller than max dimensions
+                            if (widthRatio < heightRatio) {
+                                newWidth = maxWidth;
+                                newHeight = mediaHeight * widthRatio;
+                            } else {
+                                newHeight = maxHeight;
+                                newWidth = mediaWidth * heightRatio;
+                            }
+                        } else {
+                            // Scale down if larger than max dimensions
+                            if (widthRatio < heightRatio) {
+                                newWidth = maxWidth;
+                                newHeight = mediaHeight * widthRatio;
+                            } else {
+                                newHeight = maxHeight;
+                                newWidth = mediaWidth * heightRatio;
+                            }
+                        }
 
-                        // Apply the scale using transform
-                        modalEl.style.transform = `scale(${scale})`;
+                        modalEl.style.width = `${newWidth}px`;
+                        modalEl.style.height = `${newHeight}px`;
                     };
 
-                    // Adjust modal size initially
                     adjustModalSize();
 
-                    // Adjust modal size on window resize
                     window.addEventListener('resize', adjustModalSize);
-
-                    // Remove resize listener on modal close (important!)
-                    modalEl.removeEventListener('transitionend', adjustModalSize);
-                    modalEl.addEventListener('transitionend', adjustModalSize);
                 });
             });
 
@@ -84,7 +94,6 @@
                 modal.classList.remove("show");
                 modalBody.innerHTML = ""; // stops video playback
                 window.removeEventListener('resize', adjustModalSize);
-
             };
 
             closeBtn.addEventListener("click", closeModal);
