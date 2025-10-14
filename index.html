@@ -7,93 +7,203 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+<!--Script for Modal Content-->
     <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            const modal = document.getElementById("mediaModal");
-            const modalBody = modal.querySelector(".modal-body");
-            const closeBtn = modal.querySelector(".close");
+document.addEventListener("DOMContentLoaded", () => {
+    const modal = document.getElementById("mediaModal");
+    const modalBody = modal.querySelector(".modal-body");
+    const closeBtn = modal.querySelector(".close");
 
-            // Play videos on hover
-            document.querySelectorAll("video.preview").forEach(video => {
-                video.addEventListener("mouseenter", () => {
-                    video.currentTime = 0;
-                    video.play();
-                });
-                video.addEventListener("mouseleave", () => {
-                    video.pause();
-                    video.currentTime = 0;
-                });
-            });
+    const disableScroll = () => document.body.style.overflow = 'hidden';
+    const enableScroll = () => document.body.style.overflow = '';
 
-            // Open modal on click
-            document.querySelectorAll(".zoomable").forEach(el => {
-                el.addEventListener("click", () => {
-                    modalBody.innerHTML = ""; // clear previous content
-                    modal.classList.add("show");
+    const playPreviewVideo = (video) => {
+        video.currentTime = 0;
+        video.play();
+    };
 
-                    let modalEl;
-                    if (el instanceof HTMLImageElement) { // Check if it's an image
-                        modalEl = document.createElement("img");
-                        modalEl.src = el.src;
-                        modalEl.alt = el.alt;
-                    } else if (el instanceof HTMLVideoElement) { // Check if it's a video
-                        modalEl = document.createElement("video");
-                        modalEl.src = el.src;
-                        modalEl.controls = true;
-                        modalEl.autoplay = true;
-                    }
+    const pausePreviewVideo = (video) => {
+        video.pause();
+        video.currentTime = 0;
+    };
 
-                    modalEl.classList.add("modal-media"); // Make sure this class exists or is properly styled
-                    modalBody.appendChild(modalEl);
+    document.querySelectorAll("video.preview").forEach(video => {
+        video.addEventListener("mouseenter", () => playPreviewVideo(video));
+        video.addEventListener("mouseleave", () => pausePreviewVideo(video));
+    });
 
-                    // Function to adjust modal size
-                    const adjustModalSize = () => {
-                        const mediaWidth = modalEl.naturalWidth || modalEl.videoWidth;
-                        const mediaHeight = modalEl.naturalHeight || modalEl.videoHeight;
+    document.querySelectorAll(".container").forEach(container => {
+        const overlay = container.querySelector(".overlay");
+        const preview = container.querySelector(".preview");
+
+        const setOverlaySizeAndPosition = () => {
+            const containerRect = container.getBoundingClientRect();
+            const previewRect = preview.getBoundingClientRect();
+            const topOffset = previewRect.top - containerRect.top;
+            const leftOffset = previewRect.left - containerRect.left;
+
+            overlay.style.width = `${preview.offsetWidth}px`;
+            overlay.style.height = `${preview.offsetHeight}px`;
+            overlay.style.top = `${topOffset}px`;
+            overlay.style.left = `${leftOffset}px`;
+            overlay.style.opacity = 1;
+            overlay.style.pointerEvents = 'auto';
+        };
+
+        const resetOverlay = () => {
+            overlay.style.width = `100%`;
+            overlay.style.height = `100%`;
+            overlay.style.opacity = 0;
+            overlay.style.pointerEvents = 'none';
+            overlay.style.top = '0';
+            overlay.style.left = '0';
+        };
+
+        container.addEventListener("mouseenter", () => setOverlaySizeAndPosition());
+        container.addEventListener("mouseleave", () => resetOverlay());
+
+        container.addEventListener("click", () => {
+            const el = container.querySelector(".zoomable");
+            if (!el) return;
+
+            modalBody.innerHTML = "";
+            modal.classList.add("show");
+            disableScroll();
+
+            let modalEl;
+
+            if (el instanceof HTMLImageElement) {
+                modalEl = Object.assign(document.createElement("img"), { src: el.src, alt: el.alt });
+            } else if (el instanceof HTMLVideoElement) {
+                const videoEl = Object.assign(document.createElement("video"), { src: el.src, controls: true, autoplay: true });
+                const textWrapper = document.createElement('div');
+                textWrapper.classList.add('text-wrapper', 'embed-wrapper');
+                textWrapper.appendChild(videoEl);
+                modalEl = textWrapper;
+            } else if (el instanceof HTMLIFrameElement || el.tagName === 'EMBED') {
+              const embedEl = document.createElement("embed");
+              embedEl.src = el.src || el.getAttribute('src');
+              embedEl.type = 'video/webm';
+              embedEl.setAttribute('allowfullscreen', '');
+
+              const textWrapper = document.createElement('div');
+              textWrapper.classList.add('text-wrapper', 'embed-wrapper');
+              textWrapper.appendChild(embedEl);
+              modalEl = textWrapper;
+            } else if (el.classList.contains("text-block")) {
+                const textWrapper = Object.assign(document.createElement('div'), { className: 'text-wrapper' });
+                const p = Object.assign(document.createElement("p"), { textContent: el.textContent });
+                textWrapper.appendChild(p);
+                modalEl = textWrapper;
+            } else {
+                modalEl = null;
+            }
+
+            if (modalEl) {
+                modalEl.classList.add("modal-media");
+                modalBody.appendChild(modalEl);
+
+                const adjustModalSize = () => {
+                    let mediaWidth, mediaHeight;
+
+                    if (modalEl instanceof HTMLImageElement) {
+                        mediaWidth = modalEl.naturalWidth;
+                        mediaHeight = modalEl.naturalHeight;
+                    }  else if (modalEl.classList.contains('embed-wrapper')) {
+                        const maxWidth = window.innerWidth * 0.8;
+                        const maxHeight = window.innerHeight * 0.8;
+                        modalEl.style.width = `${maxWidth}px`;
+                        modalEl.style.height = `${maxHeight}px`;
+                        const child = modalEl.querySelector('embed, iframe, video');
+                        if (child) {
+                            child.style.width = '100%';
+                            child.style.height = '100%';
+                        }
+                        return;
+                    } else if (modalEl instanceof HTMLVideoElement || modalEl instanceof HTMLIFrameElement || modalEl.tagName === 'EMBED') {
+                        const maxWidth = modalBody.offsetWidth * 0.8;
+                        const maxHeight = modalBody.offsetHeight * 0.8;
+                        mediaWidth = modalEl.videoWidth || modalEl.offsetWidth || maxWidth;
+                        mediaHeight = modalEl.videoHeight || modalEl.offsetHeight || maxHeight;
+                        const aspectRatio = mediaWidth / mediaHeight;
+
+                        if (mediaWidth > maxWidth) {
+                            mediaWidth = maxWidth;
+                            mediaHeight = mediaWidth / aspectRatio;
+                        }
+
+                        if (mediaHeight > maxHeight) {
+                            mediaHeight = maxHeight;
+                            mediaWidth = mediaHeight * aspectRatio;
+                        }
+
+                        Object.assign(modalEl.style, {
+                            width: `${mediaWidth}px`,
+                            height: `${mediaHeight}px`,
+                            maxWidth: '80vw',
+                            maxHeight: '80vh',
+                            objectFit: 'contain'
+                        });
+
+                    } else {
+                        mediaWidth = modalEl.offsetWidth;
+                        mediaHeight = modalEl.offsetHeight;
+
                         const maxWidth = window.innerWidth * 0.8;
                         const maxHeight = window.innerHeight * 0.8;
 
-                        let newWidth = mediaWidth;
-                        let newHeight = mediaHeight;
+                        let widthRatio = maxWidth / mediaWidth;
+                        let heightRatio = maxHeight / mediaHeight;
 
-                        const widthRatio = maxWidth / mediaWidth;
-                        const heightRatio = maxHeight / mediaHeight;
-
-                        if (mediaWidth < maxWidth || mediaHeight < maxHeight) {
-                            // Scale up if smaller than max dimensions
-                            if (widthRatio < heightRatio) {
-                                newWidth = maxWidth;
-                                newHeight = mediaHeight * widthRatio;
-                            } else {
-                                newHeight = maxHeight;
-                                newWidth = mediaWidth * heightRatio;
-                            }
-                        } else {
-                            // Scale down if larger than max dimensions
-                            if (widthRatio < heightRatio) {
-                                newWidth = maxWidth;
-                                newHeight = mediaHeight * widthRatio;
-                            } else {
-                                newHeight = maxHeight;
-                                newWidth = mediaWidth * heightRatio;
-                            }
+                        if (mediaWidth > maxWidth || mediaHeight > maxHeight) {
+                            scale = Math.min(widthRatio, heightRatio);
                         }
 
-                        modalEl.style.width = `${newWidth}px`;
-                        modalEl.style.height = `${newHeight}px`;
-                    };
+                        modalEl.style.transformOrigin = 'top left';
+                        modalEl.style.transform = `scale(${scale})`;
+                        return;
+                    }
 
-                    adjustModalSize();
+                    const maxWidth = window.innerWidth * 0.8;
+                    const maxHeight = window.innerHeight * 0.8;
 
-                    window.addEventListener('resize', adjustModalSize);
-                });
-            });
+                    let newWidth = mediaWidth;
+                    let newHeight = mediaHeight;
 
-            // Close modal
+                    const widthRatio = maxWidth / mediaWidth;
+                    const heightRatio = maxHeight / mediaHeight;
+
+                    if (mediaWidth < maxWidth || mediaHeight < maxHeight) {
+                        if (widthRatio < heightRatio) {
+                            newWidth = maxWidth;
+                            newHeight = mediaHeight * widthRatio;
+                        } else {
+                            newHeight = maxHeight;
+                            newWidth = mediaWidth * heightRatio;
+                        }
+                    } else {
+                        if (widthRatio < heightRatio) {
+                            newWidth = maxWidth;
+                            newHeight = mediaHeight * widthRatio;
+                        } else {
+                            newHeight = maxHeight;
+                            newWidth = mediaWidth * heightRatio;
+                        }
+                    }
+
+                    modalEl.style.width = `${newWidth}px`;
+                    modalEl.style.height = `${newHeight}px`;
+                };
+
+                adjustModalSize();
+                window.addEventListener('resize', adjustModalSize);
+            }
+
             const closeModal = () => {
                 modal.classList.remove("show");
-                modalBody.innerHTML = ""; // stops video playback
+                modalBody.innerHTML = "";
                 window.removeEventListener('resize', adjustModalSize);
+                enableScroll();
             };
 
             closeBtn.addEventListener("click", closeModal);
@@ -101,16 +211,50 @@
                 if (e.target === modal) closeModal();
             });
         });
+    });
+
+    const closeModal = () => {
+        modal.classList.remove("show");
+        modalBody.innerHTML = "";
+        enableScroll();
+    };
+
+    closeBtn.addEventListener("click", closeModal);
+    modal.addEventListener("click", e => {
+        if (e.target === modal) closeModal();
+    });
+});
+
     </script>
+<!--Div for Modal Content-->
     <div id="mediaModal" class="modal">
         <span class="close">&times;</span>
         <div class="modal-body"></div>
     </div>
+<!--Background Video-->
     <video id="background" src="video/loop.mp4" autoplay muted loop playsinline></video>
+<!--Main Content-->
     <div class="all">
         <h1>So, Frictional games made another ARG.</h1>
         <p>It's true! There's a new ARG. At this point A lot has been put forward already, but it's worth taking a real good look. There's not going to be too much analysis here, for now... but let's walk through what can be seen, shall we?</p>
-        <p>There was an email added to Simon's laptop in a recent update to SOMA: </p>
+        <p>There was a patch to SOMA on September 22, 2025, with the listed patch notes: </p>
+        <blockquote>
+            <p>Game:<br>
+                - Fixed faulty spam filters on Simon’s PC<br>
+                Users may still receive suspicious correspondence due to treemail 0.1 filtering process issues.<br>
+                Misc:<br>
+                - Bug Fixes<br>
+                ▔░▕▄ ▋▕▛▕░▜ ▀▚▀█//////////▔▔▔▔▔▔▔▒▒▒▒▒▒</p>
+        </blockquote>
+        <span class="container">
+            <p class="hover-text">(Hover for Source Image)</p>
+            <img class="preview zoomable" src="images/patchnotes.png" alt="Soma Patch Notes">
+        </span>
+        <p>The funky text at the end is translatable by unicode, to:</p>
+        <blockquote>
+            <p>True luxury awai//////////tttttttssssss</p>
+        </blockquote>
+        <p>So, going into the game, there was an email added to Simon's laptop:</p>
         <blockquote>
             <p>    Subject: [Virus Error] You've Ea%ned it<br>
         Date: 22 Sep 2025<br>
@@ -118,17 +262,227 @@
         Ever th(0)ught about wha;;; tru/e/ ]]]]uxury might mean? We $$$ure h?~ve. So>>>+etimes we all de$$$erve to h?~ve a wish or two g%?~nted. Don't we?<br>
         Sign up now at ***(0);;;/e/]]]]$$$?~ >>> +$$$?~%?~. ^ ^ (0)>>>+ Luxury awaits</p>
         </blockquote>
-        </blockquote>
             <span class="container">
                 <p class="hover-text">(Hover for Source Image)</p>
                 <img class="preview zoomable" src="images/somamail.png" alt="Soma Email">
             </span>
         <p>In it was a coded link to the website <a href="https://www.hotelsamsara.com" target="_blank">www.hotelsamsara.com</a>, determined by using the missing letters as a dictionary for the final code.<br>
-        So, <a href="https://www.hotelsamsara.com" target="_blank">www.hotelsamsara.com</a> has a secret page discovered by signing up for the mailing list. Not everyone gets the emails. Personally, I got none!<br>
-        But they indicate that the site <a href="https://www.hotelsamsara.com/admin" target="_blank">www.hotelsamsara.com/admin</a> exists.<br>
-        As far as I can tell, this site could also have been found by looking at the web tools- it's in the html. One of the images is titled "SEARCH%AND%DISCOVER_edited", so maybe that was the intended route.<br>
-        This may not have been the discovered method, but there's a "+" symbol visible on the video of the hotel lobby/entrance in the bottom right corner. this leads to the admin login page.<br>
-        There is a prompted password, which is LOOPED. Because the theme is samsara. I say how this was determined at the end. <br>
+        So, <a href="https://www.hotelsamsara.com" target="_blank">www.hotelsamsara.com</a> has its fair share of secrets, but it also has a mailing list! Not everyone gets the emails. Personally, I got none!<br>
+        <hr>
+        <h3>Emails, lots of them.</h3>
+        <p>If you signed up for the mailing list, you had the chance to receive one of two (and eventually, three) emails. Which one you received was based on a choice you could make during registration, being:</p>
+        <blockquote>
+            <p>One of many</p>
+        </blockquote>
+        <p style="margin-top: -40px;margin-bottom: -30px;">or</p>
+        <blockquote>
+            <p style="margin-top: 10px;">One of few</p>
+        </blockquote>
+        <p>1/2 is listed:</p>
+        <blockquote>
+            <p>	Investor Update<br>
+        (the clouds from the first O page)<br>
+        [name]<br>
+        Follow the signs--they will lead you to somewhere unlisted. Open doors with care, for some are not meant to be crossed.<br>
+        Lost time is the tax demanded by every visitor. Ledgers will not balance if you fail to account for what whispers.<br>
+        <br>
+        Overlays in the documents may appear corrupted, but they are deliberate. We trust you will recognize them as part of the investment process. Each fragment matters--do not discard what seems incomplete.</p>
+        </blockquote>
+        </blockquote>
+            <span class="container">
+                <p class="hover-text">(Hover for Source Image)</p>
+                <img class="preview zoomable" src="images/signs.png" alt="Signs Email">
+            </span>
+        <p>the bottom of the email apparently links to x, but it's linked with just <a href="https://x.com/***********__" target="_blank">https://x.com/***********__</a> as the url, so it doesn't actually lead anywhere.<br>
+        Additionally, the link first goes through the publisher's site, and later was changed to redirect to the intended final website.</p>
+        <p>Email 2/2:</p>
+        <blockquote>
+            <p>	Investor Update<br>
+        (more clouds)<br>
+        [name]<br>
+        Return often; the archive changes when observed. Some investors have already vanished between the reports.<br>
+        Once you see the pattern, you cannot unsee it.<br>
+        Forecasts will shift, though the outcome is certain._silence often conceals the loudest truths._and underneath it all, something continues to wait. </p>
+        </blockquote>
+        </blockquote>
+            <span class="container">
+                <p class="hover-text">(Hover for Source Image)</p>
+                <img class="preview zoomable" src="images/return.png" alt="Return Email">
+            </span>
+        <p>The beginnings of the sentences on the second email were a bit odd...<br>
+        If you record the first letters of each sentence between the first and second email:</p>
+        <blockquote>
+            <p>
+            <strong>1/2</strong><br>
+            F <br>
+            O <br>
+            L <br>
+            L <br>
+            O <br>
+            W <br>
+            E <br>
+            <strong>2/2</strong><br>
+            R <br>
+            S<br>
+            _<br>
+            _</p>
+        </blockquote>
+        <p>Looking back at that broken link, you can substitute this in:</p>
+        <blockquote>
+            <a href="https://x.com/FollowersOf__/" target="_blank">https://x.com/FollowersOf__/</a>
+        </blockquote>
+        
+        <p><strong>Looking at this now might spoil some of the fun</strong>- this was eventually used for the game's reveal, and has a lot of newer content now.</p>
+        <p>The page's content is largely garbled, but could be translated using a few clues.</p>
+        <p>First and foremost: the twitter page uses the same symbol-to letter code for every tweet across the page. This could be assembled into a dictionary:</p>
+        <blockquote>
+            <p>// = e, o, a<br>
+            ^ = r, a<br>
+            //* = e<br>
+            ▔ = t<br>
+            ▎ = o<br>
+            ☰ = n<br>
+            — = y<br>
+            $ = r<br>
+            & = e<br>
+            --- = h<br>
+            • = x<br>
+            ∫ = f<br>
+            ⎜= j<br>
+            ♦ = s<br>
+            ┗ = d<br>
+            › = g<br>
+            ♤ = v<br>
+            ♩ = i, L<br>
+            ; = u<br>
+            ⁖ = p<br>
+            ▚ = w<br>
+            [ = b<br>
+            █ = i</p>
+        </blockquote>
+        <p>However, this wasn't absolutely necessary to decipher each of the tweets. Most are obfuscated through unicode at most. The content of these initial tweets have been transcribed:</p>
+        <blockquote>
+            <p>&lt;&gt; "Who are you really?<br>
+            &lt;&gt; Are you: one of many/one and only?  [this was a poll]<br>
+            &lt;&gt; &lt;&lt;data_transfer_resumed&gt;&gt;<br>
+            &lt;&gt; Their sails are caught by an unfamiliar gust,<br>
+            &lt;&gt; yet always still amounts to never and nothing shall come from it.<br>
+            &lt;&gt; To understand what is behind the source.<br>
+            &lt;&gt; Multiply it by an infinity and you will have the number of illusions that embody it.<br>
+            &lt;&gt; &lt;&lt;system000.21_malfunction&gt;&gt;<br>
+            &lt;&gt; https://soundcloud.com/followers-998484367 <br>
+            &lt;&gt; &lt;&lt;data_source_located&gt;&gt;<br>
+            &lt;&gt; Reality: is in the past/is now/is coming?  [this was a poll]<br>
+            &lt;&gt; &lt;&lt;repairing_disk_0000.24&gt;&gt;<br>
+            &lt;&gt; 30%<br>
+            &lt;&gt; And their torrents shake at their will.<br>
+            &lt;&gt; What then would determine their nature?<br>
+            &lt;&gt; Its existence of the void exists soley to be null.<br>
+            &lt;&gt; What if an object has no such traces?<br>
+            &lt;&gt; Shall be rendered a body of burden.<br>
+            &lt;&gt; The void exists as the void regardless of its service.<br>
+            &lt;&gt; And yet it exists throughout - throughout - throughout - throughout - throughout and yet throughout exists at once.<br>
+            &lt;&gt; Those who perceive (Are the same)(Are different)  [this was a poll]<br>
+            &lt;&gt; 50%<br>
+            &lt;&gt; If all they see between the seas and stars are waves,<br>
+            &lt;&gt; though the more strength it gains, the more energy it desires.<br>
+            &lt;&gt; &lt;&lt;warning_data_anomaly&gt;&gt;<br>
+            &lt;&gt; SEEK [Tweet deleted, contained complement image to clue received on same day]<br>
+            &lt;&gt; &lt;&lt;corrupt_data_purge&gt;&gt;<br>
+            &lt;&gt; &lt;&lt;data_recovery_in_progress&gt;&gt;<br>
+            &lt;&gt; &lt;&lt;recovered_data:voo.pb/pp4dF8ef&gt;&gt;<br>
+            &lt;&gt; SEEK<br>
+            &lt;&gt; 70%<br>
+            &lt;&gt; &lt;&lt;DATA_TRANSFER_IN_PROGRESS&gt;&gt; (DOCUMENTS) (PICTURES) (VIDEOS) [this was a poll]<br>
+            &lt;&gt; They will search for the crumbs of guidance<br>
+            &lt;&gt; Those who do not search turn to the path of vulgarity<br>
+            &lt;&gt; The path of the metaphorical strays not far from that of reality<br>
+            &lt;&gt; Step back onto the path<br>
+            &lt;&gt; The path to tomorrow is the same as the path you should take today, as it was the same as yesterday, for the true path is the one looking inwards<br>
+            &lt;&gt; &lt;&lt;4/6_FILES_LOCATED&gt;&gt;<br>
+            &lt;&gt; Implicit in the cosmos, ordering it and giving it form and meaning<br>
+            &lt;&gt; Beings or Entities<br>
+            &lt;&gt; All that subsists by itself and which has not its being in another<br>
+            &lt;&gt; Activity on the rational part of the soul on the basis of virtue I II III IIII<br> 
+            &lt;&gt; The search for the unknown may only result in the unknown finding you<br>
+            &lt;&gt; 80%<br>
+            &lt;&gt; &lt;&lt;5/6_FILES_LOCATED&gt;&gt;<br>
+            &lt;&gt;  Words of wisdom hold keys unknown, for the first of them shall create formidable characters, underlining their importance<br>
+            &lt;&gt; Nature is it's own source of motion<br>V
+            </p>
+        </blockquote>
+        <span class="container">
+            <p class="hover-text">(Hover for Source Text)</p>
+                <p class="zoomable text-block">&lt;&gt; fffffffffffffffffff<br>
+&lt;&gt; whhhhhhhh▎  a<br>
+&lt;&gt;wh▎ wh▎ hw▎ hhhh<br>
+&lt;&gt;wh▎ wh arrraree<br>
+&lt;&gt; wh▎  aree////////////////<br>
+&lt;&gt; wh▎ areeeeey<br>
+&lt;&gt; wh▎  are y00u<br>
+&lt;&gt; wh▎  are y▎ u really?<br>
+&lt;&gt; who  rr you u really?<br>
+&lt;poll&gt; a🅁🄴 🅈ou (one of manⓨ) (on𝕖 and only)<br>
+&lt;&gt; &lt;&lt;d(ta_t$ansf*r_resum&d&gt;&gt;<br>
+&lt;&gt; 𝚃𝚑𝚎𝚒𝚛 𝚜𝚊𝚒𝚕𝚜 𝚊𝚛𝚎 caught by an unfamiliar 𝔤𝔲𝔰𝔱,<br>
+&lt;&gt; yet always still amounts to never and n//thing shall come from it.<br>
+&lt;&gt; to und//rstand what is behind the source.<br>
+&lt;&gt; multiply it by an infinity and you will have the number of illusions that embody---- it.<br>
+&lt;&gt; &lt;&lt;sy/stem0000.21_mal/functi▎ n&gt;&gt;<br>
+&lt;&gt; soundcloud.C0m/foll▎wers-998484367<br>
+&lt;&gt; ♢<br>
+&lt;&gt; &lt;&lt;d//ta_source_located&gt;&gt;<br>
+&lt;poll&gt; reality- (is 𝚒𝚗 𝚝𝚑𝚎 𝚙𝚊𝚜𝚝) (is 𝚗𝚘𝚠) (is 𝚌𝚘𝚖𝚒𝚗𝚐)<br>
+&lt;&gt; &lt;&lt;rep^iring_disk_0000.24&gt;&gt;<br>
+&lt;&gt; iiiissssss30%<br>
+&lt;&gt; and the tor^ents shake at theiiiiir will<br>
+&lt;&gt; W---at then would determine its nature?<br>
+&lt;&gt; its existence of the v//id e•ists solely to be null000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000<br>
+&lt;&gt; What i∫ an ob⎜ect has no ♦uch traces?<br>
+&lt;&gt; shall be re☰dered a body of bur┗en<br>
+&lt;&gt; The voi┗ exists as the void re›ardless of its ser♤ice.<br>
+&lt;&gt; And yet it ex♩sts throughout - throughout - throughout - throughout - throughout and —et ▔hr//u›ho;t exists at once.<br>
+&lt;poll&gt; Thos//* who ⁖erceive (Are 𝚝𝚑𝚎 𝚜𝚊𝚖𝚎)(Are 𝚍𝚒𝚏𝚏𝚎𝚛𝚎𝚗𝚝)<br>
+&lt;&gt; Iiiiisssss50%<br>
+&lt;&gt; if all they see between the seas a☰d stars are w^ves,<br>
+&lt;&gt; though the m//re stren›th it gains, the more energ— it ┗esires.<br> 
+&lt;&gt; &lt;&lt;warning_data_anom^ly&gt;&gt; <br>
+&lt;&gt; S//*//*K (contains image, DELETED TWEET) <br>
+&lt;&gt; &lt;&lt;cor^upt_data_⁖urge&gt;&gt;<br>
+&lt;&gt; &lt;&lt;D^TA_REC//VERY_IN_PRO›RESS&gt;&gt; <br>
+&lt;&gt; &lt;&lt;reco♤ered_data: voo.pb/pp4dF8ef&gt;&gt; <br>
+&lt;&gt; S//*//*K<br>
+███████▒▒▒70%<br>
+&lt;poll&gt; &lt;&lt;D^TA_TRANS∫ER_IN_P^OGRESS&gt;&gt; (D//CUMEN▔S) (PI*TURES) (V█DEOS)<br>
+&lt;&gt; The— ▚ill search for the crum[s of gui┗ance,<br>
+&lt;&gt; Those w—-o do ☰ot search, t;rn to the path of vulgarity<br>
+&lt;&gt; Th//* path of the metaphor^cal stra—s not far from that of the rea♩ity<br>
+&lt;&gt; Step [ack ont// the path<br>
+&lt;&gt; The p^th of informatio☰ holds ͫany planes<br>
+&lt;&gt; The path to tomorro▚ is the same a♦ the path you sh//uld take today, as it was the same as y//*sterday, for the tr;e path is the one looking i☰wards<br>
+&lt;&gt; &lt;&lt;4/6_FILES_LOC^TED&gt;&gt;<br>
+&lt;&gt; Impli*it in the cosm//s, ordering it and giving it fo^m and meaning<br>
+&lt;&gt; Bein›s or Entiti//*s<br>
+&lt;&gt; All that subsists by █tself and ▚hich has not its being in ano▔her<br>
+&lt;&gt; Acti♤ity of the rational part of the s//ul on the basis of virt;e<br>
+I II III IIII<br>
+&lt;&gt; The s//*arch for the unknow☰ may only result ♩n the unknown ∫inding you<br>
+&lt;&gt;████████▒▒80%<br>
+&lt;&gt; &lt;&lt;5/6_F♩LES_LOCAT//*D&gt;&gt;<br>
+&lt;&gt; W//rds of wisdom hold ke—s unknown, for the first of them shall create formidable ch^racters, underlinin› their importance.<br>
+&lt;&gt; &lt;&lt;5/6_FIL//*S_TRANSFE^RED_SU*CESSFULLY&gt;&gt;<br>
+&lt;&gt; Nature is its o▚n source of m//tion<br>V</p>
+            </span>
+        <!--COME BACK TO LOOK AT THIS-->
+        <p>As far as I can tell, this site could also have been found by looking at the web tools- one of the images is titled "SEARCH%AND%DISCOVER_edited".</p>
+        
+        
+        
+        <p>But they indicate that the site <a href="https://www.hotelsamsara.com/admin" target="_blank">www.hotelsamsara.com/admin</a> exists.<br>
+        Much later on, a "+" symbol became visible on the video of the hotel lobby/entrance in the bottom right corner. this leads to the admin login page.<br>
+        <hr>
+        <h3>Administrator Access</h3>
+        <p>There is a prompted password, which is LOOPED. Because the theme is samsara. I say how this was determined at the end. <br>
         It was also determined that combining all the bolded letters on the site yielded the word "<a href="https://en.wikipedia.org/wiki/Steganography" target="_blank">Steganograph</a>". Look that up if you want, but it's only thematically related for now.<br>  
         this gives a blue "terminal" theme with the text:</p>
         <blockquote>
@@ -205,7 +559,16 @@
             7<br>
             4</p>
         </blockquote>
-        <p>I don't know why.</p>
+        <p>That <strong>->8</strong> has to be a hint. If we look a bit closer at that image:</p>
+                    <span class="container visible">
+                <p class="hover-text"></p>
+                <img class="preview zoomable" src="images/-8.jpg" alt="Clouds ->8">
+            </span>
+        <p>If you squint, you can see the text:</p>
+        <blockquote>
+            <p>2 allies</p>
+        </blockquote>
+        
         <hr>
         <h3>ousia (1969234802.php) [O]</h3>
         <p>This is not an encoded title.</p>
@@ -261,6 +624,22 @@
                 playsinline
             ></video>
         </div>
+        <p>This video has audio! Which means that we can do a spectrogram, which yields:</p>
+        <span class="container visible">
+            <p class="hover-text"></p>
+                <img class="preview zoomable" src="images/birdmp4.png" alt="Bird.mp4 Spectrogram">
+        </span>
+        <p>So we can see the text:</p>
+        <blockquote>
+            <p>//* ras //*<br>
+            [ ♩ ^┗   ▚</p>
+        </blockquote>
+        <p>The first part probably means <em>erase</em>, while the second part is the code from the twitter page. This translates to:</p>
+        <blockquote>
+            <p>erase<br>
+            bird w</p>
+        </blockquote>
+        <p>I mean. Sure. We can come back to that later.</p>
         <p>Also commented here is:</p>
         <blockquote>
             <p><--3 extremely--></p>
@@ -333,45 +712,7 @@
             <p>3 garden</p>
         </blockquote>
         <hr>
-        <h3>Emails, lots of them.</h3>
-        <p>If you signed up for the mailing list, you had the chance to receive one of two (and eventually, three) emails.</p>
-        <p>1/2 is listed:</p>
-        <blockquote>
-            <p>	Investor Update<br>
-        (the clouds from the first O page)<br>
-        [name]<br>
-        Follow the signs--they will lead you to somewhere unlisted. Open doors with care, for some are not meant to be crossed.<br>
-        Lost time is the tax demanded by every visitor. Ledgers will not balance if you fail to account for what whispers.<br>
-        <br>
-        Overlays in the documents may appear corrupted, but they are deliberate. We trust you will recognize them as part of the investment process. Each fragment matters--do not discard what seems incomplete.</p>
-        </blockquote>
-        </blockquote>
-            <span class="container">
-                <p class="hover-text">(Hover for Source Image)</p>
-                <img class="preview zoomable" src="images/signs.png" alt="Signs Email">
-            </span>
-        <p>the bottom of the email apparently links to x, but it's linked with just <a href="https://x.com/***********__" target="_blank">https://x.com/***********__</a> as the url, so it doesn't actually lead anywhere.<br>
-        Additionally, the link first goes through the publisher's site, and later was changed to redirect to the intended final website.</p>
-        <p>Email 2/2:</p>
-        <blockquote>
-            <p>	Investor Update<br>
-        (more clouds)<br>
-        [name]<br>
-        Return often; the archive changes when observed. Some investors have already vanished between the reports.<br>
-        Once you see the pattern, you cannot unsee it.<br>
-        Forecasts will shift, though the outcome is certain._silence often conceals the loudest truths._and underneath it all, something continues to wait. </p>
-        </blockquote>
-        </blockquote>
-            <span class="container">
-                <p class="hover-text">(Hover for Source Image)</p>
-                <img class="preview zoomable" src="images/return.png" alt="Return Email">
-            </span>
-        <p>Because I did not get the emails myself, apparently combining the two emails properly provided the actual twitter site:</p>
-        <blockquote>
-            <a href="https://x.com/FollowersOf__/" target="_blank">https://x.com/FollowersOf__/</a>
-        </blockquote>
-        
-        <p>This was eventually used for the game's reveal videos, but additionally, there were links to some other locations.</p>
+        <h1>CHECK</h1>
         <p>There was later one additional email:</p>
         <blockquote>
             <p>	Password Reminder<br>
@@ -386,7 +727,7 @@
                 <p class="hover-text">(Hover for Source Image)</p>
                 <img class="preview zoomable" src="images/password.png" alt="Password Email">
             </span>
-        <p>this is where the password LOOPED was derived. </p>
+        <p>This one's a doozy.</p>
         <p>one of the links on the twitter page led to a soundcloud.It is no longer accessible at this time, but was analyzed in this post:</p>
         <blockquote>
             <p>	(edited) late night update about my conclusions on the soundcloud (<a href="https://soundcloud.com/followers-998484367" target="_blank">https://soundcloud.com/followers-998484367</a>) audio based on looking at this for a long time. i threw all the files into audacity and they seem to be part of a larger file. the proper way to assemble the files (original names from soundcloud file first, rot13 decoded names in parentheticals) to view all the images in the spectrogram is: _-oevqtr (bridge) => _-pbaarpg (connect) => _-gvr (tie) => _-wbva (join) => _-ovaq (bind) => _-gbtrgure (together)<br>
@@ -413,13 +754,12 @@
             <p>	1. national.<br>
             _1 added.__<br>
             2 snaps.<br>
+            2 allies<br>
             3. garden<br>
             &lt;!-- 3 extremely --&gt; </p>
         </blockquote>
         <p>(it seems like there might be pairings with and without a period??)</p>
         <p>I was just thinking about this because of the "FINAL PIECES ______" text earlier. I have a half-serious hunch that there's another admin code here that we need to find... but I don't know if that's the case.</p>
-        <p>There are probably more of these hidden numbered codes, and it's possible if the emails mean anything that there will be more added in time.</p>
-        <p>If those six underscores mean anything, maybe there are six words here, the problem being that what I've found scratches anywhere between 2.5 and 5 of them.</p>
         <p>If you're cheeky, you can kinda extrapolate the whole poem, though:</p>
         <blockquote>
             <p>To continue on the path of discovery you must understand,<br>
@@ -437,14 +777,21 @@
         <p>...</p>
         <hr>
         <h3>You thought I was done?</h3>
-        <p>Yeah. So there's Another site. Which I guess was decoded from the emails as well, though I don't have access to them anyways:</p>
         <h3 style="align-self: center;"><a href="https://eraseandbecome.com/">eraseandbecome.com</a></h3>
 
 
         <p>If you haven't already, check out the reveal video, too:</p>
-        <embed width="1309" height="687" src="https://www.youtube.com/embed/SmHnnvQQxaE" title="Frictional_Next_Project.mp4" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen style="width: 700px; height: 400px;"></embed>
+        <span class="container">
+            <p class="hover-text">HOVER TEXT</p>
+                <div class="overlay"></div>
+                    <embed class="preview zoomable" src="https://www.youtube.com/embed/SmHnnvQQxaE" title="Frictional_Next_Project.mp4" type="video/mp4" allowfullscreen>
+
+        </span>
         <p>There's a preeeety interesting sound near the end:</p>
-        <img src="images/thankyou.png" alt="Thank You Spectrogram" style="width: 200px; margin-left: 0px;">
+        <span class="container visible">
+            <p class="hover-text"></p>
+                <img class="preview zoomable" src="images/thankyou.png" alt="Thank You Spectrogram" style="width: 200px; margin-left: 0px;">
+        </span>
         <p>Thanks for checking this out.</p>
     </div>
 </body>

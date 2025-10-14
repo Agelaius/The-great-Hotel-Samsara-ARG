@@ -28,6 +28,7 @@ blockquote * {
 	padding-bottom: 0;
 	padding-left: 10px;
 	color: rgba(245, 245, 245, 0.8);
+	margin-top: -10px;
 }
 
 a {
@@ -43,11 +44,9 @@ pre {
 	font-size: 11pt;
 }
 
-blockquote span {
-	border: 0px;
-}
-
-blockquote a {
+blockquote span,
+blockquote a,
+blockquote strong {
 	border: 0px;
 }
 
@@ -77,24 +76,65 @@ img, embed, video {
     position: relative;
     margin: 15px;
 	margin-top: -10px;
+	width: fit-content;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    cursor: pointer;
+    background: transparent;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
 }
 
 /* Hide previews until hover (default) */
 .preview {
-    width: 400px;
+    width: 0;
     cursor: pointer;
     transition: transform 0.2s ease;
     opacity: 0;
-    visibility: hidden;
     position: absolute;
 }
 
+.zoomable.text-block {
+	box-sizing: border-box;
+    display: none;
+	overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 300px;
+	max-height: 200px;
+	border: 3px solid whitesmoke;
+	vertical-align: middle;
+	background-color: rgba(0, 0, 0, 0.85);
+	position: absolute;
+	margin-top: -10px;
+}
+
 /* Show on hover (default) */
+.container:hover .zoomable.text-block {
+    display: inline-block;
+	cursor: zoom-in;
+}
+
 .container:hover .preview {
     visibility: visible;
     opacity: 1;
     transform: scale(1.03);
     cursor: zoom-in;
+	width: 400px;
+}
+
+.container:hover .overlay {
+	transform: scale(1.03);
+    opacity: 1;
+    pointer-events: auto;
 }
 
 /* Override for .visible class */
@@ -102,6 +142,7 @@ img, embed, video {
     position: static;
     visibility: visible;
     opacity: 1;
+	width: 400px;
 }
 
 .container:not(.visible){
@@ -127,20 +168,52 @@ img, embed, video {
 }
 
 .modal-body {
-    max-width: 95%;
-    max-height: 90%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-} 
+	max-height: 80vh;
+	box-sizing: border-box;
+}
+
+.text-wrapper {
+    max-width: 80vw;
+    max-height: 80vh; 
+    overflow: auto; 
+    transform-origin: top left;
+	border: 3px solid whitesmoke;
+	background-color: rgba(0, 0, 0, 0.85);
+}
+
+.text-wrapper.embed-wrapper > embed,
+.text-wrapper.embed-wrapper > iframe,
+.text-wrapper.embed-wrapper > video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  max-width: 71vw;
+  max-height: 80vh;
+  object-fit: contain;
+}
+
+.embed-wrapper {
+	border: none;
+}
+
+.modal-body p {
+    color: whitesmoke;
+    padding: 20px;
+    overflow: auto;
+	max-width: 40vw;
+	font-family: monospace;
+	white-space: pre-wrap; 
+	word-break: break-word;
+}
 
 .modal-body img,
-.modal-body video {
+.modal-body video,
+.modal-body embed {
     display: block;
     width: auto;
     height: auto;
     max-width: 80vw;
-    max-height: 80vh;
     object-fit: contain;
-	box-sizing: border-box;
 }
+
+
