@@ -181,21 +181,6 @@ img, embed, video {
 	background-color: rgba(0, 0, 0, 0.85);
 }
 
-.text-wrapper.embed-wrapper > embed,
-.text-wrapper.embed-wrapper > iframe,
-.text-wrapper.embed-wrapper > video {
-  display: block;
-  width: 100%;
-  height: 100%;
-  max-width: 71vw;
-  max-height: 80vh;
-  object-fit: contain;
-}
-
-.embed-wrapper {
-	border: none;
-}
-
 .modal-body p {
     color: whitesmoke;
     padding: 20px;
@@ -215,5 +200,6 @@ img, embed, video {
     max-width: 80vw;
     object-fit: contain;
 }
+
 
 
