@@ -68,6 +68,11 @@ img, embed, video {
 	margin: auto;
 }
 
+embed {
+    min-width: 400px;
+    min-height: 224px;
+}
+
 /* CSS for image/video system */
 
 /* Container */
