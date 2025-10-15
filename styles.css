@@ -201,5 +201,17 @@ img, embed, video {
     object-fit: contain;
 }
 
-
+.modal-body iframe,
+.modal-body embed {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    max-width: 80vw;
+    max-height: 80vh;
+    object-fit: contain;
+    box-sizing: border-box;
+    border: 3px solid whitesmoke;
+    background-color: black;
+}
 
