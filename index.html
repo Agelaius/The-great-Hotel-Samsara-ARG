@@ -92,8 +92,18 @@
                         modalEl.autoplay = true;
                     } else if (el instanceof HTMLIFrameElement || el.tagName === 'EMBED') {
                         modalEl = document.createElement("embed");
-                        modalEl.src = el.src || el.getAttribute('src');
-                        modalEl.type = 'video/webm'; // or appropriate type
+                        let src = el.src || el.getAttribute('src');
+
+                        // Parse the URL
+                        let url = new URL(src);
+
+                        // Remove the autoplay and mute parameters
+                        url.searchParams.delete('controls');
+                        url.searchParams.delete('mute');
+
+                        // Reconstruct the URL
+                        modalEl.src = url.toString();
+                        modalEl.type = 'video/mp4'; // or appropriate type
                         modalEl.setAttribute('allowfullscreen', ''); // Enable fullscreen
                     } else if (el.classList.contains("text-block")) {
                         // Create a wrapper div for the text
@@ -760,7 +770,7 @@ I II III IIII<br>
         <span class="container visible">
             <p class="hover-text"></p>
                 <div class="overlay"></div>
-                    <embed class="preview zoomable" src="https://www.youtube.com/embed/SmHnnvQQxaE" title="Frictional_Next_Project.mp4" type="video/mp4" allowfullscreen>
+                    <embed class="preview zoomable" src="https://www.youtube.com/embed/SmHnnvQQxaE?loop=1&playlist=SmHnnvQQxaE&controls=0&autoplay=1&mute=1" title="Frictional_Next_Project.mp4" type="video/mp4" allowfullscreen>
         </span>
         <p>There's a preeeety interesting sound near the end:</p>
         <span class="container visible">
