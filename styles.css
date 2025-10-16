@@ -167,20 +167,38 @@ embed {
 }
 
 @media (max-width: 1255px) {
-  .sidebar {
+  .sidebar:not(.collapsed) {
     position: fixed;
     top: 8px;
     left: 10px;
     z-index: 10;
   }
-  #anti-sidebar {
+  #anti-sidebar:not(.collapsed) {
     position: fixed;
     top: 8px;
     right: 10px;
     z-index: 10;
   }
+
+  .main {
+    width: 95vw;
+  }
 }
 
+@media (max-width: calc(1255px - (400px - 21px))) {
+    .sidebar.collapsed {
+        position: fixed;
+        top: 8px;
+        left: 10px;
+        z-index: 10;
+    }
+    #anti-sidebar.collapsed {
+        position: fixed;
+        top: 8px;
+        right: 10px;
+        z-index: 10;
+    }
+}
 
 /* Image/Video System */
 

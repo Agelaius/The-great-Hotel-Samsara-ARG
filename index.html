@@ -28,6 +28,9 @@
                 }
             });
         });
+        $(window).scroll(function(){
+        $('#footpanel').css('left',-$(window).scrollLeft());
+        });
     </script>
 <!--Div for Modal Content-->
     <div id="mediaModal" class="modal">
