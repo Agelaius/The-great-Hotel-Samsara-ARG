@@ -140,6 +140,7 @@ embed {
     width: 21px;
     overflow: hidden;
     height: 130px;
+    padding: 0;
 }
 
 .sidebar.collapsed #sidebar-toggle {
