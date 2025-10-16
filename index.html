@@ -28,9 +28,25 @@
                 }
             });
         });
-        $(window).scroll(function(){
-        $('#footpanel').css('left',-$(window).scrollLeft());
-        });
+        function scaleMainContent() {
+            const main = document.querySelector('.main');
+            const windowWidth = window.innerWidth;
+            const initialWidth = 800; // Initial width of the main content from your CSS [T0](1)
+            let scaleFactor = windowWidth / initialWidth;
+
+            // Optionally, set a maximum scale factor
+            const maxScale = 1.0;
+            scaleFactor = Math.min(scaleFactor, maxScale);
+
+            if (main) {
+                main.style.transformOrigin = "50% 0";
+                main.style.transform = `scale(${scaleFactor})`;
+            }
+            }
+
+            // Call the function on load and resize
+            window.addEventListener('load', scaleMainContent);
+            window.addEventListener('resize', scaleMainContent);
     </script>
 <!--Div for Modal Content-->
     <div id="mediaModal" class="modal">
