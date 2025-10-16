@@ -9,6 +9,26 @@
 <body>
 <!--Script for Modal Content-->
     <script src="modals.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const sidebar = document.querySelector('.sidebar');
+            const antiSidebar = document.getElementById('anti-sidebar'); // Corrected selector
+            const toggleButton = document.getElementById('sidebar-toggle');
+
+            toggleButton.addEventListener('click', () => {
+                sidebar.classList.toggle('collapsed');
+                antiSidebar.classList.toggle('collapsed'); // Toggle class on anti-sidebar
+            });
+
+            sidebar.addEventListener('transitionend', () => {
+                if (sidebar.classList.contains('collapsed')) {
+                    sidebar.style.overflow = 'hidden';
+                } else {
+                    sidebar.style.overflow = 'scroll';
+                }
+            });
+        });
+    </script>
 <!--Div for Modal Content-->
     <div id="mediaModal" class="modal">
         <span class="close">&times;</span>
@@ -16,8 +36,30 @@
     </div>
 <!--Background Video-->
     <video id="background" src="video/loop.mp4" autoplay muted loop playsinline></video>
-<!--Main Content-->
-    <div class="all">
+<!--Sidebar-->
+    <div id="flex-wrapper">
+    <div class="sidebar">
+        <button id="sidebar-toggle">
+            <p>I<br>
+            N<br>
+            D<br>
+            E<br>
+            X<br>
+            &#8964;</p>
+        </button>
+        <div class="sidebar-content">
+            <h3>Index</h3>
+            <ul>
+                 <li><a href="#">1</a></li>
+                <li><a href="#">1</a></li>
+                <li><a href="#">1</a></li>
+                <li><a href="#">1</a></li>
+            </ul>
+            <p>hi</p>
+        </div>
+    </div>
+    <!--Main Content-->
+    <div class="main">
         <h1>So, Frictional games made another ARG.</h1>
         <p>It's true! There's a new ARG. At this point A lot has been put forward already, but it's worth taking a real good look. There's not going to be too much analysis here, for now... but let's walk through what can be seen, shall we?</p>
         <p>There was a patch to SOMA on September 22, 2025, with the listed patch notes: </p>
@@ -116,7 +158,7 @@
         </blockquote>
         
         <p><strong>Looking at this now might spoil some of the fun</strong>- this was eventually used for the game's reveal, and has a lot of newer content now.</p>
-        <p>The page's content is largely garbled, but could be translated using a few clues.</p>
+        <p>The account's posts are largely scrambled, but could be translated using a few clues.</p>
         <p>First and foremost: the twitter page uses the same symbol-to letter code for every tweet across the page. This could be assembled into a dictionary:</p>
         <blockquote>
             <p>// = e, o, a<br>
@@ -393,9 +435,9 @@ I II III IIII<br>
 &lt;/div&gt;</pre>
         </blockquote>
         <p>Therefore, it doesn't show up as anything, and the background remains blank. I tried to use the source for the video on the hotel website, but nothing happened.<br>
-        It's possible that that was just user error, however. I would presume that there might be a video on the theantandthebird website that could be used here, but I haven't found it.</p>
+        There might be a video on the theantandthebird website that could be used here, but I haven't found it.</p>
         <p>Addendum:<br>
-        the syntax on the video element is wrong, it doesn't need the ="" qualifiers, technically. Removing the muted segment and adding bird.mp4 to the source yields:</p>
+        The bird on the screen, on second thought, does suggest that there might be a bird.mp4, or something. I don't think the <em>=""</em> on each variable to the video element is neccessary- I remove them here, along with the muted variable entirely. You end up with this clip:</p>
         <div class="container visible">
             <p class="hover-text"></p>
             <video 
@@ -407,7 +449,7 @@ I II III IIII<br>
                 playsinline
             ></video>
         </div>
-        <p>This video has audio! Which means that we can do a spectrogram, which yields:</p>
+        <p>Because the video is in the root of the site, rather than, say, in a video folder (which would change the source syntax to video/bird/mp4, for example), I assume that this is the intended method to figure this out. This video has audio! Which means that we can do a spectrogram, which yields:</p>
         <span class="container visible">
             <p class="hover-text"></p>
                 <img class="preview zoomable" src="images/birdmp4.png" alt="Bird.mp4 Spectrogram">
@@ -575,6 +617,8 @@ I II III IIII<br>
                 <img class="preview zoomable" src="images/thankyou.png" alt="Thank You Spectrogram" style="width: 200px; margin-left: 0px;">
         </span>
         <p>Thanks for checking this out.</p>
+    </div>
+    <div id="anti-sidebar"></div>
     </div>
 </body>
 </html>

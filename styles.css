@@ -3,10 +3,11 @@ body {
   font-size: 150%;
 }
 
-.all {
-	display: flex;
-	flex-direction: column;
-	width: 800px;
+.main {
+    max-width: 800px;
+    flex: 0 0 auto;
+    order: 2;
+    width: 800px;
 	font-family: monospace;
 	color: whitesmoke;
 	background-color: black;
@@ -15,8 +16,7 @@ body {
 	border: 3px whitesmoke;
 	border-style: solid;
 	border-color: whitesmoke;
-	margin: auto;
-	}
+}
 
 blockquote * {
 	background-clip: padding-box;
@@ -73,7 +73,113 @@ embed {
     min-height: 224px;
 }
 
-/* CSS for image/video system */
+/* Sidebar Styling */
+
+#flex-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: start;
+}
+
+.sidebar {
+    position: sticky;
+    top: 8px;
+    font-family: monospace;
+	color: whitesmoke;
+    width: 200px;
+    height: 60vh;
+    background-color: black;
+    padding: 20px;
+    margin-right: 20px;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+    border: 3px solid whitesmoke;
+    overflow: scroll;
+    order: 1;
+}
+
+#anti-sidebar {
+    position: sticky;
+    top: 8px;
+    width: 200px;
+    height: 60vh;
+    padding: 20px;
+    margin-left: 20px;
+    box-sizing: border-box;
+    order: 3;
+    transition: all 0.3s ease;
+}
+
+.sidebar-content {
+    padding: 10px;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar li {
+    margin-bottom: 10px;
+}
+
+.sidebar a {
+    text-decoration: none;
+    color: #333;
+}
+
+.sidebar.collapsed {
+    width: 21px;
+    overflow: hidden;
+    height: 130px;
+    padding: 0;
+    background-color: whitesmoke;
+}
+
+#anti-sidebar.collapsed {
+    width: 21px;
+    overflow: hidden;
+    height: 130px;
+}
+
+.sidebar.collapsed #sidebar-toggle {
+    top: 0;
+    right: 0;
+}
+
+.sidebar.collapsed .sidebar-content {
+    display: none;
+}
+
+#sidebar-toggle {
+    position: absolute;
+    top: 11px;
+    right: 11px;
+    border: none;
+    font-size: 10pt;
+    cursor: ew-resize;
+    transition: all 0.3s ease;
+    background-color: white;
+    font-family: monospace;
+}
+
+@media (max-width: 1255px) {
+  .sidebar {
+    position: fixed;
+    top: 8px;
+    left: 10px;
+    z-index: 10;
+  }
+  #anti-sidebar {
+    position: fixed;
+    top: 8px;
+    right: 10px;
+    z-index: 10;
+  }
+}
+
+
+/* Image/Video System */
 
 /* Container */
 .container {
