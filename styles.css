@@ -134,6 +134,7 @@ embed {
     height: 130px;
     padding: 0;
     background-color: whitesmoke;
+    margin-right: 10px;
 }
 
 #anti-sidebar.collapsed {
@@ -141,6 +142,7 @@ embed {
     overflow: hidden;
     height: 130px;
     padding: 0;
+    margin-left: 10px;
 }
 
 .sidebar.collapsed #sidebar-toggle {
