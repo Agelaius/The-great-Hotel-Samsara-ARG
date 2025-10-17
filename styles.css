@@ -128,7 +128,7 @@ embed {
 }
 
 .sidebar.collapsed {
-    width: 21px;
+    width: 23px;
     overflow: hidden;
     height: 130px;
     padding: 0;
@@ -137,7 +137,7 @@ embed {
 }
 
 #anti-sidebar.collapsed {
-    width: 21px;
+    width: 23px;
     overflow: hidden;
     height: 130px;
     padding: 0;
@@ -161,7 +161,7 @@ embed {
     font-size: 10pt;
     cursor: ew-resize;
     transition: all 0.3s ease;
-    background-color: white;
+    background-color: whitesmoke;
     font-family: monospace;
 }
 
