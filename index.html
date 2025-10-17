@@ -7,47 +7,11 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+
 <!--Script for Modal Content-->
-    <script src="modals.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const sidebar = document.querySelector('.sidebar');
-            const antiSidebar = document.getElementById('anti-sidebar'); // Corrected selector
-            const toggleButton = document.getElementById('sidebar-toggle');
-
-            toggleButton.addEventListener('click', () => {
-                sidebar.classList.toggle('collapsed');
-                antiSidebar.classList.toggle('collapsed'); // Toggle class on anti-sidebar
-            });
-
-            sidebar.addEventListener('transitionend', () => {
-                if (sidebar.classList.contains('collapsed')) {
-                    sidebar.style.overflow = 'hidden';
-                } else {
-                    sidebar.style.overflow = 'scroll';
-                }
-            });
-        });
-        function scaleMainContent() {
-            const main = document.querySelector('.main');
-            const windowWidth = window.innerWidth;
-            const initialWidth = 800; // Initial width of the main content from your CSS [T0](1)
-            let scaleFactor = windowWidth / initialWidth;
-
-            // Optionally, set a maximum scale factor
-            const maxScale = 1.0;
-            scaleFactor = Math.min(scaleFactor, maxScale);
-
-            if (main) {
-                main.style.transformOrigin = "50% 0";
-                main.style.transform = `scale(${scaleFactor})`;
-            }
-            }
-
-            // Call the function on load and resize
-            window.addEventListener('load', scaleMainContent);
-            window.addEventListener('resize', scaleMainContent);
-    </script>
+    <script src="script/modals.js"></script>
+<!--Script for Sidebar Content-->
+    <script src="script/sidebar-mainscalar.js"></script>
 <!--Div for Modal Content-->
     <div id="mediaModal" class="modal">
         <span class="close">&times;</span>
