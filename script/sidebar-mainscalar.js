@@ -2,10 +2,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const sidebar = document.querySelector('.sidebar');
     const antiSidebar = document.getElementById('anti-sidebar');
     const toggleButton = document.getElementById('sidebar-toggle');
+    const toggleButton2 = document.getElementById('sidebar-toggle2');
     toggleButton.addEventListener('click', () => {
         sidebar.classList.toggle('collapsed');
         antiSidebar.classList.toggle('collapsed');
     });
+    if (toggleButton2) {
+      toggleButton2.addEventListener('click', () => {
+          sidebar.classList.toggle('collapsed');
+          antiSidebar.classList.toggle('collapsed');
+      });
+    }
     sidebar.addEventListener('transitionend', () => {
         if (sidebar.classList.contains('collapsed')) {
             sidebar.style.overflow = 'hidden';

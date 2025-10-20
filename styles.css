@@ -72,6 +72,54 @@ embed {
     min-height: 224px;
 }
 
+/* Text Blinking */
+@keyframes blink {
+    0% {
+        opacity: .2;
+    }
+    50% {
+        opacity: 0;
+    }
+    100% {
+        opacity: .2s;
+    }
+}
+
+.blinking-text {
+    display: inline-block;
+    margin-left: 3px;
+    animation: blink 1s steps(1) infinite;
+}
+
+/* Fancy <details> Animation */
+details summary {
+    cursor: pointer;
+    transition: margin 150ms ease-out;
+}
+
+details[open] summary {
+    margin-bottom: 10px;
+}
+
+details summary {
+    list-style: none;
+    position: relative;
+    cursor: pointer;
+    display: flex;
+    align-items: flex-start;
+}
+
+details summary::before {
+    content: '˃';
+    display: inline-block;
+    margin-right: 5px;
+    transition: transform 0.2s ease-in-out;
+}
+
+details[open] summary::before {
+    transform: rotate(90deg);
+}
+
 /* Sidebar Styling */
 #flex-wrapper {
     display: flex;
@@ -111,6 +159,13 @@ embed {
 
 .sidebar-content {
     padding: 10px;
+    margin-top: -40px;
+    margin-left: -15px;
+}
+
+.sidebar-header {
+    margin-bottom: -15px;
+    padding-bottom: 10px;
 }
 
 .sidebar ul {
@@ -124,7 +179,16 @@ embed {
 
 .sidebar a {
     text-decoration: none;
-    color: #333;
+    color: rgba(245, 245, 245, 0.65);
+}
+
+.sidebar-content ul {
+    font-size: 13.5pt;
+}
+
+.sidebar-content ul li details ul li {
+    list-style: none;
+    margin-left: 0px;
 }
 
 .sidebar.collapsed {
@@ -155,14 +219,26 @@ embed {
 
 #sidebar-toggle {
     position: absolute;
-    top: 11px;
-    right: 11px;
+    top: 10px;
+    right: 10px;
     border: none;
     font-size: 10pt;
     cursor: ew-resize;
     transition: all 0.3s ease;
     background-color: whitesmoke;
     font-family: monospace;
+}
+
+#sidebar-toggle2 {
+    position: absolute;
+    height: 145px;
+    width: 40px;
+    top: 0px;
+    right: 0px;
+    cursor: ew-resize;
+    transition: all 0.3s ease;
+    background-color: transparent;
+    border: none;
 }
 
 @media (max-width: 1255px) {
@@ -199,8 +275,6 @@ embed {
 }
 
 /* Image/Video System */
-
-/* Container */
 .container {
     display: inline-block;
     position: relative;
@@ -223,7 +297,6 @@ embed {
     transition: opacity 0.2s ease;
 }
 
-/* Hide previews until hover (default) */
 .preview {
     width: 0;
     cursor: pointer;
@@ -247,7 +320,6 @@ embed {
 	margin-top: -10px;
 }
 
-/* Show on hover (default) */
 .container:hover .zoomable.text-block {
     display: inline-block;
 	cursor: zoom-in;
@@ -267,7 +339,6 @@ embed {
     pointer-events: auto;
 }
 
-/* Override for .visible class */
 .container.visible .preview {
     position: static;
     visibility: visible;
@@ -279,7 +350,6 @@ embed {
     margin-top: -30px;
 }
 
-/* Modal styling */
 .modal {
     display: none;
     position: fixed;

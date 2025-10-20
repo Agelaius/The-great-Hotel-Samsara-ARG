@@ -22,6 +22,7 @@
 <!--Sidebar-->
     <div id="flex-wrapper">
     <div class="sidebar">
+        <button id="sidebar-toggle2"></button>
         <button id="sidebar-toggle">
             <p>I<br>
             N<br>
@@ -31,10 +32,27 @@
             &#8964;</p>
         </button>
         <div class="sidebar-content">
-            <h3>Index</h3>
+            <h3 class="sidebar-header">I N D E X<span class="blinking-text">&#129927;</span></h3>
             <ul>
-                 <li><a href="#">1</a></li>
-                <li><a href="#">1</a></li>
+                <li><details>
+                    <summary><a href="#intro">Hotel Samsara</a></summary>
+                    <ul class="details-contents">
+                        <li><a href="#emails"><span>&rdsh;</span>Emails</a></li>
+                        <li><a href="#followers"><span>&rdsh;</span>FollowersOf__</a></li>
+                    </ul>
+                </details></li>
+                <li><a href="#admin">Admin Access</a></li>
+                <li><details>
+                    <summary><a href="#antandbird">The Ant and the Bird</a></summary>
+                    <ul class="details-contents">
+                        <li><a href="#--wofzpz--"><span>&rdsh;</span>--wofzpz--</a></li>
+                        <li><a href="#__bagbf__"><span>&rdsh;</span>__bagbf__</a></li>
+                        <li><a href="#ousia"><span>&rdsh;</span>ousia</a></li>
+                        <li><a href="#****-0071_"><span>&rdsh;</span>****-0071_</a></li>
+                        <li><a href="#_ERGON_"><span>&rdsh;</span>_ERGON_</a></li>
+                        <li><a href="#dynamis"><span>&rdsh;</span>dynamis</a></li>
+                    </ul>
+                </details></li>
                 <li><a href="#">1</a></li>
                 <li><a href="#">1</a></li>
             </ul>
@@ -42,7 +60,7 @@
         </div>
     </div>
     <!--Main Content-->
-    <div class="main">
+    <div class="main" id="intro">
         <h1>So, Frictional games made another ARG.</h1>
         <p>It's true! There's a new ARG. At this point A lot has been put forward already, but it's worth taking a real good look. There's not going to be too much analysis here, for now... but let's walk through what can be seen, shall we?</p>
         <p>There was a patch to SOMA on September 22, 2025, with the listed patch notes: </p>
@@ -76,13 +94,13 @@
             </span>
         <p>In it was a coded link to the website <a href="https://www.hotelsamsara.com" target="_blank">www.hotelsamsara.com</a>, determined by using the missing letters as a dictionary for the final code.<br>
         So, <a href="https://www.hotelsamsara.com" target="_blank">www.hotelsamsara.com</a> has its fair share of secrets, but it also has a mailing list! Not everyone gets the emails. Personally, I got none!<br>
-        <hr>
+        <hr id="emails">
         <h3>Emails, lots of them.</h3>
         <p>If you signed up for the mailing list, you had the chance to receive one of two (and eventually, three) emails. Which one you received was based on a choice you could make during registration, being:</p>
         <blockquote>
             <p>One of many</p>
         </blockquote>
-        <p style="margin-top: -40px;margin-bottom: -30px;">or</p>
+        <p style="margin-top: -10px;margin-bottom: -10px;">or</p>
         <blockquote>
             <p style="margin-top: 10px;">One of few</p>
         </blockquote>
@@ -137,10 +155,11 @@
         </blockquote>
         <p>Looking back at that broken link, you can substitute this in:</p>
         <blockquote>
-            <a href="https://x.com/FollowersOf__/" target="_blank">https://x.com/FollowersOf__/</a>
+            <p><a href="https://x.com/FollowersOf__/" target="_blank">https://x.com/FollowersOf__/</a></p>
         </blockquote>
-        
-        <p><strong>Looking at this now might spoil some of the fun</strong>- this was eventually used for the game's reveal, and has a lot of newer content now.</p>
+        <hr id="followers">
+        <h2>FollowersOf__</h2>
+        <p><em><strong style="font-weight: 2000;">Looking at this now might spoil some of the fun</strong></em>- this was eventually used for the game's reveal, and has a lot of newer content now.</p>
         <p>The account's posts are largely scrambled, but could be translated using a few clues.</p>
         <p>First and foremost: the twitter page uses the same symbol-to letter code for every tweet across the page. This could be assembled into a dictionary:</p>
         <blockquote>
@@ -281,6 +300,12 @@ I II III IIII<br>
 &lt;&gt; &lt;&lt;5/6_FIL//*S_TRANSFE^RED_SU*CESSFULLY&gt;&gt;<br>
 &lt;&gt; Nature is its o▚n source of m//tion<br>V</p>
             </span>
+
+
+
+
+
+
         <!--COME BACK TO LOOK AT THIS-->
         <p>As far as I can tell, this site could also have been found by looking at the web tools- one of the images is titled "SEARCH%AND%DISCOVER_edited".</p>
         
@@ -288,7 +313,7 @@ I II III IIII<br>
         
         <p>But they indicate that the site <a href="https://www.hotelsamsara.com/admin" target="_blank">www.hotelsamsara.com/admin</a> exists.<br>
         Much later on, a "+" symbol became visible on the video of the hotel lobby/entrance in the bottom right corner. this leads to the admin login page.<br>
-        <hr>
+        <hr id="admin">
         <h3>Administrator Access</h3>
         <p>There is a prompted password, which is LOOPED. Because the theme is samsara. I say how this was determined at the end. <br>
         It was also determined that combining all the bolded letters on the site yielded the word "<a href="https://en.wikipedia.org/wiki/Steganography" target="_blank">Steganograph</a>". Look that up if you want, but it's only thematically related for now.<br>  
@@ -324,15 +349,15 @@ I II III IIII<br>
         </blockquote>
         <p>As proof of how deep this ARG is, the word POOL is the opposite of LOOP. The password was LOOPED!! It's not a lake.<br>
         Seriously, though, there's a fair bit about A. gambling, and B. karma. Maybe there's a sort of super-secret thing going on here where they're pooling karma into one big karmic stockpile. And that's what Felix is using to get all his good fortune.</p>
-        <p>From this point on, the rest of this site is a notebook of sorts cataloguing information from the ARG, with no particular end goal. I could include an image for each page as a sort of hover thingamabob... but I'm lazy. I encourage looking along on the site yourself!</p>
+        <p id="antandbird">From this point on, the rest of this section is a catalogue of information from the antandbird website. I could include an image for each page as a sort of hover thingamabob... but I'm lazy. I encourage looking along on the site yourself!</p>
         <p>if it bears any importance, all of these pages use the same stylesheet:</p>
         <blockquote>
             <p>92300932.css</p>
         </blockquote>     
         <p>Any page-specific css is in-line.</p>
             <p>For future reference, each of these headers will contain first the title of the page, followed by the file of the URL, followed by the page selection (in POOLED). </p>
-        <h3 style="align-self: center;"><a href="https://theantandthebird.com" target="_blank">theantandthebird.com</a></h3>
-        <hr>
+            <h3 style="text-align: center;"><a href="https://theantandthebird.com" target="_blank">theantandthebird.com</a></h3>
+        <hr id="--wofzpz--">
         <h3>--wofzpz-- (2572324293.php) [P] </h3>
         <p>The title is a cipher for physis.</p>
         <p>The words:</p>
@@ -353,7 +378,7 @@ I II III IIII<br>
             <p>To continue on the path of discovery you must understand,</p>
         </blockquote>
         <p>It doesn't go anywhere from there though, it seems, as the rest just repeats.</p>
-        <hr>
+        <hr id="__bagbf__">
         <h3>__bagbf__ (4145461434.php) [O] </h3>
         <p>The title is a cipher for Ontos.</p>
         <p>Clouds scroll vertically upwards. need to analyze images, but it seems to just be playing into the bird/sky motif. </p>
@@ -377,7 +402,7 @@ I II III IIII<br>
             <p>2 allies</p>
         </blockquote>
         
-        <hr>
+        <hr id="ousia">
         <h3>ousia (1969234802.php) [O]</h3>
         <p>This is not an encoded title.</p>
         <p>There is an ASCII bird here:</p>
@@ -452,12 +477,12 @@ I II III IIII<br>
         <blockquote>
             <p><--3 extremely--></p>
         </blockquote>
-        <hr>
+        <hr id="****-0071_">
         <h3>****-0071_ (logos-0071.php) [L]</h3>
         <p>This doesn't appear to be a coded title, either. </p>
         <p>This is just a midi synthesizer with an image of stars (logos.jpg) below it.</p>
         <p>I'm too lazy to look at the i    mage any closer. I couldn't find anything myself, but you could take a look.</p>
-        <hr>
+        <hr id="_ERGON_">
         <h3>_ERGON_ (2206082065.php) [E]</h3>
         <p>The background changes on a set sequence every ten seconds:</p>
         <blockquote>
@@ -474,7 +499,7 @@ I II III IIII<br>
             <p>2 snaps.</p>
         </blockquote>
         <p>Appears at the bottom of the page.</p>
-        <p>Additionally, cropped squares of a picture of an ant appear at the location of the cursor. They are not cleared, regardless of the number placed. The ants can overlay the "2 snaps" text. The images seem to just have nonsensical names. They might be of developers, or supporters.</p>
+        <p>Additionally, cropped squares of a picture of an ant appear at the location of the cursor. They are not cleared, regardless of the number placed. The ants can overlay the "2 snaps" text. The images seem to just have random names pulled from the Frictional Games <a href="https://discord.com/invite/frictionalgames" target="_blank">Discord</a> server.</p>
         <blockquote>
             <p>magnecy1<br>
             steph<br>
@@ -499,7 +524,7 @@ I II III IIII<br>
             Nanook</p>
         </blockquote>
         <p>The images are chosen randomly, without sequence.</p>
-        <hr>
+        <hr id="dynamis">
         <h3>dynamis (the text is "corrupted") [D]</h3>
         <p>This is the landing page for theantandthebird.com. Because this is the last site on the drop-down, maybe this is supposed to indicate DELOOP being the intended reading... Or something.
         the page is configured like a smeared asterisk, with the text:</p>
