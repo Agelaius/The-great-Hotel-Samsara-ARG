@@ -146,6 +146,7 @@ details[open] summary .arrow::before {
     transition: all 0.3s ease;
     border: 3px solid whitesmoke;
     overflow: scroll;
+    overflow-x: hidden;
     order: 1;
     -ms-overflow-style: none;
     scrollbar-width: none;
@@ -153,6 +154,8 @@ details[open] summary .arrow::before {
 
 .sidebar::-webkit-scrollbar { 
     display: none;
+    width: 0;
+    background: transparent;
 }
 
 #anti-sidebar {
