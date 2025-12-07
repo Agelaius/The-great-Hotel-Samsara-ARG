@@ -147,6 +147,12 @@ details[open] summary .arrow::before {
     border: 3px solid whitesmoke;
     overflow: scroll;
     order: 1;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.sidebar::-webkit-scrollbar { 
+    display: none;
 }
 
 #anti-sidebar {
