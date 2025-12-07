@@ -473,7 +473,7 @@ details[open] summary .arrow::before {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-top: 10px;
+    margin-top: 15px;
     margin-bottom: 0px;
 }
 
@@ -506,6 +506,8 @@ details[open] summary .arrow::before {
     position: relative;
     padding: 8px 0;
     margin: -8px 0;
+    margin-top: -5px;
+    margin-left: 6px;
 }
 
 .volume-slider::-webkit-slider-thumb {
@@ -556,6 +558,7 @@ details[open] summary .arrow::before {
 }
 
 .time-display {
+    margin-top: 1px;
     font-size: 0.8em;
 }
 
