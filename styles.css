@@ -109,14 +109,19 @@ details summary {
     align-items: flex-start;
 }
 
-details summary::before {
+details summary .arrow-wrapper {
+    padding: 10px;
+    margin: -10px;
+}
+
+details summary .arrow::before {
     content: '˃';
     display: inline-block;
     margin-right: 5px;
     transition: transform 0.2s ease-in-out;
 }
 
-details[open] summary::before {
+details[open] summary .arrow::before {
     transform: rotate(90deg);
 }
 
@@ -189,6 +194,11 @@ details[open] summary::before {
 .sidebar-content ul li details ul li {
     list-style: none;
     margin-left: 0px;
+}
+
+.sidebar-content ul li details ul li a span {
+    margin-right: 5px;
+    color: whitesmoke;
 }
 
 .sidebar.collapsed {
@@ -378,7 +388,7 @@ details[open] summary::before {
     overflow: auto; 
     transform-origin: top left;
 	border: 3px solid whitesmoke;
-	background-color: rgba(0, 0, 0, 0.85);
+	background-color: rgba(0, 0, 0, 0.97);
 }
 
 .modal-body p {
@@ -415,3 +425,146 @@ details[open] summary::before {
     background-color: black;
 }
 
+/* Audio Player */
+.audio-player {
+    width: 300px;
+    border: 3px solid whitesmoke;
+    padding: 10px;
+}
+
+.audio-title {
+    margin-top: -2px;
+    margin-bottom: 15px;
+}
+
+.progress-bar-container {
+    width: 99%;
+    height: 1px;
+    background-color: none;
+    cursor: pointer;
+    margin-bottom: 10px;
+    position: relative;
+    overflow: hidden;
+    padding: 8px 0;
+    margin: -8px 0;
+    border: 3px solid whitesmoke;
+}
+
+.progress-bar {
+    height: 100%;
+    background-color: indianred;
+    position: absolute;
+    top: 0px;
+    left: 0;
+    pointer-events: none;
+}
+
+.progress-knob {
+    position: absolute;
+    top: 0px;
+    width: 9px;
+    height: 30px;
+    background-color: whitesmoke;
+    pointer-events: auto;
+    left: -2px;
+}
+
+.controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+    margin-bottom: 0px;
+}
+
+.play-pause-button {
+    background: none;
+    border: none;
+    font-size: 1.3em;
+    cursor: pointer;
+    width: 24px;
+    text-align: center;
+    display: inline-block;
+    color: whitesmoke;
+    margin-top: -3px;
+    margin-left: -5px;
+}
+
+.volume-control {
+    display: flex;
+    align-items: center;
+}
+
+.volume-slider {
+    width: 80px;
+    margin-left: 5px;
+    -webkit-appearance: none;
+    appearance: none;
+    background: transparent;
+    cursor: pointer;
+    height: 0px;
+    position: relative;
+    padding: 8px 0;
+    margin: -8px 0;
+}
+
+.volume-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+.volume-slider::-moz-range-thumb {
+    -moz-appearance: none;
+    appearance: none;
+}
+
+.volume-slider::before {
+    content: '';
+    position: absolute;
+    top: 8px;
+    left: 0;
+    height: 8px;
+    width: 100%;
+    background-color: #eee;
+    border-radius: 0px;
+    z-index: -1;
+}
+
+.volume-slider::-webkit-slider-thumb {
+    width: 4px;
+    height: 16px;
+    background-color: whitesmoke;
+    cursor: pointer;
+    border: none;
+    appearance: none;
+    -webkit-appearance: none;
+    position: relative;
+    border-radius: 0px;
+
+}
+
+    .volume-slider::-moz-range-thumb {
+    width: 4px;
+    height: 16px;
+    background-color: whitesmoke;
+    cursor: pointer;
+    border: none;
+    appearance: none;
+    -moz-appearance: none;
+    position: relative;
+    border-radius: 0px;
+}
+
+.time-display {
+    font-size: 0.8em;
+}
+
+.volume-slider::-webkit-slider-runnable-track {
+    background: whitesmoke;
+    height: 3px;
+}
+
+.volume-slider::-moz-range-track {
+    background: whitesmoke;
+    height: 3px;
+}

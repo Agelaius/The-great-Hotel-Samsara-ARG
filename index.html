@@ -12,6 +12,8 @@
     <script src="script/modals.js"></script>
 <!--Script for Sidebar Content-->
     <script src="script/sidebar-mainscalar.js"></script>
+<!--Script for Audio Player-->
+    <script src="script/audioplayer.js"></script>
 <!--Div for Modal Content-->
     <div id="mediaModal" class="modal">
         <span class="close">&times;</span>
@@ -35,15 +37,26 @@
             <h3 class="sidebar-header">I N D E X<span class="blinking-text">&#129927;</span></h3>
             <ul>
                 <li><details>
-                    <summary><a href="#intro">Hotel Samsara</a></summary>
+                    <summary>
+                        <span class="arrow-wrapper">
+                            <span class="arrow"></span>
+                        </span>
+                        <a href="#intro">Hotel Samsara</a>
+                    </summary>
                     <ul class="details-contents">
                         <li><a href="#emails"><span>&rdsh;</span>Emails</a></li>
                         <li><a href="#followers"><span>&rdsh;</span>FollowersOf__</a></li>
+                        <li><a href="#soundcloud"><span>&rdsh;</span>Soundcloud</a></li>
                     </ul>
                 </details></li>
                 <li><a href="#admin">Admin Access</a></li>
                 <li><details>
-                    <summary><a href="#antandbird">The Ant and the Bird</a></summary>
+                    <summary>
+                        <span class="arrow-wrapper">
+                            <span class="arrow"></span>
+                        </span>
+                        <a href="#antandbird">The Ant and the Bird</a>
+                    </summary>
                     <ul class="details-contents">
                         <li><a href="#--wofzpz--"><span>&rdsh;</span>--wofzpz--</a></li>
                         <li><a href="#__bagbf__"><span>&rdsh;</span>__bagbf__</a></li>
@@ -300,13 +313,42 @@ I II III IIII<br>
 &lt;&gt; &lt;&lt;5/6_FIL//*S_TRANSFE^RED_SU*CESSFULLY&gt;&gt;<br>
 &lt;&gt; Nature is its o▚n source of m//tion<br>V</p>
             </span>
-
-
-
-
-
-
-        <!--COME BACK TO LOOK AT THIS-->
+        <p>Additionally, there was an image in one of the posts, with accompanied text that fairly clearly says 'SEEK':</p>
+                <span class="container visible">
+            <p class="hover-text"></p>
+                <img class="preview zoomable" src="images/seektweetmain.png" alt="Bird.mp4 Spectrogram">
+        </span>
+        <div></div>
+            <span class="container">
+            <p class="hover-text">(Hover for Source Image)</p>
+                <img class="preview zoomable" src="images/seektweet.png" alt="Return Email">
+            </span>
+        <hr id="soundcloud">
+        <h3>Soundcloud</h3>
+        <p>You might have noticed while skimming that there were was a URL to a soundcloud in those posts.</p>
+        <blockquote>
+            <p><a href="https://soundcloud.com/followers-998484367" target="_blank">https://soundcloud.com/followers-998484367</a></p>
+        </blockquote>
+        <p>Initially, there were six songs posted to the site, with each having a title translateable in ROT13:</p>
+        <div class="audio-player" data-audio-src="audio/_-gbtrgure.mp3" data-audio-title="_-gbtrgure.mp3 (_-together)">
+            <div class="audio-title"></div>
+            <div class="progress-bar-container">
+                <div class="progress-bar">
+                    <div class="progress-knob"></div>
+                </div>
+            </div>
+            <div class="controls">
+                <button class="play-pause-button">▶</button>
+                <div class="volume-control">
+                    <label for="volume">Volume:</label>
+                    <input type="range" id="volume" class="volume-slider" min="0" max="1" step="0.01" value="1">
+                </div>
+                <div class="time-display">
+                    <span class="current-time">0:00</span> / <span class="total-time">0:00</span>
+                </div>
+            </div>
+        </div>
+                <!--COME BACK TO LOOK AT THIS-->
         <p>As far as I can tell, this site could also have been found by looking at the web tools- one of the images is titled "SEARCH%AND%DISCOVER_edited".</p>
         
         
@@ -561,25 +603,6 @@ I II III IIII<br>
                 <img class="preview zoomable" src="images/password.png" alt="Password Email">
             </span>
         <p>This one's a doozy.</p>
-        <p>one of the links on the twitter page led to a soundcloud.It is no longer accessible at this time, but was analyzed in this post:</p>
-        <blockquote>
-            <p>	(edited) late night update about my conclusions on the soundcloud (<a href="https://soundcloud.com/followers-998484367" target="_blank">https://soundcloud.com/followers-998484367</a>) audio based on looking at this for a long time. i threw all the files into audacity and they seem to be part of a larger file. the proper way to assemble the files (original names from soundcloud file first, rot13 decoded names in parentheticals) to view all the images in the spectrogram is: _-oevqtr (bridge) => _-pbaarpg (connect) => _-gvr (tie) => _-wbva (join) => _-ovaq (bind) => _-gbtrgure (together)<br>
-            <br>
-            see here for the all the files merged into one spectrogram so its a bit easier to read: <a href="https://imgur.com/21hjoYO" target="_blank">https://imgur.com/21hjoYO</a><br>
-            <br>
-            notably, there are several words in here, which can be found better identified by modulating the Hz range you're looking at and zoomed in on (in audacity at least). from left to right they are "STEP" (in reverse), "erase", "BIN", "SEEK", "discover", "BEYOND". i've highlighted them on the spectrogram for each word i was able to find for anyone who needs help seeing them: <a href="https://imgur.com/a/5h56wXq" target="_blank">https://imgur.com/a/5h56wXq</a><br>
-            <br>
-            i did analyze the spectrogram from the muted mp4 on the website, and there is nothing odd in it that i can see. (i will openly admit i may have missed things, and it looks like there's uh......some sort of friend in the soundcloud spectrograms who isn't a word and i have no idea what that is. i encourage you to dl the files and analyze them yourself if you can!)<br>
-            <br>
-            from here, i've been trying to puzzle things together based on the twitter account (<a href="https://x.com/FollowersOf__/" target="_blank">https://x.com/FollowersOf__/</a>) so far. no luck on where any of these words can be applied yet. i've already checked if they're hidden pages on the website - no dice. the twitter has posted several more cryptic posts tho, which are missing letters in each phrase and seem like an out of order speech or thought across multiple tweets. likely they fit together somehow. also, my crackpot theory is that "bin" may be referencing .bin files and pointing us towards something with binary. though it could just as likely be bind.<br>
-            <br>
-            o7 thanks and have fun everyone</p>
-        </blockquote>
-            <span class="container">
-                <p class="hover-text">(Hover for Source Image)</p>
-                <img class="preview zoomable" src="images/soundclown.png" alt="SoundCloud Analysis">
-            </span>
-        <p>If you pull up one of the images, you can see the bird on the spectrogram, haha.</p>
         <hr>
         <h3>Notes, ideas, and so on</h3>
         <p>perhaps this all just suggests a sequence:</p>
