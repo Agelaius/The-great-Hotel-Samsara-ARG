@@ -29,35 +29,38 @@ document.addEventListener("DOMContentLoaded", () => {
     document.querySelectorAll(".container").forEach(container => { // Changed selector
         container.addEventListener("mouseenter", () => {
             const overlay = container.querySelector(".overlay");
-            const video = container.querySelector(".preview");
-            const containerRect = container.getBoundingClientRect();
-            const videoRect = video.getBoundingClientRect();
+            if (overlay) {
+                const video = container.querySelector(".preview");
+                const containerRect = container.getBoundingClientRect();
+                const videoRect = video.getBoundingClientRect();
 
-            // Calculate the top and left offset of the video relative to the container
-            const topOffset = videoRect.top - containerRect.top;
-            const leftOffset = videoRect.left - containerRect.left;
+                // Calculate the top and left offset of the video relative to the container
+                const topOffset = videoRect.top - containerRect.top;
+                const leftOffset = videoRect.left - containerRect.left;
 
-            // Set overlay size to match video size
-            overlay.style.width = `${video.offsetWidth}px`;
-            overlay.style.height = `${video.offsetHeight}px`;
-            overlay.style.opacity = 1;
-            overlay.style.pointerEvents = 'auto';
+                // Set overlay size to match video size
+                overlay.style.width = `${video.offsetWidth}px`;
+                overlay.style.height = `${video.offsetHeight}px`;
+                overlay.style.opacity = 1;
+                overlay.style.pointerEvents = 'auto';
 
-            // Position the overlay
-            overlay.style.top = `${topOffset}px`;
-            overlay.style.left = `${leftOffset}px`;
-
+                // Position the overlay
+                overlay.style.top = `${topOffset}px`;
+                overlay.style.left = `${leftOffset}px`;
+            }
 
         });
 
         container.addEventListener("mouseleave", () => {
             const overlay = container.querySelector(".overlay");
-            overlay.style.width = `100%`;
-            overlay.style.height = `100%`;
-            overlay.style.opacity = 0;
-            overlay.style.pointerEvents = 'none';
-            overlay.style.top = '0'; // Reset top position on mouse leave
-            overlay.style.left = '0'; // Reset left position on mouse leave
+            if (overlay) {
+                overlay.style.width = `100%`;
+                overlay.style.height = `100%`;
+                overlay.style.opacity = 0;
+                overlay.style.pointerEvents = 'none';
+                overlay.style.top = '0'; // Reset top position on mouse leave
+                overlay.style.left = '0'; // Reset left position on mouse leave
+            }
         });
 
         container.addEventListener("click", () => {
