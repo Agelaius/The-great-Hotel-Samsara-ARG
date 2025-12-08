@@ -1,6 +1,15 @@
+@font-face {
+  font-family: "Consolas";
+  src: url("/fonts/Consolas.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 body {
   background-color: black;
   font-size: 150%;
+  font-weight: 550;
 }
 
 .main {
@@ -8,7 +17,7 @@ body {
     flex: 0 0 auto;
     order: 2;
     width: 800px;
-	font-family: monospace;
+	font-family: "Consolas", monospace;
 	color: whitesmoke;
 	background-color: black;
 	box-sizing: border-box;
@@ -135,7 +144,7 @@ details[open] summary .arrow::before {
 .sidebar {
     position: sticky;
     top: 8px;
-    font-family: monospace;
+    font-family: "Consolas", monospace;
 	color: whitesmoke;
     width: 200px;
     height: 60vh;
@@ -245,7 +254,7 @@ details[open] summary .arrow::before {
     cursor: ew-resize;
     transition: all 0.3s ease;
     background-color: whitesmoke;
-    font-family: monospace;
+    font-family: "Consolas", monospace;
 }
 
 #sidebar-toggle2 {
@@ -405,7 +414,7 @@ details[open] summary .arrow::before {
     padding: 20px;
     overflow: auto;
 	max-width: 40vw;
-	font-family: monospace;
+	font-family: "Consolas", monospace;
 	white-space: pre-wrap; 
 	word-break: break-word;
 }
@@ -436,7 +445,7 @@ details[open] summary .arrow::before {
 
 /* Audio Player */
 .audio-player {
-    width: 300px;
+    width: 320px;
     border: 3px solid whitesmoke;
     padding: 10px;
     margin-bottom: 20px;
@@ -449,7 +458,7 @@ details[open] summary .arrow::before {
 }
 
 .progress-bar-container {
-    width: 98.3%;
+    width: 99.3%;
     height: 1px;
     background-color: none;
     cursor: pointer;
@@ -556,7 +565,7 @@ details[open] summary .arrow::before {
 
 }
 
-    .volume-slider::-moz-range-thumb {
+.volume-slider::-moz-range-thumb {
     width: 4px;
     height: 16px;
     background-color: whitesmoke;
