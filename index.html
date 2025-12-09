@@ -4,20 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Hotel Samsara ARG</title>
+<!--Normalizer-->
     <link rel="stylesheet" href="styles/modern-normalize.css">
+<!--Unoptomized!! Styles Sheet-->
     <link rel="stylesheet" href="styles/styles.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cascadia+Mono:ital,wght@0,200..700;1,200..700&family=Fira+Mono:wght@400;500;700&display=swap" rel="stylesheet">
-</head>
-<body>
-
 <!--Script for Modal Content-->
+    <script src="script/scrollbars.js"></script>
     <script src="script/modals.js"></script>
 <!--Script for Sidebar Content-->
     <script src="script/sidebar-mainscalar.js"></script>
+<!--Script for Scrolling Buttons-->
+    <script src="script/scrollbuttons.js"></script>
 <!--Script for Audio Player-->
     <script src="script/audioplayer.js"></script>
+</head>
+<body>
 <!--Div for Modal Content-->
     <div id="mediaModal" class="modal">
         <span class="close">&times;</span>
@@ -28,7 +29,6 @@
 <!--Sidebar-->
     <div id="flex-wrapper">
     <div class="sidebar">
-        <button id="sidebar-toggle2"></button>
         <button id="sidebar-toggle">
             <p>I<br>
             N<br>
@@ -37,8 +37,14 @@
             X<br>
             &#8964;</p>
         </button>
+        <button id="sidebar-toggle2"></button>
+        <div class="blocker"></div>  
+        <div class="scroll-buttons">
+        <button class="scroll-button scroll-up">&#8963;</button>
+        <button class="scroll-button scroll-down">&#8964;</button>      
+    </div>
         <div class="sidebar-content">
-            <h3 class="sidebar-header">I N D E X<span class="blinking-text">&#129927;</span></h3>
+            <h3 class="sidebar-header">I N D E X<span class="blinking-text">&#x1fb87;</span></h3>
             <ul>
                 <li><details>
                     <summary>
@@ -513,7 +519,7 @@ I II III IIII<br>
         </span>
         <p>It just looks like concept art, but think back to the Hotel Samsara website, and specifically the bolded word, Steganograph. <br>
         There are a few common tools used to hide information in text or images, usually using tools like StegHide or ZSteg. These can be decoded, but I'm going to be honest. <br>
-        The community solved this by taking the LOCAL-SERVER-BIN-CHECK image, and apparently using zsteg to find the phrase:</p>
+        The community solved this by taking the LOCAL-SERVER-BIN-CHECK image, and apparently using ZSteg to find the phrase:</p>
         <blockquote>
             <p>dbecome.com</p>
         </blockquote>
@@ -521,7 +527,7 @@ I II III IIII<br>
         <p class="hover-text">(Hover for Source Image)</p>
             <img class="preview zoomable" src="images/dbecome.png" alt="dbecome.com">
         </span>
-        <p>I don't know how they did this. They apparently just used <a href="https://aperisolve.com" target="_blank">aperisolve.com</a>, I'm assuming without a password. Zsteg is what succeeds in this scenario simply because it's specifically made for png files, but I haven't gotten this to work. I'm certain that I'm using the raw files straight from the source, too.</p>
+        <p>I don't know how they did this. They apparently just used <a href="https://aperisolve.com" target="_blank">aperisolve.com</a>, I'm assuming without a password. ZSteg is what succeeds in this scenario simply because it's specifically made for png files, but I haven't gotten this to work. I'm certain that I'm using the raw files straight from the source, too.</p>
         <p>That being said, some light guesswork was used (substituting in some words from the spectrograph from before) to find the site in question:</p>
         <blockquote>
             <p><a href="https://eraseandbecome.com" target="_blank">eraseandbecome.com</a></p>
@@ -820,17 +826,6 @@ I II III IIII<br>
             The bird may never look up and see the sky.<br>
             For the bird that does not fly may face less strife than the bird that does.<br> The bird that flies may find more answers than the bird that does not.</p>
         </blockquote>
-        <p>But for now, it appears the ARG is functionally complete, as the full announcement was already made... but what if there's more !<br>
-        After all, they did tease all this changing with time... and there's more on the twitter page that hasn't been shown on the site yet, either.<br><br>
-        I hope you like this rant and check out the site yourself. But also, you probably need a good bit of time for it. </p>
-        <p>...</p>
-        <p>...</p>
-        <p>...</p>
-        <hr>
-        <h3>You thought I was done?</h3>
-        <h3 style="align-self: center;"><a href="https://eraseandbecome.com/">eraseandbecome.com</a></h3>
-
-
         <p>If you haven't already, check out the reveal video, too:</p>
         <span class="container visible">
             <p class="hover-text"></p>
