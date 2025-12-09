@@ -1,98 +1,92 @@
 document.addEventListener('DOMContentLoaded', function() {
-  document.addEventListener('click', function(event) {
-    if (event.target.classList.contains('scroll-button')) {
-      const button = event.target;
-      const direction = button.classList.contains('scroll-up') ? 'up' : 'down';
-      const scrollAmount = 50; // Adjust as needed
+    const scrollUpButton = document.querySelector('.scroll-button.scroll-up');
+    const scrollDownButton = document.querySelector('.scroll-button.scroll-down');
+    const sidebarContent = document.querySelector('.sidebar');
 
-      // Find the closest scrollable container
-      let scrollableContainer = null;
-      let element = button.parentNode;
+    let scrollInterval;
+    const scrollSpeed = 5;
 
-      while (element) {
-        if (element.scrollHeight > element.clientHeight &&
-            (getComputedStyle(element).overflowY === 'auto' ||
-             getComputedStyle(element).overflowY === 'scroll' ||
-             getComputedStyle(element).overflow === 'auto' ||
-             getComputedStyle(element).overflow === 'scroll')) {
-          scrollableContainer = element;
-          break;
-        }
-        element = element.parentNode;
-      }
-
-      if (scrollableContainer) {
-        if (direction === 'up') {
-          scrollableContainer.scrollTop -= scrollAmount;
-        } else {
-          scrollableContainer.scrollTop += scrollAmount;
-        }
-
-        // Update button visibility *after* scrolling
-        updateButtonVisibility(scrollableContainer, button);
-      }
+    function startScrolling(direction) {
+        scrollInterval = setInterval(() => {
+            if (direction === 'up') {
+                sidebarContent.scrollBy({ top: -scrollSpeed, behavior: 'auto' });
+            } else if (direction === 'down') {
+                sidebarContent.scrollBy({ top: scrollSpeed, behavior: 'auto' });
+            }
+        }, 10);
     }
-  });
 
-  function updateButtonVisibility(container, button) {
-     const upButton = container.querySelector('.scroll-up');
-     const downButton = container.querySelector('.scroll-down');
-
-
-    if (container.scrollHeight > container.clientHeight) {
-      // Content overflows vertically
-
-      if (container.scrollTop > 0) {
-          upButton.style.display = 'block'; // Show the up button
-      } else {
-          upButton.style.display = 'none'; // Hide the up button at the start
-      }
-
-      if (container.scrollTop >= (container.scrollHeight - container.clientHeight)) {
-          downButton.style.display = 'none'; // Hide the down button at the end
-      } else {
-          downButton.style.display = 'block';
-      }
-
-      if(upButton && downButton) {
-          upButton.style.display = container.scrollTop > 0 ? 'block' : 'none';
-          downButton.style.display = container.scrollTop < (container.scrollHeight - container.clientHeight) ? 'block' : 'none';
-      }
-
-    } else {
-      // Content does not overflow
-      if(upButton) upButton.style.display = 'none';
-      if(downButton) downButton.style.display = 'none';
+    function stopScrolling() {
+        clearInterval(scrollInterval);
     }
-  }
 
-  // Initial button visibility setup (finds all relevant containers on page load)
-   const containers = document.querySelectorAll('.content'); // Or whatever your scrollable content's class is
-
-  containers.forEach(container => {
-    const upButton = container.parentNode.querySelector('.scroll-up');
-    const downButton = container.parentNode.querySelector('.scroll-down');
-
-      if (upButton && downButton) {
-          updateButtonVisibility(container);
-      }
-
-  });
-
-
-  // Re-evaluate visibility on resize (consider debouncing)
-  window.addEventListener('resize', () => {
-
-    const containers = document.querySelectorAll('.content');
-    containers.forEach(container => {
-       const upButton = container.parentNode.querySelector('.scroll-up');
-       const downButton = container.parentNode.querySelector('.scroll-down');
-
-        if (upButton && downButton) {
-          updateButtonVisibility(container);
-        }
+    // Mouse events
+    scrollUpButton.addEventListener('mousedown', () => {
+        startScrolling('up');
     });
 
-  });
+    scrollDownButton.addEventListener('mousedown', () => {
+        startScrolling('down');
+    });
 
+    scrollUpButton.addEventListener('mouseup', stopScrolling);
+    scrollUpButton.addEventListener('mouseleave', stopScrolling);
+
+    scrollDownButton.addEventListener('mouseup', stopScrolling);
+    scrollDownButton.addEventListener('mouseleave', stopScrolling);
+
+    // Touch events
+    scrollUpButton.addEventListener('touchstart', (event) => {
+        event.preventDefault();
+        startScrolling('up');
+    }, { passive: false });
+
+    scrollDownButton.addEventListener('touchstart', (event) => {
+        event.preventDefault();
+        startScrolling('down');
+    }, { passive: false });
+
+    scrollUpButton.addEventListener('touchend', stopScrolling);
+    scrollUpButton.addEventListener('touchcancel', stopScrolling);
+
+    scrollDownButton.addEventListener('touchend', stopScrolling);
+    scrollDownButton.addEventListener('touchcancel', stopScrolling);
+
+    function checkOverflow() {
+        if (sidebarContent.scrollHeight > sidebarContent.clientHeight) {
+            scrollUpButton.classList.remove('hidden');    // Remove 'hidden' to make visible
+            scrollDownButton.classList.remove('hidden');
+        } else {
+            scrollUpButton.classList.add('hidden');       // Add 'hidden' to hide
+            scrollDownButton.classList.add('hidden');
+        }
+    }
+
+    // Debounce function to limit how often checkOverflow is called
+    function debounce(func, delay) {
+        let timeoutId;
+        return function(...args) {
+            clearTimeout(timeoutId);
+            timeoutId = setTimeout(() => {
+                func.apply(this, args);
+            }, delay);
+        };
+    }
+
+    // Get all the <details> elements within the sidebar
+    const detailsElements = document.querySelectorAll('.sidebar details');
+
+    // Attach an event listener to each <details> element
+    detailsElements.forEach(detailsElement => {
+        detailsElement.addEventListener('toggle', debounce(checkOverflow, 50)); // Debounce to 50ms
+    });
+
+    // Initial check on page load
+    checkOverflow();
+
+    // Optional: Check on window resize
+    window.addEventListener('resize', checkOverflow);
+
+    // Optional: Implement MutationObserver only if absolutely necessary for other dynamic content changes
+    // and carefully configure it to avoid infinite loops. If so, target only the specific dynamic elements.
 });
