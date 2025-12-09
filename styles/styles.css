@@ -513,6 +513,22 @@ details[open] summary .arrow::before {
     transform-origin: top left;
 	border: 3px solid whitesmoke;
 	background-color: rgba(0, 0, 0, 0.97);
+    scrollbar-width: none; 
+    -ms-overflow-style: none;
+    padding-left: 10px;
+}
+
+.text-wrapper::-webkit-scrollbar {
+    width: 0px;
+    height: 0px;
+}
+
+.text-modal-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 80vw;
+    max-height: 80vh;
 }
 
 .modal-body p {
@@ -537,7 +553,9 @@ details[open] summary .arrow::before {
 
 .modal-body iframe,
 .modal-body embed {
-    display: block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 100%;
     height: auto;
     aspect-ratio: 16 / 9;
@@ -547,6 +565,48 @@ details[open] summary .arrow::before {
     box-sizing: border-box;
     border: 3px solid whitesmoke;
     background-color: black;
+}
+
+/* Modal Scroll Buttons */
+.modal-body .scroll-buttons {
+    margin-top: 0.5rem;
+    display: inline-block;
+    gap: 0.5rem;
+    position: sticky;
+    z-index: 2;
+    transform: translateX(-000px) translateY(000px);
+}
+
+.modal-body .scroll-buttons .scroll-down {
+    transform: translateX(-23px) translateY(28px);
+    width: 19px;
+}
+
+.modal-body .scroll-buttons .scroll-up {
+    transform: translateX(1px) translateY(3px);
+}
+
+.modal-body .scroll-buttons .scroll-down.hidden {
+    transform: translateX(-33px) translateY(49px);
+}
+
+.modal-body .scroll-buttons .scroll-up.hidden {
+    transform: translateX(140px) translateY(-60px);
+}
+
+
+.modal-body .scroll-buttons .scroll-up p {
+    transform: translateX(-21px) translateY(-35px);
+    color: black;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.modal-body .scroll-buttons .scroll-down p {
+    transform: translateX(-21px) translateY(-43px);
+    color: black;
+    overflow: hidden;
+    pointer-events: none;
 }
 
 /* Audio Player */

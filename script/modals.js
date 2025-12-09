@@ -41,7 +41,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 overlay.style.top = `${topOffset}px`;
                 overlay.style.left = `${leftOffset}px`;
             }
-
         });
 
         container.addEventListener("mouseleave", () => {
@@ -70,31 +69,43 @@ document.addEventListener("DOMContentLoaded", () => {
                 modalEl = document.createElement("img");
                 modalEl.src = el.src;
                 modalEl.alt = el.alt;
+
             } else if (el instanceof HTMLVideoElement) {
                 modalEl = document.createElement("video");
                 modalEl.src = el.src;
                 modalEl.controls = true;
                 modalEl.autoplay = true;
+
             } else if (el instanceof HTMLIFrameElement || el.tagName === 'EMBED') {
                 modalEl = document.createElement("embed");
                 let src = el.src || el.getAttribute('src');
 
                 let url = new URL(src);
-
                 url.searchParams.delete('controls');
                 url.searchParams.delete('mute');
-
 
                 modalEl.src = url.toString();
                 modalEl.type = 'video/mp4';
                 modalEl.setAttribute('allowfullscreen', '');
+
             } else if (el.classList.contains("text-block")) {
                 const textWrapper = document.createElement('div');
                 textWrapper.classList.add('text-wrapper');
-                modalEl = document.createElement("p");
-                modalEl.textContent = el.textContent;
-                textWrapper.appendChild(modalEl);
+
+                const p = document.createElement("p");
+                p.textContent = el.textContent;
+                textWrapper.appendChild(p);
+
+                const scrollButtons = document.createElement('div');
+                scrollButtons.classList.add('scroll-buttons');
+                scrollButtons.innerHTML = `
+                    <button class="scroll-button scroll-up"><p>&#8963;</p></button>
+                    <button class="scroll-button scroll-down"><p>&#8964;</p></button>
+                `;
+                modalBody.appendChild(scrollButtons);
+
                 modalEl = textWrapper;
+
             } else {
                 modalEl = null;
             }
@@ -102,6 +113,8 @@ document.addEventListener("DOMContentLoaded", () => {
             if (modalEl) {
                 modalEl.classList.add("modal-media");
                 modalBody.appendChild(modalEl);
+
+                modal.setAttribute("id", "mediaModal");
 
                 const adjustModalSize = () => {
                     const maxWidth = window.innerWidth * 0.8;
@@ -112,9 +125,11 @@ document.addEventListener("DOMContentLoaded", () => {
                     if (modalEl instanceof HTMLImageElement) {
                         mediaWidth = modalEl.naturalWidth;
                         mediaHeight = modalEl.naturalHeight;
+
                     } else if (modalEl instanceof HTMLVideoElement) {
                         mediaWidth = modalEl.videoWidth;
                         mediaHeight = modalEl.videoHeight;
+
                     } else if (modalEl.tagName === 'EMBED' || modalEl.tagName === 'IFRAME') {
                         mediaWidth = maxWidth;
                         mediaHeight = maxWidth * (9 / 16);
@@ -129,20 +144,33 @@ document.addEventListener("DOMContentLoaded", () => {
                         return;
 
                     } else if (modalEl.classList && modalEl.classList.contains('text-wrapper')) {
-                        mediaWidth = modalEl.offsetWidth;
-                        mediaHeight = modalEl.offsetHeight;
+                        mediaWidth = modalEl.offsetWidth || maxWidth;
+                        mediaHeight = modalEl.offsetHeight || maxHeight;
 
                         let scale = 1;
-
-                        let widthRatio = maxWidth / mediaWidth;
-                        let heightRatio = maxHeight / mediaHeight;
+                        const widthRatio = maxWidth / mediaWidth;
+                        const heightRatio = maxHeight / mediaHeight;
 
                         if (mediaWidth > maxWidth || mediaHeight > maxHeight) {
                             scale = Math.min(widthRatio, heightRatio);
                         }
 
                         modalEl.style.transformOrigin = 'top left';
-                        modalEl.style.transform = `scale(${scale})`;
+                        modalEl.style.transform = `scale(${scale}) translate(-50%, -50%)`;
+                        modalEl.style.left = '50%';
+                        modalEl.style.top = '50%';
+                        modalEl.style.position = 'absolute';
+
+                        // Scale the scroll buttons container
+                        const scrollButtons = modal.querySelector('.scroll-buttons');
+                        if (scrollButtons) {
+                            scrollButtons.style.transformOrigin = 'top left';
+                            scrollButtons.style.transform = `scale(${scale})`;
+                            scrollButtons.style.left = '30%';
+                            scrollButtons.style.top = '10%';
+                            scrollButtons.style.position = 'absolute';
+                        }
+
                         return;
                     }
 
@@ -166,19 +194,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 adjustModalSize();
                 window.addEventListener('resize', adjustModalSize);
+
+                if (modalEl.classList.contains('text-wrapper')) {
+                    initializeScrollButtons(modal);
+                }
             }
-
-            const closeModal = () => {
-                modal.classList.remove("show");
-                modalBody.innerHTML = "";
-                window.removeEventListener('resize', adjustModalSize);
-                enableScroll();
-            };
-
-            closeBtn.addEventListener("click", closeModal);
-            modal.addEventListener("click", e => {
-                if (e.target === modal) closeModal();
-            });
         });
     });
 
