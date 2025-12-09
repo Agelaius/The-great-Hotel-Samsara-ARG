@@ -3,7 +3,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const modalBody = modal.querySelector(".modal-body");
     const closeBtn = modal.querySelector(".close");
 
-    // Play videos on hover
     document.querySelectorAll("video.preview").forEach(video => {
         video.addEventListener("mouseenter", () => {
             video.currentTime = 0;
@@ -15,18 +14,15 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // Function to disable scrolling
     const disableScroll = () => {
         document.body.style.overflow = 'hidden';
     };
 
-    // Function to enable scrolling
     const enableScroll = () => {
         document.body.style.overflow = '';
     };
 
-    // Open modal on click
-    document.querySelectorAll(".container").forEach(container => { // Changed selector
+    document.querySelectorAll(".container").forEach(container => {
         container.addEventListener("mouseenter", () => {
             const overlay = container.querySelector(".overlay");
             if (overlay) {
@@ -34,17 +30,14 @@ document.addEventListener("DOMContentLoaded", () => {
                 const containerRect = container.getBoundingClientRect();
                 const videoRect = video.getBoundingClientRect();
 
-                // Calculate the top and left offset of the video relative to the container
                 const topOffset = videoRect.top - containerRect.top;
                 const leftOffset = videoRect.left - containerRect.left;
 
-                // Set overlay size to match video size
                 overlay.style.width = `${video.offsetWidth}px`;
                 overlay.style.height = `${video.offsetHeight}px`;
                 overlay.style.opacity = 1;
                 overlay.style.pointerEvents = 'auto';
 
-                // Position the overlay
                 overlay.style.top = `${topOffset}px`;
                 overlay.style.left = `${leftOffset}px`;
             }
@@ -58,14 +51,14 @@ document.addEventListener("DOMContentLoaded", () => {
                 overlay.style.height = `100%`;
                 overlay.style.opacity = 0;
                 overlay.style.pointerEvents = 'none';
-                overlay.style.top = '0'; // Reset top position on mouse leave
-                overlay.style.left = '0'; // Reset left position on mouse leave
+                overlay.style.top = '0';
+                overlay.style.left = '0';
             }
         });
 
         container.addEventListener("click", () => {
-            const el = container.querySelector(".zoomable"); // Get zoomable element
-            if (!el) return; // Exit if no zoomable element
+            const el = container.querySelector(".zoomable");
+            if (!el) return;
 
             modalBody.innerHTML = "";
             modal.classList.add("show");
@@ -86,25 +79,22 @@ document.addEventListener("DOMContentLoaded", () => {
                 modalEl = document.createElement("embed");
                 let src = el.src || el.getAttribute('src');
 
-                // Parse the URL
                 let url = new URL(src);
 
-                // Remove the autoplay and mute parameters
                 url.searchParams.delete('controls');
                 url.searchParams.delete('mute');
 
-                // Reconstruct the URL
+
                 modalEl.src = url.toString();
-                modalEl.type = 'video/mp4'; // or appropriate type
-                modalEl.setAttribute('allowfullscreen', ''); // Enable fullscreen
+                modalEl.type = 'video/mp4';
+                modalEl.setAttribute('allowfullscreen', '');
             } else if (el.classList.contains("text-block")) {
-                // Create a wrapper div for the text
                 const textWrapper = document.createElement('div');
-                textWrapper.classList.add('text-wrapper'); // Add a class for styling
+                textWrapper.classList.add('text-wrapper');
                 modalEl = document.createElement("p");
                 modalEl.textContent = el.textContent;
                 textWrapper.appendChild(modalEl);
-                modalEl = textWrapper; // Set modalEl to the wrapper
+                modalEl = textWrapper;
             } else {
                 modalEl = null;
             }
@@ -127,7 +117,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         mediaHeight = modalEl.videoHeight;
                     } else if (modalEl.tagName === 'EMBED' || modalEl.tagName === 'IFRAME') {
                         mediaWidth = maxWidth;
-                        mediaHeight = maxWidth * (9 / 16); // Assuming 16:9 aspect ratio
+                        mediaHeight = maxWidth * (9 / 16);
 
                         if (mediaHeight > maxHeight) {
                             mediaHeight = maxHeight;

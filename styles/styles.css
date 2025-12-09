@@ -343,7 +343,7 @@ details[open] summary .arrow::before {
         z-index: 10;
     }
 }
-/* Sidebar Scroll Buttons */
+/* Sidebar / Scroll Buttons */
 .scroll-button.scroll-up,
 .scroll-button.scroll-down {
     opacity: 1;
@@ -355,7 +355,6 @@ details[open] summary .arrow::before {
     opacity: 0;
     pointer-events: none;
     transform: translateX(149px) translateY(-83px);
-    pointer-events: none;
 }
 .scroll-button.scroll-down.hidden {
     transform: translateX(119px) translateY(-83px);

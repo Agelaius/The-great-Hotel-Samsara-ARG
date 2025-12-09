@@ -20,7 +20,6 @@ document.addEventListener('DOMContentLoaded', function() {
         clearInterval(scrollInterval);
     }
 
-    // Mouse events
     scrollUpButton.addEventListener('mousedown', () => {
         startScrolling('up');
     });
@@ -35,7 +34,6 @@ document.addEventListener('DOMContentLoaded', function() {
     scrollDownButton.addEventListener('mouseup', stopScrolling);
     scrollDownButton.addEventListener('mouseleave', stopScrolling);
 
-    // Touch events
     scrollUpButton.addEventListener('touchstart', (event) => {
         event.preventDefault();
         startScrolling('up');
@@ -54,15 +52,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function checkOverflow() {
         if (sidebarContent.scrollHeight > sidebarContent.clientHeight) {
-            scrollUpButton.classList.remove('hidden');    // Remove 'hidden' to make visible
+            scrollUpButton.classList.remove('hidden');
             scrollDownButton.classList.remove('hidden');
         } else {
-            scrollUpButton.classList.add('hidden');       // Add 'hidden' to hide
+            scrollUpButton.classList.add('hidden');
             scrollDownButton.classList.add('hidden');
         }
     }
 
-    // Debounce function to limit how often checkOverflow is called
     function debounce(func, delay) {
         let timeoutId;
         return function(...args) {
@@ -73,20 +70,14 @@ document.addEventListener('DOMContentLoaded', function() {
         };
     }
 
-    // Get all the <details> elements within the sidebar
     const detailsElements = document.querySelectorAll('.sidebar details');
 
-    // Attach an event listener to each <details> element
     detailsElements.forEach(detailsElement => {
-        detailsElement.addEventListener('toggle', debounce(checkOverflow, 50)); // Debounce to 50ms
+        detailsElement.addEventListener('toggle', debounce(checkOverflow, 50));
     });
 
-    // Initial check on page load
     checkOverflow();
 
-    // Optional: Check on window resize
     window.addEventListener('resize', checkOverflow);
 
-    // Optional: Implement MutationObserver only if absolutely necessary for other dynamic content changes
-    // and carefully configure it to avoid infinite loops. If so, target only the specific dynamic elements.
 });
