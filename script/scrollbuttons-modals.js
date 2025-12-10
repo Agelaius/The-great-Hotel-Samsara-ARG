@@ -1,11 +1,10 @@
 function initializeScrollButtons(modal) {
     const textContainer = modal.querySelector('.text-wrapper');
-    if (!textContainer) return; // Only for text modals
+    if (!textContainer) return;
 
     const scrollUpButton = modal.querySelector('.scroll-button.scroll-up');
     const scrollDownButton = modal.querySelector('.scroll-button.scroll-down');
 
-    // If buttons don't exist, do nothing (prevents null addEventListener error)
     if (!scrollUpButton || !scrollDownButton) {
         return;
     }
@@ -14,7 +13,7 @@ function initializeScrollButtons(modal) {
     const scrollSpeed = 5;
 
     function startScrolling(direction) {
-        stopScrolling(); // clear existing interval first
+        stopScrolling();
         scrollInterval = setInterval(() => {
             if (direction === 'up') {
                 textContainer.scrollBy({ top: -scrollSpeed, behavior: 'auto' });
@@ -31,7 +30,6 @@ function initializeScrollButtons(modal) {
         }
     }
 
-    // Mouse events
     scrollUpButton.addEventListener('mousedown', () => startScrolling('up'));
     scrollDownButton.addEventListener('mousedown', () => startScrolling('down'));
 
@@ -40,7 +38,6 @@ function initializeScrollButtons(modal) {
     scrollDownButton.addEventListener('mouseup', stopScrolling);
     scrollDownButton.addEventListener('mouseleave', stopScrolling);
 
-    // Touch events
     scrollUpButton.addEventListener('touchstart', (event) => {
         event.preventDefault();
         startScrolling('up');
@@ -56,7 +53,6 @@ function initializeScrollButtons(modal) {
     scrollDownButton.addEventListener('touchend', stopScrolling);
     scrollDownButton.addEventListener('touchcancel', stopScrolling);
 
-    // Show/hide buttons based on overflow
     function checkOverflow() {
         if (!textContainer) return;
 
@@ -69,9 +65,7 @@ function initializeScrollButtons(modal) {
         }
     }
 
-    // Run once after layout
     checkOverflow();
 
-    // Optional: re-check on window resize in case modal size changes
     window.addEventListener('resize', checkOverflow);
 }

@@ -161,7 +161,6 @@ document.addEventListener("DOMContentLoaded", () => {
                         modalEl.style.top = '50%';
                         modalEl.style.position = 'absolute';
 
-                        // Scale the scroll buttons container
                         const scrollButtons = modal.querySelector('.scroll-buttons');
                         if (scrollButtons) {
                             scrollButtons.style.transformOrigin = 'top left';
