@@ -523,12 +523,8 @@ details[open] summary .arrow::before {
     height: 0px;
 }
 
-.text-modal-inner {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    max-width: 80vw;
-    max-height: 80vh;
+.text-wrapper p {
+    margin-top: -4px;
 }
 
 .modal-body p {
@@ -575,6 +571,7 @@ details[open] summary .arrow::before {
     position: sticky;
     z-index: 2;
     transform: translateX(-000px) translateY(000px);
+    transition: transform 0.001s ease !important;
 }
 
 .modal-body .scroll-buttons .scroll-down {
@@ -587,11 +584,11 @@ details[open] summary .arrow::before {
 }
 
 .modal-body .scroll-buttons .scroll-down.hidden {
-    transform: translateX(-33px) translateY(49px);
+    transform: translateX(-23px) translateY(868px);
 }
 
 .modal-body .scroll-buttons .scroll-up.hidden {
-    transform: translateX(140px) translateY(-60px);
+    transform: translateX(1px) translateY(843px);
 }
 
 
