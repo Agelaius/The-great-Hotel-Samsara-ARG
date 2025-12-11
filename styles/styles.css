@@ -154,6 +154,7 @@ details[open] summary .arrow::before {
 	color: whitesmoke;
     width: 200px;
     height: 60vh;
+    min-height: 195px;
     background-color: black;
     padding: 20px;
     margin-right: 20px;
@@ -343,6 +344,7 @@ details[open] summary .arrow::before {
         z-index: 10;
     }
 }
+
 /* Sidebar / Scroll Buttons */
 .scroll-button.scroll-up,
 .scroll-button.scroll-down {
@@ -504,6 +506,8 @@ details[open] summary .arrow::before {
 .modal-body {
 	max-height: 80vh;
 	box-sizing: border-box;
+    background-color: whitesmoke;
+    padding: 0;
 }
 
 .text-wrapper {
