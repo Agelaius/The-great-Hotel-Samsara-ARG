@@ -94,6 +94,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 const p = document.createElement("p");
                 p.textContent = el.textContent;
+                
+                if (el.classList.contains('pre-formatted-text')) {
+                    p.classList.add('scaled-text');
+                }
+                
                 textWrapper.appendChild(p);
 
                 const scrollButtons = document.createElement('div');
@@ -160,6 +165,15 @@ document.addEventListener("DOMContentLoaded", () => {
                         modalEl.style.left = '50%';
                         modalEl.style.top = '50%';
                         modalEl.style.position = 'absolute';
+
+                        const scaledText = modalEl.querySelector('.scaled-text');
+                        if (scaledText) {
+                            scaledText.style.fontSize = `.51vw`;
+                            scaledText.style.transformOrigin = 'top left';
+                            scaledText.style.transform = `scale(1)`;
+                            scaledText.style.position = 'relative';
+                            scaledText.style.display = 'block';
+                        }
 
                         const scrollButtons = modal.querySelector('.scroll-buttons');
                         if (scrollButtons) {

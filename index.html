@@ -534,7 +534,7 @@ I II III IIII<br>
             <p><a href="https://eraseandbecome.com" target="_blank">eraseandbecome.com</a></p>
         </blockquote>
         <p id="eraseandbecome">There's a lot to see here, so this next section is dedicated to exploring this site. You are recommended to explore on your own first. <br>
-        It's important to know that this site (and other sites in this exploration) have changed at least by some degree since the start of this ARG. Some formatting has changed across these sites, and originally, some of these sites were dripfed over time. The page selection, as well, did not initially exist on this site, and each site had to be found manually.</p>
+        It's important to know that this site (and other sites in this exploration) have changed at least by some degree since the start of this ARG. Some formatting has changed across these sites, and originally, some of these sites were dripfed over time. The page selection, that I'm about to talk about here only started with the first three options. The rest had to be found manually, and were added later.</p>
         <p>The landing page is actually part of the selection box visible on the page, (but not --where--, for some reason), which has the options:</p>
         <blockquote>
             <p>&bull; --where--<br>
@@ -553,6 +553,206 @@ I II III IIII<br>
         <p>For future reference, each of these headers will contain first the title of the page, followed by the file of the URL, followed by the page selection in the dropdown. </p>
         <h3 style="text-align: center;"><a href="https://eraseandbecome.com" target="_blank">eraseandbecome.com</a></h3>
         <hr>
+        <h3>-- ▄░▀▒▄ and ▁▄▂▎ ▌▄ -- (index.php) [start]</h3>
+        <p>We see this block text everywhere, by the way, and it can be pretty trivially decoded using a decoder like <a href="https://lingojam.com/%E2%96%88%E2%96%88%E2%96%88%E2%96%88Translator" target="_blank">this</a>. <br>
+        As you might guess, this title says:</p>
+        <blockquote>
+            <p>Erase and Become</p>
+        </blockquote>
+        <p>The easiest way to investigate these sites is to look at the code, but you can also hit ctrl+A to highlight every element on the page at once, revealing anything hidden.</p>
+        <p>Something to note about the red background before proveeding- it's actually been changed a few times, cycling from red, to blue, green, black, white, and then red again.</p>
+        <p>The "head" isn't a visible part of the HTML formatting unless it's the icon that appears on your tab, and usually only contains important metadata that instructs how to read and style the site. here, there's some ascii art:</p>
+        <blockquote>
+            <pre style="font-size: 9px;">0071 you are on the path
+
+
+
+                                                                                ;  .+X=  ;
+                                                                                ; ;####= +
+                                                                                ;+######+M
+                                                        ;M+++                   .########.
+                                                          =;X=                  X########+
+                                                            ;M;                ;##########.
+                                                             ;X=               X##########=                     .
+                                                               MM;            .#M#########X                    .=
+                                                                +M+           =#MMM####MM#+                 .+MM;
+                                                                 ;X#=.        =#MM#M#MMMM#;                +M; .
+                                                                   =#M        =##MMMMMMMM#;               XM=
+                                                                    .M.       =#####M#####.            .+M+.
+                                                                     #.        ######M###X           .;MX=
+                                                                     MM        .+#######=         .XM#X
+                                                                     ;#=         ;=##=;;         .MM+.
+                                                                      M#.        ;M#M.           M;
+                                                                      ;#M       ;#####X         ;M
+                                                                       +#=     ;###M#M#.       .M.
+                                                                        X#=    X##MMMM#+       M=
+                                                                         =#+; =##MMMMMMM     ;M+
+                                                                 .;.      X######MMMMM##   .+#X
+                                                                =#MM.      +M####MMMM###M.=M#+
+                                                              .XM..XM=       =M##M#MM#######=
+                                                             ;MM;   M##+      .X#####M+====.
+                                                            =M=      X##M;.  ;;######+           .+;
+                                                         ;+M=.        .;X#M######MM###=..  ..;++M#XX.
+                                                       =M#=              . +####MMMM#####MM######. .M
+                                                     =XX=                    X##MMMM#####MXXX=.    .#+
+                                                    M.                       M##MXMM##XMM.          =#.
+                                                  XX                       ;=####MMM##+              XM
+                                                                          =####MMMMM##X               M=</pre>
+        </blockquote>
+        <span class="container">
+            <p class="hover-text">(Hover for Source Text)</p>
+                <p class="zoomable text-block pre-formatted-text">0071 you are on the path
+
+
+
+                                                                                ;  .+X=  ;
+                                                                                ; ;####= +
+                                                                                ;+######+M
+                                                        ;M+++                   .########.
+                                                          =;X=                  X########+
+                                                            ;M;                ;##########.
+                                                             ;X=               X##########=                     .
+                                                               MM;            .#M#########X                    .=
+                                                                +M+           =#MMM####MM#+                 .+MM;
+                                                                 ;X#=.        =#MM#M#MMMM#;                +M; .
+                                                                   =#M        =##MMMMMMMM#;               XM=
+                                                                    .M.       =#####M#####.            .+M+.
+                                                                     #.        ######M###X           .;MX=
+                                                                     MM        .+#######=         .XM#X
+                                                                     ;#=         ;=##=;;         .MM+.
+                                                                      M#.        ;M#M.           M;
+                                                                      ;#M       ;#####X         ;M
+                                                                       +#=     ;###M#M#.       .M.
+                                                                        X#=    X##MMMM#+       M=
+                                                                         =#+; =##MMMMMMM     ;M+
+                                                                 .;.      X######MMMMM##   .+#X
+                                                                =#MM.      +M####MMMM###M.=M#+
+                                                              .XM..XM=       =M##M#MM#######=
+                                                             ;MM;   M##+      .X#####M+====.
+                                                            =M=      X##M;.  ;;######+           .+;
+                                                         ;+M=.        .;X#M######MM###=..  ..;++M#XX.
+                                                       =M#=              . +####MMMM#####MM######. .M
+                                                     =XX=                    X##MMMM#####MXXX=.    .#+
+                                                    M.                       M##MXMM##XMM.          =#.
+                                                  XX                       ;=####MMM##+              XM
+                                                                          =####MMMMM##X               M=
+                                                               .;;;;;;;;;X##MM###MMM###M              .X+;
+                                                               M########M===.=M###M#####M.              +#;
+                                                              =M...++++.     ;M#####=.=###M=.            .M+.
+                                                              M=             X######=    =####M++=         +#X
+                                                             .X              +######X     ...=M###.         .=M=
+                                                             =.            +#######M             #.            MM
+                                                            .X            +####M####M;           XM             .
+                                                            M;           X#####MMM####=          .M
+                                                          ;M.           +##M#MMMM######           MX
+                                                         .#+            M###M##MMM#####.          +X
+                                                        +M+            X####MM#MMMM####=           M
+                                                       ++.             ####M#MMMMM#M###M           M=
+                                                       ;              .###MMMMMMMMM#M##M           ;M
+                                                      .=              M##M#MMMMMMMM####M           .M=
+                                                     +X               M##MM#M#XMM#######            .M=
+                                                                     .##MM##MMMMM#M#M##M             ;M
+                                                                     +###MMMMMMMM######M              +X
+                                                                     +###MMMMM#MM###M##M              .M.
+                                                                     M##M##XMMMMMMMM###M               ++
+                                                                     #####MXMMMMM##M###X                XM
+                                                                     ###MMMMMMMMMM#####=
+                                                                     ####MMM#MMM#######.
+                                                                     ###MMMMXMM########
+                                                                     M###MMMMMMMM#####M
+                                                                     +######XMM#MM####;
+                                                                     .##M##M#MXMMM###+
+                                                                      +######MM#M###M
+                                                                       M######MM###M;
+                                                                       .X#########M;
+                                                                         =M######=
+                                 .                                        ;+++++.
+                                 =
+                                .=
+                                 X
+                                 =;
+                                 =X
+                                 =#          ;
+                                  M         ;
+                                  X=        +====.
+                                  X=       X#####M. ;
+                                  X       =#######= =
+                                 .M      X########MM                                                         .
+                                 =+     X##M######M
+                                 =;    ;##MMM#####+
+                                 X;    M##MMMMMM##=
+                                +#;    X###MMMMMM#=
+                                X#;    =###M#MMM#M             .
+                                X#;     X########;            =X
+     .X;;;..                    X#;     .M#######;          ;;M.
+      .====MMX===========       X#;  .=MM##M####=        =++==
+           ...+XXXXXXX+.M       =#; .##MMM# ....       =MM=                                               ;
+                        #;      .#X.M#MMMM#+         .MX.                                                X
+                        MX      .####MMXMMMX         #+.                                               .M+
+                        .#=      =###MMMMM#+       .M.                                                .M
+                         +#.      =##MMMMM#       +#M                                                 =X
+                          +#.     =M##MM##M    .+#M=                                                  M.
+                           +#;MMXM########+   .##M                                                   =X
+                   ..       ;+###MMMM##+###++MX=;                                    ;.             =M.
+                 .X##;        =##MMMMM#  ;XM;                                    .==.=;             M.
+             XXXXM#X#MX=    X;+#MMMMM##;                                         X##MMM            .X
+           XM##MM;  ;###MMMM####MMMMM##+                                        .######;           M.
+        =XMM=;;      .+M##MM####MMMM####=                                     .;=#######=         .X
+ XX   XM##M                  .X#MMMM####X                                      X#########.        =X
+  ;+=+;...              .;;;=#######X;..++=;                                    #########M.       =X
+                       =#########MM#;     XM#M++=.                              #######MMMX       =X
+                     .M##########=X#X       +++++M+                             #####M#MMM#       ;X
+                    +#######M###X.;#=            ;M.                            M#MMMMM####;       X
+                   X#####MMMM###X  M+             M.                            ;#MM#MM####.       X
+                 .+#####MMMXXMM##; .M=            X=                            .#MM#M####M        X
+                 ;#####MMMMMMMM##=  =#X.          =X                            .########M.       ;X
+                ;#####MMMMMMM####=   +###+         #                             X######+         MX      #X
+                M#######XMMM#M###=    =M#X         X.                             +MMM=M#MMM;     MX     XM#M+
+               X####MMMMXMMMMM##M       =M         +M        ;+;;;;;;;XM##+            M#M###+   +#     =#  ;MX.
+              =####MMMMMMMMM#M##;       =#.        ;#.    ;.XXXMMMMMMM=; +M;          =#MMMM#M  .#M    ;#;    XM;
+              M####MXXMXMMMM####.       X#.         MX    .+;             ;#+         +#MMMMM#;;M#.   .M=       XM+;
+             .####MMMMMMMMMM###X        =#.         .#                     X#=        +##MMMM####=   .M=         .+MM+.
+             +#####MMMMMMMM###M.        ;#.          +X                     ;MM+.     +#MMMMM#X+;   XM.             ..;=+;
+             +####MMMMMM######=         ;#.          .#.                     .=#M+.   +##MM##M    .XX;                  ;X++;
+             M###MMMMMMM######.          #;           M+                       .X##XXXM#######M=.X#+                      ;=
+             ####MMMMMMMMM###X           #+            =.                        ;;+M##==######MM##
+             ####M#MMMM#####M            #+            .XX                           ..  M##MMM###;
+             X#####MM#M#####.            #+                                             ;##MMMMM#;
+             =######M#####+.             +M                              .===.        ;=X##MMMMM#M
+              X##########+               +#                              MXM##MX=....;M####MMMMM##+.
+               X#######M=                ;#                             +X  ;===MMMMM=MX=##MMMMM####X;
+                ;XX##XX;                  X                             M;               M##MMMM#M####X;;
+                                          +                            XX               .########;===M###MMX
+                                          +                           ;#=               M########+    .=XXMM#+
+                                          ;                          .M+               =##X +####+;.        ;MX.
+                                           X                        =#=               .M#+  X#######+         ;#M=
+                                           ..                     .+M.              .X#M.  =#########+          X#M;
+                                                                 ;#M              ;X###.   ####MM#####=          .M#MX.
+                                                               .XM+             .###MX.   +#MMM#M######.            ;XM#X++=
+                                                               +.               .X+;      ###MMMM######M               .=+==X=.
+                                                              ==                .+       .####MM#MMM####+                   =X=
+                                                             ;=                 =+       X###MMMMMMMM####;
+                                                                                #=       M##MMMMMMMMM####M
+                                                                                #.       M###MMMMMMM######
+                                                                               =M        M##MMMMMMM#MM####;
+                                                                               XM        M###M#MMMMMMM####X
+                                                                              ;MX        M###MMMMXMMMM####M
+                                                                              XM         M####MM#MMM#M#####=
+                                                                             +#;         ;###M#MMMMM#MMM###+
+                                                                            .MX          .#####MMMMMMM#####+
+                                                                            XM.           M#####MMMM#MM####+
+                                                                           =#;            +#####M###M####M#+
+                                                                           X=             ;#######M########+
+                                                                          .=               M#####M#M##M####=
+                                                                          .=               .####M##MMMM####.
+                                                                          =;                ;####M#MMMMM##M
+                                                                         ;M                  X#####MMM####+
+                                                                         ;.                  =####MM######
+                                                                                              =######M###X
+                                                                                               =M#######=
+                                                                                                 ======.</p>
+        </span>
+
         <!--COME BACK TO LOOK AT THIS-->
         <p>As far as I can tell, this site could also have been found by looking at the web tools- one of the images is titled "SEARCH%AND%DISCOVER_edited".</p>
         
@@ -838,6 +1038,16 @@ I II III IIII<br>
             <p class="hover-text"></p>
                 <img class="preview zoomable" src="images/thankyou.png" alt="Thank You Spectrogram" style="width: 200px; margin-left: 0px;">
         </span>
+        <hr>
+        <h3 style="text-align: center;"><a href="https:/www.ontosgame.com/" target="_blank">Ontos is here!</a></h3>
+        <p>Here's an update after The Game Awards on November 11th, 2025. We've got a new (and probably not an ARG) site, in the form of <a href="https:/www.ontosgame.com/" target="_blank">www.ontosgame.com</a>!</p>
+        <p>Additionally, we got a first look at the actual game:</p>
+        <span class="container visible">
+            <p class="hover-text"></p>
+                <div class="overlay"></div>
+                    <embed class="preview zoomable" src="https://www.youtube.com/embed/ll4ZPxUzPhc?loop=1&playlist=ll4ZPxUzPhc&controls=0&autoplay=1&mute=1" title="Frictional_Next_Project.mp4" type="video/mp4" allowfullscreen>
+        </span>
+        <p>Looking forward to it!</p>
         <p>Thanks for checking this out.</p>
     </div>
     <div id="anti-sidebar"></div>

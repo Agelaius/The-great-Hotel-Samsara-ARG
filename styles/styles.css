@@ -12,6 +12,10 @@ body {
   font-weight: 500;
 }
 
+pre {
+    white-space: pre;
+}
+
 h3 {
     font-size: 22px !important;
 }
@@ -411,6 +415,20 @@ details[open] summary .arrow::before {
 }
 
 /* Image/Video System */
+.pre-formatted-text {
+    white-space: pre;
+    overflow: none;
+}
+
+.scaled-text {
+    display: block;
+    transform-origin: top left;
+    position: relative;
+    white-space: pre !important;
+    min-width: 40vw;
+    font-size: .51vw;
+}
+
 .container {
     display: inline-block;
     position: relative;
