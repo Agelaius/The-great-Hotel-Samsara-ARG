@@ -6,6 +6,10 @@
   font-display: swap;
 }
 
+hr {
+    margin-top: 30px;
+}
+
 body {
   background-color: black;
   font-size: 18px !important;
@@ -50,6 +54,10 @@ blockquote * {
 
 a {
 	color: indianred;
+}
+
+h3 a {
+    text-decoration: none;
 }
 
 hr {
