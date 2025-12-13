@@ -382,7 +382,13 @@ details[open] summary .arrow::before {
 .scroll-buttons {
     position: fixed;
     top: 200px;
+    pointer-events: none;
 }
+
+.scroll-buttons * {
+    pointer-events: auto;
+}
+
 .scroll-button {
     width: 18.7px;
     height: 18.7px;
