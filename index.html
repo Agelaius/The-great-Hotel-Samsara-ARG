@@ -69,7 +69,7 @@
                         <a href="#eraseandbecome">Erase and Become</a>
                     </summary>
                     <ul class="details-contents">
-                        <li><a href="#emails"><span>&rdsh;</span>Emails</a></li>
+                        <li><a href="#e&b"><span>&rdsh;</span>Start</a></li>
                     </ul>
                 </details></li>
                 <li><a href="#admin">Admin Access</a></li>
@@ -552,7 +552,7 @@ I II III IIII<br>
         <p>Any page-specific css is in-line.</p>
         <p>For future reference, each of these headers will contain first the title of the page, followed by the file of the URL, followed by the page selection in the dropdown. </p>
         <h3 style="text-align: center;"><a href="https://eraseandbecome.com" target="_blank">eraseandbecome.com</a></h3>
-        <hr>
+        <hr id="e&b">
         <h3>-- ▄░▀▒▄ and ▁▄▂▎ ▌▄ -- (index.php) [start]</h3>
         <p>We see this block text everywhere, by the way, and it can be pretty trivially decoded using a decoder like <a href="https://lingojam.com/%E2%96%88%E2%96%88%E2%96%88%E2%96%88Translator" target="_blank">this</a>. <br>
         As you might guess, this title says:</p>
@@ -752,6 +752,168 @@ I II III IIII<br>
                                                                                                =M#######=
                                                                                                  ======.</p>
         </span>
+        <p>You'll have to forgive me for cropping out a lot of that and putting it into the pop-out, but it is pretty long.<br>
+        Look at that text though:</p>
+        <blockquote>
+            <p>0071 you are on the path</p>
+        </blockquote>
+        <p>Do note- originally, this only said "you are on the path". "0071" was tacked onto this ascii art sometime later.</p>
+        
+
+
+
+        <hr>
+        <h3>Hangman</h3>
+        <p>Every page on eraseandbecome.com has a script that plays a game of hangman in the developer console. <br>
+        On loading any page, the console shows the text:</p>
+        <blockquote>
+            <p><pre>⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣦⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣴⠟⠹⣧⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⣷⣦⣄⣠⣿⠃⢠⣄⠈⢻⣆⣠⣴⡞⡆⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⢀⣀⣀⣿⠀⠈⢻⣇⢀⣾⢟⡄⣸⡿⠋⠀⡇⣇⣀⣀⠀⠀⠀⠀⠀
+⠀⣤⣤⣤⣀⣱⢻⠚⠻⣧⣀⠀⢹⡿⠃⠈⢻⣟⠀⢀⣤⠧⠓⣹⣟⣀⣤⣤⣤⡀
+⠀⠈⠻⣧⠉⠛⣽⠀⠀⠀⠙⣷⡿⠁⠀⠀⠀⢻⣶⠛⠁⠀⠀⡟⠟⠉⣵⡟⠁⠀
+⠀⠀⠀⠹⣧⡀⠏⡇⠀⠀⠀⣿⠁⠀⠀⠀⠀⠀⣿⡄⠀⠀⢠⢷⠀⣼⡟⠀⠀⠀
+⠀⠀⠀⠀⠙⣟⢼⡹⡄⠀⠀⣿⡄⠀⠀⠀⠀⢀⣿⡇⠀⢀⣞⣦⢾⠟⠀⠀⠀⠀
+⠀⠠⢶⣿⣛⠛⢒⣭⢻⣶⣤⣹⣿⣤⣀⣀⣠⣾⣟⣠⣔⡛⢫⣐⠛⢛⣻⣶⠆⠀
+⠀⠀⠀⠉⣻⡽⠛⠉⠁⠀⠉⢙⣿⠖⠒⠛⠻⣿⡋⠉⠁⠈⠉⠙⢿⣿⠉⠀⠀⠀
+⠀⠀⠀⠸⠿⠷⠒⣦⣤⣴⣶⢿⣿⡀⠀⠀⠀⣽⡿⢷⣦⠤⢤⡖⠶⠿⠧⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠛⢿⣦⣴⡾⠟⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⠟⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+index.php:248:9
+you may face intense strife, whether knowingly or not. you must guess('x')</pre></p>
+        </blockquote>
+        <p>Guessing a correct letter gives the text:</p>
+        <blockquote>
+            <p>yes. again.</p>
+        </blockquote>
+        <p>As well as a visual indicator for the eponymous hanging man, and a display of the word you're guessing for.</p>
+        <p>guessing wrong nets you:</p>
+        <blockquote>
+            <p>no You have 5 guesses left. you must guess('x')</p>
+        </blockquote>
+        <p>The number of guesses left decreases with the number of incorrect guesses.</p>
+        <p>Of course, the game detects repeat letters:</p>
+        <blockquote>
+            <p>You already guessed "x".</p>
+        </blockquote>
+        <p>The progression of hanged men continues until you die, if you keep selecting incorrect letters:</p>
+        <blockquote>
+            <p><pre>`
+                        +---+     +---+     +---+     +---+     +---+
+              |         |         |   O     |   O     |   O     |   O
+              |         |         |         |   |     |  /|\\   |  /|\\
+              |         |         |         |         |         |  / \\
+              |         |         |         |         |         |    
+              |         |         |         |         |    
+========= ========= ========= ========= ========= ========= =========
+`,</pre></p>
+        </blockquote>
+        <span class="container">
+            <p class="hover-text">(Hover for Source Text)</p>
+                <p class="zoomable text-block pre-formatted-text">[
+        `
+        
+        
+        
+        
+        
+        
+=========
+`,
+        `
+    |
+    |
+    |
+    |
+    |
+=========
+`,
+        `
+    +---+
+    |
+    |
+    |
+    |
+    |
+=========
+`,
+        `
+    +---+
+    |   O
+    |
+    |
+    |
+    |
+=========
+`,
+        `
+    +---+
+    |   O
+    |   |
+    |
+    |
+    |
+=========
+`,
+        `
+    +---+
+    |   O
+    |  /|\\
+    |
+    |
+    |
+=========
+`,
+        `
+    +---+
+    |   O
+    |  /|\\
+    |  / \\
+    |
+    |
+=========
+`
+    ];</p>
+        </span>
+        <p>It's a bit odd for the construction of the hangman to be included as part of the game, but I guess here it's to allow for a total of six incorrect guesses. </p>
+        <p>Upon failure, the console says:</p>
+        <blockquote>
+            <p>no. no. The void exists as the void regardless of its service.</p>
+        </blockquote>
+        <p>Following this, you can no longer input guess('x'), and the element deletes itself.</p>
+        <p>You can determine the correct answer by looking at the script, but the answer is "singular":</p>
+        <blockquote>
+            <p><pre>s i n g u l a r
+yes. What if an object has no such traces? frrxgbzbeebjjvguva.pbz
+
+
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣦⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣴⠟⠹⣧⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⣷⣦⣄⣠⣿⠃⢠⣄⠈⢻⣆⣠⣴⡞⡆⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⢀⣀⣀⣿⠀⠈⢻⣇⢀⣾⢟⡄⣸⡿⠋⠀⡇⣇⣀⣀⠀⠀⠀⠀⠀
+⠀⣤⣤⣤⣀⣱⢻⠚⠻⣧⣀⠀⢹⡿⠃⠈⢻⣟⠀⢀⣤⠧⠓⣹⣟⣀⣤⣤⣤⡀
+⠀⠈⠻⣧⠉⠛⣽⠀⠀⠀⠙⣷⡿⠁⠀⠀⠀⢻⣶⠛⠁⠀⠀⡟⠟⠉⣵⡟⠁⠀
+⠀⠀⠀⠹⣧⡀⠏⡇⠀⠀⠀⣿⠁⠀⠀⠀⠀⠀⣿⡄⠀⠀⢠⢷⠀⣼⡟⠀⠀⠀
+⠀⠀⠀⠀⠙⣟⢼⡹⡄⠀⠀⣿⡄⠀⠀⠀⠀⢀⣿⡇⠀⢀⣞⣦⢾⠟⠀⠀⠀⠀
+⠀⠠⢶⣿⣛⠛⢒⣭⢻⣶⣤⣹⣿⣤⣀⣀⣠⣾⣟⣠⣔⡛⢫⣐⠛⢛⣻⣶⠆⠀
+⠀⠀⠀⠉⣻⡽⠛⠉⠁⠀⠉⢙⣿⠖⠒⠛⠻⣿⡋⠉⠁⠈⠉⠙⢿⣿⠉⠀⠀⠀
+⠀⠀⠀⠸⠿⠷⠒⣦⣤⣴⣶⢿⣿⡀⠀⠀⠀⣽⡿⢷⣦⠤⢤⡖⠶⠿⠧⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠛⢿⣦⣴⡾⠟⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠙⠟⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀</pre></p>
+        </blockquote>
+        <p>It's a bit cheeky to use "singular" as the word, if only because there are no repeating letters.</p>
+        <p>However, that response contains a string:</p>
+        <blockquote>
+            <p>frrxgbzbeebjjvguva.pbz</p>
+        </blockquote>
+        <p>This can be decoded in ROT13 to a website:</p>
+        <blockquote>
+            <p><a href="https://seektomorrowwithin.com" target="_blank">seektomorrowwithin.com</a></p>
+        </blockquote>
 
         <!--COME BACK TO LOOK AT THIS-->
         <p>As far as I can tell, this site could also have been found by looking at the web tools- one of the images is titled "SEARCH%AND%DISCOVER_edited".</p>
@@ -778,9 +940,9 @@ I II III IIII<br>
         <blockquote>
             <p>gurnagnaqguroveq.pbz</p>
         </blockquote>
-        <p>Which is pretty clearly a cipher, leading to:</p>
+        <p>Which can be decoded in ROT13, leading to:</p>
         <blockquote>
-            <a href="https://theantandthebird.com" target="_blank">theantandthebird.com</a>
+            <p><a href="https://theantandthebird.com" target="_blank">theantandthebird.com</a></p>
         </blockquote>
         <p id="antandbird">From this point on, this section is a catalogue of information from the antandbird website. I could include an image for each page as a sort of hover thingamabob... but I'm lazy. I encourage looking along on the site yourself!</p>
         <p>This time, the page selection always existed, but new pages showed up over time. Again, some of the enjoyment here is lost in that we can no longer watch the changes take place, even if they are ultimately mundane.</p> 
@@ -803,7 +965,7 @@ I II III IIII<br>
             <h3 style="text-align: center;"><a href="https://theantandthebird.com" target="_blank">theantandthebird.com</a></h3>
         <hr id="--wofzpz--">
         <h3>--wofzpz-- (2572324293.php) [P] </h3>
-        <p>The title is a cipher for physis.</p>
+        <p>The title can be decoded in ROT13 to physis.</p>
         <p>The words:</p>
         <blockquote>
             <p>	then<br>now<br>start<br>end<br>here<br>1 national</p>
@@ -824,7 +986,7 @@ I II III IIII<br>
         <p>It doesn't go anywhere from there though, it seems, as the rest just repeats.</p>
         <hr id="__bagbf__">
         <h3>__bagbf__ (4145461434.php) [O] </h3>
-        <p>The title is a cipher for Ontos.</p>
+        <p>The title can be decoded in ROT13 to Ontos.</p>
         <p>Clouds scroll vertically upwards. need to analyze images, but it seems to just be playing into the bird/sky motif. </p>
         <p>The images are titled incorrectly, giving the order:</p>
         <blockquote>
