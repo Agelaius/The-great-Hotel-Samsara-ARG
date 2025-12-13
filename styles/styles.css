@@ -259,7 +259,8 @@ details[open] summary .arrow::before {
 .sidebar.collapsed {
     width: 23px;
     overflow: hidden;
-    height: 130px;
+    height: 130px ;
+    min-height: 0px;
     padding: 0;
     background-color: whitesmoke;
     margin-right: 10px;
@@ -271,6 +272,10 @@ details[open] summary .arrow::before {
     height: 130px;
     padding: 0;
     margin-left: 10px;
+}
+
+.sidebar.collapsed #sidebar-toggle2 {
+    display: none;
 }
 
 .sidebar.collapsed #sidebar-toggle {
@@ -403,10 +408,14 @@ details[open] summary .arrow::before {
     transform: translateX(119.5px) translateY(-28px);
 }
 
+.sidebar.collapsed .scroll-buttons {
+    display: none;
+}
+
 .sidebar.collapsed .scroll-button {
     opacity: 0;
     transform: translateX(0px) translateY(-83px);
-
+    display: none !important;
     pointer-events: none;
 }
 
