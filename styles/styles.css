@@ -11,9 +11,10 @@ hr {
 }
 
 body {
-  background-color: black;
-  font-size: 18px !important;
-  font-weight: 500;
+    font-family: "Consolas", monospace !important;
+    background-color: black;
+    font-size: 18px !important;
+    font-weight: 500;
 }
 
 pre {
@@ -29,7 +30,6 @@ h3 {
     flex: 0 0 auto;
     order: 2;
     width: 800px;
-	font-family: "Consolas", monospace;
 	color: whitesmoke;
 	background-color: black;
 	box-sizing: border-box;
@@ -61,7 +61,7 @@ h3 a {
 }
 
 hr {
-	color: white;
+	color: whitesmoke;
 	width: 650px;
 }
 
@@ -458,6 +458,7 @@ details[open] summary .arrow::before {
     margin: 15px;
 	margin-top: -10px;
 	width: fit-content;
+    cursor: zoom-in;
 }
 
 .overlay {
@@ -620,7 +621,7 @@ details[open] summary .arrow::before {
 }
 
 .modal-body .scroll-buttons .scroll-down {
-    transform: translateX(-23px) translateY(28px);
+    transform: translateX(-28px) translateY(28px);
     width: 19px;
 }
 
@@ -629,7 +630,7 @@ details[open] summary .arrow::before {
 }
 
 .modal-body .scroll-buttons .scroll-down.hidden {
-    transform: translateX(-23px) translateY(868px);
+    transform: translateX(-28px) translateY(868px);
 }
 
 .modal-body .scroll-buttons .scroll-up.hidden {
