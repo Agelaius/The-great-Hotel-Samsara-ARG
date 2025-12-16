@@ -187,6 +187,8 @@ details[open] summary .arrow::before {
     border: 3px solid whitesmoke;
     overflow: scroll;
     overflow-x: hidden !important;
+    scrollbar-width: none; 
+    -ms-overflow-style: none;
 }
 
 .sidebar::-webkit-scrollbar {
