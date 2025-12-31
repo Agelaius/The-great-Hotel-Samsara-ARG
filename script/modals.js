@@ -22,6 +22,15 @@ document.addEventListener("DOMContentLoaded", () => {
         document.body.style.overflow = '';
     };
 
+    function getFullMediaSource(src) {
+        if (!src) return src;
+        return src.replace("_small", "");
+    }
+
+    function isHeaderImage(el) {
+    return el.classList && el.classList.contains("header-image");
+    }
+
     document.querySelectorAll(".container").forEach(container => {
         container.addEventListener("mouseenter", () => {
             const overlay = container.querySelector(".overlay");
@@ -65,14 +74,26 @@ document.addEventListener("DOMContentLoaded", () => {
 
             let modalEl;
 
+            if (isHeaderImage(el)) {
+                const videoSrc = el.getAttribute("data-video");
+                if (!videoSrc) return;
+
+                const video = document.createElement("video");
+                video.src = videoSrc;
+                video.controls = true;
+                video.autoplay = true;
+
+                modalEl = video;
+            }
+
             if (el instanceof HTMLImageElement) {
                 modalEl = document.createElement("img");
-                modalEl.src = el.src;
+                modalEl.src = getFullMediaSource(el.src);
                 modalEl.alt = el.alt;
 
             } else if (el instanceof HTMLVideoElement) {
                 modalEl = document.createElement("video");
-                modalEl.src = el.src;
+                modalEl.src = getFullMediaSource(el.src);
                 modalEl.controls = true;
                 modalEl.autoplay = true;
 
