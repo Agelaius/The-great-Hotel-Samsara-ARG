@@ -7,12 +7,14 @@ document.addEventListener('DOMContentLoaded', () => {
     toggleButton.addEventListener('click', () => {
         sidebar.classList.toggle('collapsed');
         antiSidebar.classList.toggle('collapsed');
+        requestAdjust();
     });
 
     if (toggleButton2) {
         toggleButton2.addEventListener('click', () => {
             sidebar.classList.toggle('collapsed');
             antiSidebar.classList.toggle('collapsed');
+            requestAdjust();
         });
     }
 
@@ -27,6 +29,18 @@ document.addEventListener('DOMContentLoaded', () => {
     const mainElement = document.querySelector('.main');
     const flexWrapper = document.getElementById('flex-wrapper');
 
+    let pending = false;
+
+    const requestAdjust = () => {
+        if (!pending) {
+            pending = true;
+            requestAnimationFrame(() => {
+                adjustLayout();
+                pending = false;
+            });
+        }
+    };
+
     const adjustLayout = () => {
         const windowWidth = window.innerWidth;
         const originalMainWidth = 800;
@@ -38,8 +52,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         const scrollY = window.scrollY;
-        const initialDocumentHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-        const initialScrollPercentage = scrollY / initialDocumentHeight;
+        const initialDocumentHeight =
+            document.documentElement.scrollHeight -
+            document.documentElement.clientHeight;
+        const initialScrollPercentage =
+            scrollY / initialDocumentHeight;
 
         let scaleFactor = (windowWidth - 2 * marginSize) / originalMainWidth;
         if (windowWidth <= 2 * marginSize) {
@@ -53,8 +70,10 @@ document.addEventListener('DOMContentLoaded', () => {
             mainElement.style.transformOrigin = 'top center';
             mainElement.style.transform = `scale(${scaleFactor})`;
             mainElement.style.width = `${originalMainWidth}px`;
+
             flexWrapper.style.marginLeft = `${marginOffset}px`;
             flexWrapper.style.marginRight = `${marginOffset}px`;
+
             const scaledHeight = mainElement.offsetHeight * scaleFactor;
             flexWrapper.style.height = `${scaledHeight}px`;
         } else {
@@ -65,12 +84,17 @@ document.addEventListener('DOMContentLoaded', () => {
             flexWrapper.style.marginRight = '';
         }
 
-        const newDocumentHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-        const newScrollPosition = newDocumentHeight * initialScrollPercentage;
+        const newDocumentHeight =
+            document.documentElement.scrollHeight -
+            document.documentElement.clientHeight;
+
+        const newScrollPosition =
+            newDocumentHeight * initialScrollPercentage;
+
         window.scrollTo(0, newScrollPosition);
     };
 
-    const observer = new MutationObserver(adjustLayout);
+    const observer = new MutationObserver(requestAdjust);
 
     const config = {
         childList: true,
@@ -80,7 +104,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     observer.observe(mainElement, config);
-    adjustLayout();
 
-    window.addEventListener('resize', adjustLayout);
+    requestAdjust();
+    window.addEventListener('resize', requestAdjust);
 });
