@@ -28,8 +28,30 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function isHeaderImage(el) {
-    return el.classList && el.classList.contains("header-image");
+        return el.classList && el.classList.contains("header-image");
     }
+
+    const embeds = document.querySelectorAll("iframe, embed");
+
+    const embedObserver = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (!entry.isIntersecting) return;
+            const el = entry.target;
+            if (el.dataset.src) {
+                el.src = el.dataset.src;
+                el.removeAttribute("data-src");
+            }
+            embedObserver.unobserve(el);
+        });
+    }, { rootMargin: "200px" });
+
+    embeds.forEach(el => {
+        if (el.src) {
+            el.dataset.src = el.src;
+            el.removeAttribute("src");
+        }
+        embedObserver.observe(el);
+    });
 
     document.querySelectorAll(".container").forEach(container => {
         container.addEventListener("mouseenter", () => {
@@ -39,16 +61,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 const containerRect = container.getBoundingClientRect();
                 const videoRect = video.getBoundingClientRect();
 
-                const topOffset = videoRect.top - containerRect.top;
-                const leftOffset = videoRect.left - containerRect.left;
-
                 overlay.style.width = `${video.offsetWidth}px`;
                 overlay.style.height = `${video.offsetHeight}px`;
                 overlay.style.opacity = 1;
                 overlay.style.pointerEvents = 'auto';
-
-                overlay.style.top = `${topOffset}px`;
-                overlay.style.left = `${leftOffset}px`;
+                overlay.style.top = `${videoRect.top - containerRect.top}px`;
+                overlay.style.left = `${videoRect.left - containerRect.left}px`;
             }
         });
 
@@ -74,19 +92,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
             let modalEl;
 
-            if (isHeaderImage(el)) {
-                const videoSrc = el.getAttribute("data-video");
-                if (!videoSrc) return;
+            if (isHeaderImage(el) && el.dataset.video) {
+                modalEl = document.createElement("video");
+                modalEl.src = el.dataset.video;
+                modalEl.controls = true;
+                modalEl.autoplay = true;
+                modalEl.playsInline = true;
 
-                const video = document.createElement("video");
-                video.src = videoSrc;
-                video.controls = true;
-                video.autoplay = true;
-
-                modalEl = video;
-            }
-
-            if (el instanceof HTMLImageElement) {
+            } else if (el instanceof HTMLImageElement) {
                 modalEl = document.createElement("img");
                 modalEl.src = getFullMediaSource(el.src);
                 modalEl.alt = el.alt;
@@ -99,12 +112,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
             } else if (el instanceof HTMLIFrameElement || el.tagName === 'EMBED') {
                 modalEl = document.createElement("embed");
-                let src = el.src || el.getAttribute('src');
-
-                let url = new URL(src);
+                const src = el.dataset.src || el.src;
+                const url = new URL(src);
                 url.searchParams.delete('controls');
                 url.searchParams.delete('mute');
-
                 modalEl.src = url.toString();
                 modalEl.type = 'video/mp4';
                 modalEl.setAttribute('allowfullscreen', '');
@@ -115,11 +126,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 const p = document.createElement("p");
                 p.textContent = el.textContent;
-                
+
                 if (el.classList.contains('pre-formatted-text')) {
                     p.classList.add('scaled-text');
                 }
-                
+
                 textWrapper.appendChild(p);
 
                 const scrollButtons = document.createElement('div');
@@ -131,107 +142,102 @@ document.addEventListener("DOMContentLoaded", () => {
                 modalBody.appendChild(scrollButtons);
 
                 modalEl = textWrapper;
-
-            } else {
-                modalEl = null;
             }
 
-            if (modalEl) {
-                modalEl.classList.add("modal-media");
-                modalBody.appendChild(modalEl);
+            if (!modalEl) return;
 
-                modal.setAttribute("id", "mediaModal");
+            modalEl.classList.add("modal-media");
+            modalBody.appendChild(modalEl);
 
-                const adjustModalSize = () => {
-                    const maxWidth = window.innerWidth * 0.8;
-                    const maxHeight = window.innerHeight * 0.8;
+            const adjustModalSize = () => {
+                const maxWidth = window.innerWidth * 0.8;
+                const maxHeight = window.innerHeight * 0.8;
 
-                    let mediaWidth, mediaHeight;
+                let mediaWidth, mediaHeight;
 
-                    if (modalEl instanceof HTMLImageElement) {
-                        mediaWidth = modalEl.naturalWidth;
-                        mediaHeight = modalEl.naturalHeight;
+                if (modalEl instanceof HTMLImageElement) {
+                    mediaWidth = modalEl.naturalWidth;
+                    mediaHeight = modalEl.naturalHeight;
 
-                    } else if (modalEl instanceof HTMLVideoElement) {
-                        mediaWidth = modalEl.videoWidth;
-                        mediaHeight = modalEl.videoHeight;
+                } else if (modalEl instanceof HTMLVideoElement) {
+                    mediaWidth = modalEl.videoWidth;
+                    mediaHeight = modalEl.videoHeight;
 
-                    } else if (modalEl.tagName === 'EMBED' || modalEl.tagName === 'IFRAME') {
-                        mediaWidth = maxWidth;
-                        mediaHeight = maxWidth * (9 / 16);
+                } else if (modalEl.tagName === 'EMBED' || modalEl.tagName === 'IFRAME') {
+                    mediaWidth = maxWidth;
+                    mediaHeight = maxWidth * (9 / 16);
 
-                        if (mediaHeight > maxHeight) {
-                            mediaHeight = maxHeight;
-                            mediaWidth = maxHeight * (16 / 9);
-                        }
-
-                        modalEl.style.width = `${mediaWidth}px`;
-                        modalEl.style.height = `${mediaHeight}px`;
-                        return;
-
-                    } else if (modalEl.classList && modalEl.classList.contains('text-wrapper')) {
-                        mediaWidth = modalEl.offsetWidth || maxWidth;
-                        mediaHeight = modalEl.offsetHeight || maxHeight;
-
-                        let scale = 1;
-                        const widthRatio = maxWidth / mediaWidth;
-                        const heightRatio = maxHeight / mediaHeight;
-
-                        if (mediaWidth > maxWidth || mediaHeight > maxHeight) {
-                            scale = Math.min(widthRatio, heightRatio);
-                        }
-
-                        modalEl.style.transformOrigin = 'top left';
-                        modalEl.style.transform = `scale(${scale}) translate(-50%, -50%)`;
-                        modalEl.style.left = '50%';
-                        modalEl.style.top = '50%';
-                        modalEl.style.position = 'absolute';
-
-                        const scaledText = modalEl.querySelector('.scaled-text');
-                        if (scaledText) {
-                            scaledText.style.fontSize = `.51vw`;
-                            scaledText.style.transformOrigin = 'top left';
-                            scaledText.style.transform = `scale(1)`;
-                            scaledText.style.position = 'relative';
-                            scaledText.style.display = 'block';
-                        }
-
-                        const scrollButtons = modal.querySelector('.scroll-buttons');
-                        if (scrollButtons) {
-                            scrollButtons.style.transformOrigin = 'top left';
-                            scrollButtons.style.transform = `scale(${scale})`;
-                            scrollButtons.style.left = '30%';
-                            scrollButtons.style.top = '10%';
-                            scrollButtons.style.position = 'absolute';
-                        }
-
-                        return;
+                    if (mediaHeight > maxHeight) {
+                        mediaHeight = maxHeight;
+                        mediaWidth = maxHeight * (16 / 9);
                     }
 
+                    modalEl.style.width = `${mediaWidth}px`;
+                    modalEl.style.height = `${mediaHeight}px`;
+                    return;
+
+                } else if (modalEl.classList && modalEl.classList.contains('text-wrapper')) {
+                    mediaWidth = modalEl.offsetWidth || maxWidth;
+                    mediaHeight = modalEl.offsetHeight || maxHeight;
+
+                    let scale = 1;
                     const widthRatio = maxWidth / mediaWidth;
                     const heightRatio = maxHeight / mediaHeight;
 
-                    let newWidth = mediaWidth;
-                    let newHeight = mediaHeight;
-
-                    if (widthRatio < heightRatio) {
-                        newWidth = maxWidth;
-                        newHeight = mediaHeight * widthRatio;
-                    } else {
-                        newHeight = maxHeight;
-                        newWidth = mediaWidth * heightRatio;
+                    if (mediaWidth > maxWidth || mediaHeight > maxHeight) {
+                        scale = Math.min(widthRatio, heightRatio);
                     }
 
-                    modalEl.style.width = `${newWidth}px`;
-                    modalEl.style.height = `${newHeight}px`;
-                };
+                    modalEl.style.transformOrigin = 'top left';
+                    modalEl.style.transform = `scale(${scale}) translate(-50%, -50%)`;
+                    modalEl.style.left = '50%';
+                    modalEl.style.top = '50%';
+                    modalEl.style.position = 'absolute';
 
-                adjustModalSize();
-                window.addEventListener('resize', adjustModalSize);
+                    const scaledText = modalEl.querySelector('.scaled-text');
+                    if (scaledText) {
+                        scaledText.style.fontSize = `.51vw`;
+                        scaledText.style.transformOrigin = 'top left';
+                        scaledText.style.transform = `scale(1)`;
+                        scaledText.style.position = 'relative';
+                        scaledText.style.display = 'block';
+                    }
 
-                if (modalEl.classList.contains('text-wrapper')) {
-                    initializeScrollButtons(modal);
+                    const scrollButtons = modal.querySelector('.scroll-buttons');
+                    if (scrollButtons) {
+                        scrollButtons.style.transformOrigin = 'top left';
+                        scrollButtons.style.transform = `scale(${scale})`;
+                        scrollButtons.style.left = '30%';
+                        scrollButtons.style.top = '10%';
+                        scrollButtons.style.position = 'absolute';
+                    }
+
+                    return;
                 }
+
+                const widthRatio = maxWidth / mediaWidth;
+                const heightRatio = maxHeight / mediaHeight;
+
+                let newWidth = mediaWidth;
+                let newHeight = mediaHeight;
+
+                if (widthRatio < heightRatio) {
+                    newWidth = maxWidth;
+                    newHeight = mediaHeight * widthRatio;
+                } else {
+                    newHeight = maxHeight;
+                    newWidth = mediaWidth * heightRatio;
+                }
+
+                modalEl.style.width = `${newWidth}px`;
+                modalEl.style.height = `${newHeight}px`;
+            };
+
+            adjustModalSize();
+            window.addEventListener('resize', adjustModalSize);
+
+            if (modalEl.classList.contains('text-wrapper')) {
+                initializeScrollButtons(modal);
             }
         });
     });
