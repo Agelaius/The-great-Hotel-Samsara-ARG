@@ -129,6 +129,27 @@ height:100px;
 width:auto
 }
 
+.header-image {
+    width: 730px !important;
+    margin-left: -13px;
+    margin-top: -23px;
+    margin-bottom: -10px;
+}
+
+.video-header {
+    color: red;
+    text-shadow:
+    -1px -1px 5px #000,
+    1px -1px 5px #000,
+    -1px  1px 5px #000,
+    1px  1px 5px #000;
+    transform: translateY(-28px);
+    transition: none;
+    margin-top: -84px;
+    margin-bottom: 66px;
+    z-index: 300;
+}
+
 /* Text Blinking */
 @keyframes blink {
 0% {
